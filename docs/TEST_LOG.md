@@ -36,4 +36,10 @@ Retest after the fix on the local application:
 
 **Automated retest:** `npm test` passed (1 test file, 6 tests); `npm run lint` passed; `npm run build` passed.
 
-The deployed baseline remains the pre-fix version until Vercel completes deployment from the pushed commit. Post-push availability and live retest are reported in the task handoff.
+## Post-push deployment retest
+
+**Deployment source commit:** `0b98dc2` on `main`
+**Live URL:** `https://rutasalud-w12.vercel.app/`
+**Test date:** 2026-11-01
+
+After pushing, the live URL was reloaded and retested. Blank submission focused `budgetMxn` with all 3 expected validation errors present. A valid comparison showed 4 profile cards, all 16 statuses, 4 unknown statuses, 5 mismatches, and 4 simulated-data labels. The missing-distance explanation appeared in the results. At 390 px, the deployed page width was 390 px with no horizontal overflow. These observations confirm the fix is present on the live application.
