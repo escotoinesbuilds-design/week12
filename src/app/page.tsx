@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   compareProviders,
@@ -70,6 +70,8 @@ export default function Home() {
   const [comparisons, setComparisons] = useState<ProviderComparison[] | null>(
     null,
   );
+  const formRef = useRef<HTMLFormElement>(null);
+  const focusInvalidField = useRef(false);
 
   useEffect(() => {
     let active = true;
@@ -113,9 +115,19 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!focusInvalidField.current) return;
+
+    formRef.current
+      ?.querySelector<HTMLElement>('[aria-invalid="true"]')
+      ?.focus();
+    focusInvalidField.current = false;
+  }, [errors]);
+
   function updateForm(field: keyof FormValues, value: string) {
     setForm((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
+    focusInvalidField.current = false;
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -124,17 +136,20 @@ export default function Home() {
 
     if (!result.valid) {
       setErrors(result.errors);
+      focusInvalidField.current = true;
       setComparisons(null);
       return;
     }
 
     setErrors({});
+    focusInvalidField.current = false;
     setComparisons(compareProviders(providers, result.value));
   }
 
   function handleReset() {
     setForm(initialForm);
     setErrors({});
+    focusInvalidField.current = false;
     setComparisons(null);
   }
 
@@ -185,7 +200,7 @@ export default function Home() {
               <p>Indica tus límites. No guardamos lo que escribes.</p>
             </div>
 
-            <form onSubmit={handleSubmit} noValidate>
+            <form ref={formRef} onSubmit={handleSubmit} noValidate>
               <div className="field">
                 <label htmlFor="budgetMxn">Presupuesto máximo</label>
                 <div className="input-wrap">

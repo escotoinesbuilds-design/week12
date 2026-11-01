@@ -10,6 +10,7 @@
 - **Supabase:** optional read-only provider source using a public anon key and RLS. The migration permits public reads only and limits statuses to simulated or unverified. No credentials are committed.
 - **Scope:** no diagnosis, booking, payments, messaging, maps, or real-time availability.
 - **Testing:** Vitest unit tests cover comparisons and preference validation; production build and lint are required before handoff.
+- **Validation accessibility:** After live testing found focus stayed on the submit button when validation failed, invalid submissions now move focus to the first invalid control. See [docs/TEST_LOG.md](./docs/TEST_LOG.md) for reproduction and retest evidence.
 
 ## Evidence boundary
 
@@ -17,4 +18,4 @@ No patient research or real provider verification is asserted. The fictional dat
 
 ## Next action
 
-Run the app locally, review keyboard and mobile accessibility, then test the complete search task with a real affected person only with informed consent. Record observed evidence separately from interpretation. Before using Supabase records beyond fixtures, verify their source and permissions and decide how each field's provenance and current accuracy will be established.
+After the validation-focus fix is deployed, continue reviewing keyboard and mobile accessibility. Test the complete search task with a real affected person only with informed consent. Record observed evidence separately from interpretation. Before using Supabase records beyond fixtures, verify their source and permissions and decide how each field's provenance and current accuracy will be established.
