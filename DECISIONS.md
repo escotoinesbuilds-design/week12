@@ -11,6 +11,7 @@
 - **Scope:** no diagnosis, booking, payments, messaging, maps, or real-time availability.
 - **Testing:** Vitest unit tests cover comparisons and preference validation; production build and lint are required before handoff.
 - **Validation accessibility:** After live testing found focus stayed on the submit button when validation failed, invalid submissions now move focus to the first invalid control. See [docs/TEST_LOG.md](./docs/TEST_LOG.md) for reproduction and retest evidence.
+- **Distance transparency:** Synthetic persona walkthrough feedback showed that demo distances could be mistaken for location-based calculations. The form, provider cards, and comparison explanations now state that distance values are fictional and are not calculated from the patient's location. See [docs/PERSONA_TEST.md](./docs/PERSONA_TEST.md); this synthetic exercise is not validated user research.
 
 ## Evidence boundary
 
@@ -18,4 +19,4 @@ No patient research or real provider verification is asserted. The fictional dat
 
 ## Next action
 
-After the validation-focus fix is deployed, continue reviewing keyboard and mobile accessibility. Test the complete search task with a real affected person only with informed consent. Record observed evidence separately from interpretation. Before using Supabase records beyond fixtures, verify their source and permissions and decide how each field's provenance and current accuracy will be established.
+After the distance clarification is redeployed, continue reviewing keyboard and mobile accessibility. Test the complete search task with a real affected person only with informed consent. Record observed evidence separately from interpretation. Before using Supabase records beyond fixtures, verify their source and permissions and decide how each field's provenance and current accuracy will be established.

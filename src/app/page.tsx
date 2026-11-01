@@ -261,7 +261,8 @@ export default function Home() {
                   <span className="input-unit">km</span>
                 </div>
                 <p className="field-hint" id="maxDistanceKm-hint">
-                  De 0 a 100 km
+                  De 0 a 100 km. En esta demo son valores ficticios; no usamos
+                  tu ubicación.
                 </p>
                 {errors.maxDistanceKm && (
                   <p className="field-error" id="maxDistanceKm-error">
@@ -456,7 +457,7 @@ function ComparisonCard({
                 : "desconocido"}
             </span>
             <span>
-              Distancia:{" "}
+              Distancia ficticia (no usa tu ubicación):{" "}
               {isSimulated && provider.distanceKm !== null
                 ? formatKm(provider.distanceKm)
                 : "desconocida"}

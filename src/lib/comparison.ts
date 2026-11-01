@@ -172,13 +172,13 @@ export function compareProvider(
             key: "distancia",
             label: "Distancia",
             status: "coincide",
-            explanation: `La distancia de demostración de ${formatKm(provider.distanceKm)} está dentro de tu límite de ${formatKm(preferences.maxDistanceKm)}.`,
+            explanation: `La distancia ficticia de demostración de ${formatKm(provider.distanceKm)} (no calculada desde tu ubicación) está dentro de tu límite de ${formatKm(preferences.maxDistanceKm)}.`,
           }
         : {
             key: "distancia",
             label: "Distancia",
             status: "no-coincide",
-            explanation: `La distancia de demostración de ${formatKm(provider.distanceKm)} supera tu límite de ${formatKm(preferences.maxDistanceKm)}.`,
+            explanation: `La distancia ficticia de demostración de ${formatKm(provider.distanceKm)} (no calculada desde tu ubicación) supera tu límite de ${formatKm(preferences.maxDistanceKm)}.`,
           },
     provider.schedules === null
       ? {

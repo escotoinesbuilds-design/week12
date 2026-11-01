@@ -57,6 +57,23 @@ describe("compareProvider", () => {
     ]);
   });
 
+  it("clarifies that demonstration distances are fictional and not location-based", () => {
+    const withinLimit = compareProvider(provider, preferences);
+    const beyondLimit = compareProvider(
+      { ...provider, distanceKm: 9 },
+      preferences,
+    );
+
+    expect(withinLimit.constraints[1].explanation).toContain(
+      "no calculada desde tu ubicación",
+    );
+    expect(beyondLimit.constraints[1].explanation).toContain(
+      "no calculada desde tu ubicación",
+    );
+    expect(withinLimit.constraints[1].explanation).toContain("ficticia");
+    expect(beyondLimit.constraints[1].explanation).toContain("ficticia");
+  });
+
   it("marks missing data unknown rather than matching, including with no preference", () => {
     const incomplete = {
       ...provider,
