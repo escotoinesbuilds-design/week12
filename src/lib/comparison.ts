@@ -51,10 +51,10 @@ export type ValidationResult =
     };
 
 const isSchedule = (value: unknown): value is Schedule =>
-  typeof value === "string" && schedules.includes(value as Schedule);
+  value === "manana" || value === "tarde" || value === "noche";
 
 const isGenderPreference = (value: unknown): value is GenderPreference =>
-  typeof value === "string" && genderPreferences.includes(value as GenderPreference);
+  value === "mujer" || value === "hombre" || value === "sin-preferencia";
 
 function parseBoundedNumber(
   value: unknown,
