@@ -129,6 +129,14 @@ The initial canonical-page reload returned cached prior HTML. A cache-busting qu
 
 The screenshots and checks demonstrate UI behavior only. The Round 2 participant has not been retested after this implementation; no performance improvement, clinical suitability, real provider specialty, booking, appointment time, or emergency service is claimed.
 
+### Round 2 live Vercel verification
+
+**Verification date:** 2026-11-08
+**Application source commit:** `07d1db0` on `main`
+**Canonical URL:** `https://rutasalud-w12.vercel.app/`
+
+The canonical URL returned HTTP 200 and its prerendered HTML included the specialty selector. The initial post-push request returned a cached prior page; after the existing GitHub-triggered Vercel deployment completed, the canonical response contained the new selector. On the live browser, **Medicina general** returned 4 specialty matches; **Cardiología** and **Psiquiatría** each returned 0 matches and 4 separated profiles. Nonmatching specialty cards were labeled as such and did not show the contact/appointment panel. This verifies the demo deployment only, not real provider information or clinical suitability.
+
 ### Initial Week 13 post-push Vercel smoke check (historical)
 
 **Live URL:** `https://rutasalud-w12.vercel.app/`
