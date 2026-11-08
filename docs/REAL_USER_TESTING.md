@@ -2,7 +2,7 @@
 
 ## Evidence boundary
 
-The participant count, stranger count, roles, and feedback below were supplied by the project owner as participant-reported information. They are not independently verified session records. No interview dates, task scripts, observation notes, measurements, repeat visits, or clinical outcomes were supplied. Quotes are reproduced as provided; do not infer further behavior from them.
+The participant count, stranger count, roles, repeat-visit information, and feedback below were supplied by the project owner as participant-reported information. They are not independently verified session records. No interview dates, task scripts, observation notes, measurements, or clinical outcomes were supplied. Quotes are reproduced as provided; do not infer further behavior from them.
 
 ## 1. User-reported testing activity
 
@@ -15,7 +15,7 @@ Six real people provided feedback on RutaSalud. Three are explicitly identified 
 | Stranger 3 | Stranger to project team | “I wasn't completely sure how to actually book an appointment after finding a doctor I liked.” Requested visible appointment times and direct booking. Said they would use the app if real and verified, particularly because they work full-time. |
 | Global Business student, 21 | Role reported by project owner; stranger status not supplied | “Most of the page was pretty clear but I couldn't understand how bookings worked because there were a lot of options for doctors” Requested darker option colors for visibility. |
 | Law student, 21 | Role reported by project owner; stranger status not supplied | “Nothing at all, everything was clear.” Requested access to doctor credentials and professional background information. |
-| Law firm partner, 62 | Role reported by project owner; stranger status not supplied | “Pasar de paso 1 a paso 2” Requested more options or better search narrowing. |
+| Law firm partner, 62 | Previously known to project owner | Round 1: tested RutaSalud and identified difficulty moving from Step 1 to Step 2. Reported “Pasar de paso 1 a paso 2” and requested more options or better search narrowing. |
 
 The three conditional statements about using RutaSalud are reported intent, not evidence of adoption, retention, completed care, or willingness to use a real booking flow.
 
@@ -33,17 +33,19 @@ These are design priorities based on the supplied reports; they are not claims t
 
 ## Round 2 finding: specialty relevance
 
-This is a second testing round with the same participant recorded above as the law firm partner, age 62; it is not a seventh participant. The project owner supplied this exact feedback:
+This is a second testing round with the same participant recorded above as the law firm partner, age 62, who was previously known to the project owner; this is a repeat visit, not a seventh participant. The participant voluntarily returned and used RutaSalud again. The project owner supplied this exact feedback:
 
 > "You have to narrow your options. Why would I want a psychiatrist if I need a cardiologist? Sort it by specialization, not general doctors."
 
-The participant also requested specialty-based filtering, specific appointment times, and emergency contacts or urgent appointments. No date, task, observed behavior, or measurement for this round was supplied.
+The participant also requested specific appointment times and emergency contact options. No date, task, additional observed behavior, or measurement for this round was supplied.
+
+The second session and its recorded feedback constitute user-reported evidence of a repeat visit. This supports only the claim that the participant returned and used the app again; it is not evidence of verified long-term retention, ongoing engagement, or future use.
 
 ### Why this threatens search-to-decision
 
 Showing a provider with a different listed specialty among undifferentiated results can make the comparison irrelevant to the patient's stated search and obscure whether any profile matches the filter. This threatens the search-to-decision goal before price, distance, schedule, or provider preferences can help. A matching specialty label is only a literal data comparison; it does not establish credentials, clinical suitability, or treatment advice.
 
-The earlier three-pain-point ranking above is preserved as written. This is a separate, newly reported finding from a repeat participant, not a basis for retroactively changing the earlier ranking or claiming measured frequency.
+The earlier three-pain-point ranking above is preserved as written. This is a separate, newly reported finding from a returning participant, not a basis for retroactively changing the earlier ranking or claiming measured frequency.
 
 ### Implemented response and boundaries
 
@@ -51,9 +53,9 @@ The earlier three-pain-point ranking above is preserved as written. This is a se
 - When a specialty is selected, profiles with an exactly matching listed specialty are grouped first. Profiles with a different, missing, or unverified specialty are separated and explicitly not presented as clinical alternatives.
 - If no listed specialty matches, the interface says so and identifies the separated profiles; other existing budget, distance, schedule, and gender comparisons remain available.
 - The app compares the specialty label only. It does not infer suitability, recommend treatment, verify credentials, or automatically choose a provider. All local demo profiles remain labeled fictional/simulated.
-- Specific appointment times, urgent appointment handling, and emergency contacts were not implemented. They would require reliable operational sources and are outside this comparison-filter fix; no emergency service is offered by the demo.
+- Specific appointment times and emergency contact options were not implemented. They would require reliable operational sources and are outside this comparison-filter fix; no emergency service is offered by the demo.
 
-Before/after screenshots document the old unfiltered workflow and the implemented simulated specialty filter. They are interface evidence only, not a retest with this participant or evidence of improved performance.
+The specialty-matching problem identified during Round 2 was subsequently addressed in the application and deployed. The participant has not been reported as testing the new specialty-matching fix. Before/after screenshots document the old unfiltered workflow and the implemented simulated specialty filter. They are interface evidence only, not a retest with this participant or evidence of improved performance.
 
 ### Specialty-filter evidence
 
@@ -93,12 +95,12 @@ Before/after screenshots use the same synthetic demo comparison scenario. They d
 The following items were not supplied and remain unavailable:
 
 - Dates or testing period for each participant.
-- Anonymous session IDs and per-session evidence of stranger status beyond the three supplied labels.
+- Anonymous session IDs and per-session records beyond the participant-reported repeat visit and three supplied stranger labels.
 - Consent status or records.
-- Tasks/scenarios, task completion, elapsed time, confusion, errors, or directly observed behavior.
+- Detailed tasks/scenarios, task completion, elapsed time, confusion, errors, or directly observed behavior beyond the reported Round 1 difficulty moving from Step 1 to Step 2.
 - Device, viewport, moderator assistance, or test conditions for the participant sessions.
 - Whether any request reached a real clinic or any appointment was confirmed.
-- Any participant retest after the interface change.
+- Any participant retest after the comparison-clarity or specialty-matching fixes.
 - A baseline or outcome measure for the 10:1 improvement hypothesis.
 
 Do not reconstruct missing notes, dates, measurements, or quotes from memory. Record new evidence only when collected; avoid names, contact details, and medical information.
