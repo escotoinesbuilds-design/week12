@@ -94,6 +94,14 @@ These are local mechanical/browser checks only. They are not clinic verification
 
 These are screenshots of local synthetic demonstrations. They show the code change, not a participant retest or a measured improvement in user performance. The six feedback reports are documented separately in [docs/REAL_USER_TESTING.md](./REAL_USER_TESTING.md); no dates, tasks, observed behavior, or post-fix user results were supplied.
 
+### Post-push live comparison verification
+
+**Test date:** 2026-11-08
+**Source commit:** `47a3e52` on `main`
+**URL:** `https://rutasalud-w12.vercel.app/`
+
+The initial canonical-page reload returned cached prior HTML. A cache-busting query on the same branded URL loaded the updated deployment. The live comparison then showed 1 complete match and 3 alternatives for the full-match scenario, and 0 complete matches with 4 alternatives plus the no-complete-match message for the stricter scenario. The page returned HTTP 200. This verifies the deployed interface behavior only; it is not evidence of participant retesting or improved user outcomes.
+
 ### Post-push Vercel smoke check
 
 **Live URL:** `https://rutasalud-w12.vercel.app/`
