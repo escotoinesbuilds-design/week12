@@ -43,3 +43,24 @@ Retest after the fix on the local application:
 **Test date:** 2026-11-01
 
 After pushing, the live URL was reloaded and retested. Blank submission focused `budgetMxn` with all 3 expected validation errors present. A valid comparison showed 4 profile cards, all 16 statuses, 4 unknown statuses, 5 mismatches, and 4 simulated-data labels. The missing-distance explanation appeared in the results. At 390 px, the deployed page width was 390 px with no horizontal overflow. These observations confirm the fix is present on the live application.
+
+## Week 13 local implementation retest
+
+**Test date:** 2026-11-08
+**Environment:** local Next.js development server; no real patient or clinic data entered
+
+### Automated results
+
+- `npm test`: passed (2 test files, 15 tests), including provider price-evidence freshness, missing/unverified data, outside-network classification, and valid/invalid simulated appointment transitions.
+- `npm run lint`: passed.
+- `npm run build`: passed with Next.js 16.4.3; `/` prerendered and `/api/providers` remained available.
+
+### Browser smoke results
+
+- Existing preference form still produced 4 comparison cards after a valid submit.
+- A simulated walkthrough advanced through prepared, sent, clinic-response-pending, and confirmed examples. The UI stated that no request was sent and no real appointment exists.
+- The outside-network fixture displayed the direct-arrangement boundary and said contact is not tracked.
+- Clarity feedback incremented only the in-memory local count and stated it is not sent or saved.
+- At a 390 px viewport, document width remained 390 px; no horizontal overflow was observed.
+
+These are local mechanical/browser checks only. They are not clinic verification, real appointment evidence, or the required five real-user sessions. No deployed Week 13 retest has been performed yet.

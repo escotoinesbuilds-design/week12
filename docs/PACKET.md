@@ -1,7 +1,7 @@
 # RutaSalud — Week 13 Business Bending Packet
 
 **Venture:** RutaSalud, a Mexico City patient-led doctor comparison platform
-**Project state:** Existing Week 12 comparison prototype; Week 13 local-demo implementation is planned below.
+**Project state:** Existing Week 12 comparison prototype with a Week 13 local-demo implementation; no real clinic operations.
 **Blueprint state:** Simulated draft pending actual team approval. It is not approved.
 **Evidence boundary:** No clinics are claimed as recruited or verified, no Week 13 user sessions have been conducted, and no booking or clinic response is evidenced.
 
@@ -220,7 +220,7 @@ Consent, anonymize session IDs, record no identifying details, and separate obse
 
 ## 12. Limitations, evidence gaps, and unverified claims
 
-- Existing product behavior is a fictional-provider comparison; this packet does not implement a handoff, clinic data, contact tracking, or booking.
+- The Week 13 handoff is a browser-local simulation layered on the fictional-provider comparison; it does not implement real clinic contact, notification delivery, or booking.
 - No consenting clinics, clinic-confirmed fees, verified contact routes, request records, appointment acceptances, or provider partnerships are evidenced. The 3–5 clinic pilot is proposed only.
 - The linked Week 13 image is a conceptual generated mockup only. Its depicted providers, fees, dates, verification, availability, requests, and appointments are not evidence.
 - No Week 13 real-user sessions have occurred. The five-session target and success thresholds above are plans, not findings. Existing Week 12 synthetic personas and mechanical tests are not substitutes.
@@ -228,6 +228,12 @@ Consent, anonymize session IDs, record no identifying details, and separate obse
 - The proposed one-business-day update target and four-minute usability target are acceptance proposals, not measured operating performance or commitments.
 - The simulated Week 13 Blueprint is pending actual team approval. No other Blueprint condition is inferred or claimed as satisfied.
 - Any statement about clinic participation, current fees, availability, successful contact, booking confirmation, data accuracy, user preference, or competitive advantage remains unverified until supported by recorded evidence.
+
+## Week 13 implementation status
+
+The local demo now retains the Week 12 comparison form/results and adds provider fact status, fee evidence/freshness labels, pending ownership/update fields, outside-network guidance, simulated appointment transitions, and ephemeral clarity feedback. Mechanical tests, lint, production build, and a local browser smoke test are recorded in [docs/TEST_LOG.md](./TEST_LOG.md); they demonstrate interface mechanics only. They are not clinic verification, real request/booking evidence, or real-user research.
+
+The implementation does not contact clinics, send notifications, submit requests, confirm real appointments, collect patient details, or persist user feedback. No clinic-confirmed price currently exists in the fixtures or existing database schema; all fixture prices and appointment examples are simulated. The Week 13 image remains conceptual, and the 3–5-clinic pilot and five real-user sessions (at least three strangers) remain outstanding.
 
 ## Week 13 product charter and implementation plan
 
@@ -275,7 +281,7 @@ The appointment interaction is a **local simulation only**. A patient may prepar
 
 ### Demonstrated functionality versus real-world operations
 
-The existing local fixtures demonstrate comparison mechanics only. This Week 13 phase may demonstrate fee labels, follow-up fields, and a simulated appointment-state walkthrough in the browser, but does not verify an actual doctor, specialty, price, schedule, clinic, notification, request delivery, availability, or appointment. No provider data migration, clinic integration, patient-data storage, or real analytics is included. Do not change any label to “verified,” “sent,” or “confirmed” for a real operation without the corresponding source/evidence.
+The existing local fixtures demonstrate comparison mechanics. The Week 13 phase now also demonstrates fee labels, follow-up fields, and a simulated appointment-state walkthrough in the browser, but does not verify an actual doctor, specialty, price, schedule, clinic, notification, request delivery, availability, or appointment. Local mechanical/browser checks are not clinic verification or real-user research. No provider data migration, clinic integration, patient-data storage, or real analytics is included. Do not change any label to “verified,” “sent,” or “confirmed” for a real operation without the corresponding source/evidence.
 
 ### Commit and release sequence
 
