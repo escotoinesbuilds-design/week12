@@ -1,195 +1,230 @@
-# Detection-to-Treatment Navigation
+# RutaSalud — Week 13 Business Bending Packet (before code)
 
-**Owner:** Inés Escoto  
-**Origin:** Week 5 healthcare-navigation project  
-**Status:** Venture packet; application not yet implemented
+**Venture:** RutaSalud, a Mexico City patient-led doctor comparison platform
+**Project state:** Existing Week 12 comparison prototype; Week 13 feature is a proposal only.
+**Blueprint state:** Simulated draft pending actual team approval. It is not approved.
+**Evidence boundary:** No clinics are claimed as recruited or verified, no Week 13 user sessions have been conducted, and no booking or clinic response is evidenced.
 
-## Product charter
+## 1. Problem in my own words
 
-Build a patient-controlled doctor comparison application. Patients enter a budget, maximum distance, schedule, and provider preferences. The application compares doctors against those stated constraints and explicitly explains every match, mismatch, and unknown before the patient chooses.
+I can help a patient compare care options, but the moment they try to contact a clinic the comparison may stop being trustworthy: a displayed fee may be stale, a contact action may not reach anyone, and a request can be mistaken for a confirmed appointment. RutaSalud needs to make the source and date of clinic-confirmed fees visible, say plainly what the system can and cannot know about contact, and reserve “appointment confirmed” for cases supported by clinic acceptance evidence.
 
-## Problem
+## 2. Exact target user
 
-Patients struggle to find suitable doctors because price, location, schedules, and personal preferences are difficult to compare across providers.
+A Mexico City adult seeking a general-practice consultation who is comparing options under a stated budget, schedule, distance, or provider preference and wants to take a next step without being misled about the fee or whether a clinic received or accepted a request. Tests must use consenting participants and must not collect real patient health details.
 
-## Exact user
+## 3. Measurable success definition before module close
 
-A patient in Mexico City seeking medical follow-up or a replacement for an unsuitable doctor, with financial, geographic, scheduling, or provider-preference constraints.
+These are **proposed acceptance targets**, not completed results. The Week 13 handoff feature is ready for a limited pilot only when all of the following are true:
 
-## Success definition
+1. A proposed pilot cohort of **3–5 consenting general-practice clinics** has been approached and consent/data permissions recorded. Until then, the interface uses clearly labeled simulated records only; no clinic is described as recruited or verified.
+2. Every clinic fee shown as confirmed has a clinic-confirmed source, confirmation date, named update owner, next action, and next update date. Missing, stale, unsupported, or overdue fees are displayed as **unconfirmed**, never as a current confirmed price.
+3. Contact state is unambiguous: an external-channel opening is not called a request sent; “request sent” requires evidence that a request was actually submitted/delivered; “appointment confirmed” requires recorded clinic acceptance. No evidence means no confirmed status.
+4. The update workflow is tested end to end using synthetic records before any clinic data is used. Each test update must appear accurately in the UI and audit record within the proposed one-business-day operational target; missed or conflicting updates stay unconfirmed and are escalated to a human.
+5. Five real-user sessions are completed with informed consent, including **at least three people who are strangers to the project team**. Proposed usability target: at least 4/5 complete the comparison-to-next-step task within 4 minutes, and all 5 correctly explain that an external contact action is not proof of request delivery or appointment confirmation. Any false-certainty error blocks release and triggers a fix/retest.
+6. Results include per-session completion, elapsed time, confusion, and errors; no findings or quotations are claimed until observed and recorded.
 
-Before the module closes, the live application must accept patient constraints and display transparent comparisons using clearly labeled simulated provider data. This is a delivery target, not evidence that the product has achieved a real-world outcome or validated demand.
+If clinics are not consenting or any prerequisite is unmet by module close, report that the pilot is not ready rather than relax the evidence or safety thresholds.
 
-## Evidence status and demand validation
+## 4. New-feature mockup — required image
 
-No patient interview, affected-person account, or provider-data verification is documented in this packet. Do not claim validated demand until a real affected person has been documented with their permission and the evidence has been recorded.
+**BLOCKED: image-generation capability is not available in this session.** No image-generated Week 13 feature mockup has been created or saved under `docs/`. The existing Week 12 comparison mockup is not a mockup of this handoff feature and is not substituted here. Create and embed the generated mockup before implementation review; do not treat this notice or a text diagram as the image deliverable.
 
-| Evidence category | Current status |
-|---|---|
-| Observed | The project originated as a Week 5 healthcare-navigation project. No user observation is documented here. |
-| Inferred | Price, location, schedules, and preferences may be difficult for the exact user to compare across providers; this is the problem hypothesis to test. |
-| Missing | A documented account from a real affected person; evidence of how that person currently completes the full doctor-search task; and verified provider facts suitable for real-world comparison. |
-| Unverified | Demand, usability, comparison accuracy with real provider data, and any claimed advantage over existing alternatives. |
+## 5. Proposed feature flow
 
-Keep simulated demo results clearly labeled as simulated at every presentation point. Neither a prototype nor an intermediate test constitutes verified real-world success.
-
-## Core feature: Step 4 — constraint-by-constraint comparison
-
-The core engine is Step 4 of the project method: compare **every doctor** in the selected provider dataset against the patient's stated constraints. For each doctor and each constraint, show one of:
-
-- **Match:** available data supports that the provider satisfies the constraint.
-- **Mismatch:** available data indicates that the provider does not satisfy the constraint.
-- **Unknown:** data is missing, unverified, or insufficient to decide.
-
-Show the reason and the relevant value or data limitation for each status. Do not convert an unknown into a match, silently discard mismatches, or hide tradeoffs in an overall score. The comparison informs the patient; it does not select a doctor or make a clinical recommendation.
-
-### Acceptance criteria
-
-1. The patient can enter a budget, maximum distance, schedule, and provider preferences before comparison.
-2. The system validates entries and explains invalid or incomplete inputs without silently substituting values.
-3. Every provider in the selected dataset appears in the results, including providers with missing fields.
-4. Every provider is compared against every patient-stated constraint, with a clearly labeled match, mismatch, or unknown for each.
-5. Each result includes a concise explanation showing the compared values or why the result is unknown.
-6. Demo provider records and the comparison view are conspicuously labeled **simulated data — not verified provider information**.
-7. The patient retains control: they can review comparisons, revise constraints, stop, or choose what to do next. The system does not book, pay, diagnose, or choose on their behalf.
-8. If no provider data is available or the data cannot support a comparison, the system says so and offers a stop/revise path rather than inventing results.
-
-## Interface mockup — review before coding
-
-![Doctor-comparison interface mockup](./week12_doctor_comparison_mockup.png)
-
-Review the mockup against the acceptance criteria before implementation begins. The interface should visibly distinguish simulated information from verified facts and preserve patient choice. Do not portray invented providers, prices, distances, schedules, or availability as real.
-
-## Complete feature flow
+The feature adds an evidence-aware next-step panel to a future comparison result. Clinic details and any external destination must be checked before being shown. Without a verified contact route, the patient sees that none is available and can use clearly labeled non-integrated alternatives they independently find.
 
 ```mermaid
 flowchart TD
-    A[Patient opens comparison] --> B[Review simulated-data notice and limits]
-    B --> C[Enter budget, maximum distance, schedule, and preferences]
-    C --> D{Inputs valid and sufficient?}
-    D -- No --> E[Explain validation issue]
-    E --> C
-    D -- Yes --> F[Load clearly labeled simulated provider dataset]
-    F --> G{Provider data available?}
-    G -- No --> H[Explain that comparison cannot be made]
-    H --> I[Patient stops or revises constraints]
-    G -- Yes --> J[Compare every provider against every stated constraint]
-    J --> K[For each constraint, assign match, mismatch, or unknown]
-    K --> L[Explain each status with values or data limitation]
-    L --> M[Patient reviews tradeoffs and unknowns]
-    M --> N{Patient chooses next step}
-    N -- Revise --> C
-    N -- Stop --> O[End without a provider choice]
-    N -- Consider provider --> P[Patient makes their own choice outside the app]
-    P --> Q[Show no booking or clinical decision was made]
+    A[Patient reviews comparison] --> B[See fee amount, source, confirmation date, and status]
+    B --> C{Fee evidence current and clinic-confirmed?}
+    C -- No or overdue --> D[Show fee as unconfirmed; operator reviews]
+    C -- Yes --> E[Show source and date; do not imply future fee is guaranteed]
+    D --> F[Patient chooses a next step]
+    E --> F
+    F --> G{Contact route}
+    G -- Clinic-approved external route --> H[Open phone, website, or other external channel]
+    H --> I[Say RutaSalud cannot observe whether a message was sent or received]
+    G -- No route verified --> J[Keep route unavailable; show external alternatives with labels]
+    I --> K{Evidence of request submission?}
+    K -- No --> L[Do not show request sent; offer human follow-up if available]
+    K -- Yes --> M[Record request sent with evidence and timestamp]
+    M --> N{Clinic acceptance evidence?}
+    N -- No --> O[Pending; not an appointment]
+    N -- Yes --> P[Show appointment confirmed with evidence and timestamp]
+    D --> Q[Operator owns next action and update date]
+    Q --> R{Updated accurately and on time?}
+    R -- No --> S[Keep unconfirmed; escalate exception to a human]
+    R -- Yes --> B
 ```
 
-## Responsibilities and data swimlane
+### Patient / system / clinic / operator swimlane
 
 ```mermaid
 flowchart LR
     subgraph Patient
-        P1[State constraints and preferences]
-        P2[Review match, mismatch, and unknown explanations]
-        P3[Revise constraints, stop, or choose independently]
+        P1[Review fee source, date, and status]
+        P2[Choose clinic or visible external alternative]
+        P3[Understand external action is not proof of delivery]
+        P4[Receive confirmed status only when clinic acceptance is evidenced]
     end
-
     subgraph System
-        S1[Validate input and explain errors]
-        S2[Load demo records with simulated-data labeling]
-        S3[Compare every provider against every stated constraint]
-        S4[Explain each match, mismatch, and unknown]
-        S5[Preserve stop and revise paths; do not book or diagnose]
+        S1[Display confirmed fee only with source and date]
+        S2[Label stale or unsupported fee unconfirmed]
+        S3[Label external route as non-integrated]
+        S4[Keep request sent distinct from appointment confirmed]
     end
-
-    subgraph Provider_Data
-        D1[Supply fictitious demo records for prototype]
-        D2[Mark fields as simulated, missing, or unverified]
-        D3[No real provider verification is claimed]
+    subgraph Clinic
+        C1[Consent to proposed pilot and approved information process]
+        C2[Confirm fee and provide dated update]
+        C3[Accept or decline appointment request through agreed process]
     end
-
+    subgraph Operator
+        O1[Assign owner, next action, and next update date]
+        O2[Check source and update record]
+        O3[Record evidence and timestamps]
+        O4[Escalate missing, late, conflicting, or unclear evidence]
+    end
     P1 --> S1
-    S1 -->|valid input| S2
-    S1 -->|invalid input| P1
-    D1 --> D2
-    D2 --> S2
-    D3 -. status and provenance .-> S2
-    S2 --> S3
-    S3 --> S4
-    S4 --> P2
-    P2 --> P3
-    P3 -->|revise| P1
-    P3 -->|stop or decide independently| S5
+    S1 --> P2
+    P2 --> S3
+    S3 --> P3
+    C1 --> C2 --> O2
+    O1 --> O2
+    O2 --> O3 --> S1
+    O2 --> O4 --> S2
+    P2 -. future approved request process only .-> C3
+    C3 --> O3 --> S4 --> P4
 ```
 
-## Benchmark candidate: Doctoralia
+The diagram describes a proposed manual, human-owned pilot workflow, not an existing integration or implemented feature. When a patient uses an external route, RutaSalud must not claim to have sent or tracked the request.
 
-Doctoralia is a candidate existing alternative to investigate for the same end-to-end task: find and compare a suitable doctor in Mexico City using budget, distance, schedule, and provider preferences, then decide what to do next. This packet does not establish which Doctoralia features or data are currently available in the relevant market, or whether the proposed product performs better.
+## 6. Benchmark: Doctoralia
 
-The proposed differentiation is **transparent compromises and unknowns**, not a superiority claim: show every candidate against the patient's own constraints and explain each match, mismatch, and unknown, including missing or unverified information. Evaluate this with a complete-task comparison: recruit an appropriately consented real affected person, define the same search task and constraints for both experiences, record task completion, time, errors, comprehension of tradeoffs, and user-reported confidence, and document where information comes from. Do not claim improvement until this comparison has been run and its evidence supports the claim.
+[Doctoralia México](https://www.doctoralia.com.mx/) is the named existing Mexican comparison/booking service benchmark for this assignment. Its current feature details, clinic records, prices, and booking flow have not been independently evaluated for this packet and must be checked during benchmarking.
 
-## Three-year vision
+RutaSalud's proposed differentiation is a patient-led comparison that makes fee provenance, freshness, unknowns, and contact/booking evidence explicit. These are product intentions and hypotheses, not claims that RutaSalud is better, more accurate, more transparent in practice, or has superior clinic coverage. A fair comparison would give consenting participants the same task on both services and measure completion, time, confusion, errors, and understanding of what is confirmed.
 
-In three years, Detection-to-Treatment Navigation could help patients turn their own constraints into understandable comparisons across trustworthy, appropriately sourced care options. If user research and data partnerships support it, the product could make missing information and tradeoffs easier to resolve without taking control away from the patient. Any expansion would depend on demonstrated patient value, reliable data provenance, privacy safeguards, and explicit human choice rather than assumed growth or an untested improvement claim.
+## 7. Three-sentence, three-year product vision
 
-## Scope exclusions and human safeguards
+In three years, RutaSalud could help Mexico City patients compare care options using information whose source, date, and uncertainty are visible. With patient evidence and consenting provider participation, it could support clearer handoffs while keeping external alternatives and patient choice intact. Any expansion would depend on demonstrated usefulness, accurate and timely operations, privacy safeguards, and evidence-backed clinic information rather than assumed partnerships or growth.
 
-- No diagnosis, triage, or treatment recommendation.
-- No automatic booking or representation that a booking has been made.
-- No payments or payment handling.
-- No invented availability, provider facts, prices, distances, or schedules.
-- No unrelated features.
-- No hidden ranking that overrides the patient's stated constraints or obscures a mismatch or unknown.
-- The patient may stop or revise constraints at any time. If data is insufficient, disclose that limitation and stop the comparison rather than fabricate an answer.
-- Escalate unresolved data questions to an appropriate human or authoritative source; do not imply that the application has verified them.
+## 8. Explicit scope cuts
 
-## Architecture and responsibilities
+- Start with a proposed **3–5 consenting general-practice clinics**; no recruitment or verification is claimed, and no clinic is named until consent and evidence exist.
+- No booking API, calendar availability, messaging integration, automated confirmation, payments, or patient account.
+- No claim that opening an external phone, website, or Doctoralia page sends a request or reserves a time.
+- No “confirmed” booking without explicit clinic acceptance evidence; no “request sent” status without submission/delivery evidence.
+- No patient health information, real patient data, diagnosis, triage, recommendations, or automated provider ranking.
+- No live availability claims, unsupported fee, inferred verification, or fabricated source, response, quote, test finding, or user feedback.
+- Keep non-integrated alternatives visible and label their owner/destination and lack of RutaSalud tracking accurately.
+- Use synthetic fixtures only for pre-pilot mechanics and label every simulated clinic, fee, availability, status, and verification state as simulated.
+- Human operator handles exceptions; do not automate escalation or promise response times until validated.
 
-| Component | Proposed choice | Responsibility / boundary |
+### Operational record required for each proposed clinic
+
+Before any real clinic record is published, require the following fields. A blank or overdue field prevents the related fee or status from being shown as confirmed.
+
+| Required field | Rule |
+|---|---|
+| Clinic identity and consent reference | Record only after consent and permission scope are documented. |
+| Consultation fee, currency, and scope | Clinic-confirmed amount and what the fee covers; otherwise show unconfirmed. |
+| Source and confirmation date | Preserve source reference and date of confirmation. |
+| Update owner | Named accountable operator; assignment is currently outstanding. |
+| Next action | Concrete follow-up action; no generic “check later.” |
+| Next update date | Dated follow-up deadline; overdue data is unconfirmed until rechecked. |
+| Contact/request/booking evidence | Separate evidence and timestamp for each state; no acceptance evidence, no confirmed booking. |
+| Exception and escalation | Log conflict, missed deadline, or failed update and route to a human. |
+
+## 9. Existing architecture and stack
+
+This table describes the repository today; proposal-only capabilities are identified separately.
+
+| Layer | Existing implementation | Current boundary / Week 13 implication |
 |---|---|---|
-| Web framework | Next.js | Application structure and routing. |
-| UI library | React | Patient-facing constraint entry and comparison interface. |
-| Styling | Tailwind CSS | Responsive, accessible presentation of inputs, labels, and explanations. |
-| Data platform | Supabase | Any approved persistence and data access; enforce Row Level Security (RLS) on applicable tables. |
-| Deployment | Vercel | Host the live application and deployment previews. |
-| Source control | GitHub | Version history, review, and project collaboration. |
-| Domain | A real, venture-owned domain — **not yet selected or verified** | Choose and verify ownership before publishing a production address; do not invent or imply a domain exists. |
+| Framework / routing | Next.js 16 App Router (`src/app`) | Existing page and GET route; no handoff routes. |
+| UI | React 19, TypeScript | Client-side preference entry and comparison; no contact or booking state. |
+| Styling | Tailwind CSS 4 and `src/app/globals.css` | Existing responsive interface; proposed panel is not implemented. |
+| Comparison | `src/lib/comparison.ts` | Deterministic match/mismatch/unknown logic for budget, fictional distance, schedule, and preference. |
+| Provider data | `src/lib/demo-providers.ts`; optional server-side Supabase read in `src/lib/supabase.ts` | Local records are fictitious; DB status permits only `simulated` or `unverified`; no clinic-confirmed provenance fields. |
+| API | `src/app/api/providers/route.ts` | Read-only GET for records; no request submission, clinic response, or appointment status. |
+| Database | Supabase JS client; SQL migration in `supabase/migrations/` | Public read policy on provider records; do not put private operational or patient records in this publicly readable table. |
+| Tests | Vitest (`src/lib/comparison.test.ts`), ESLint, Next production build | Existing mechanical tests do not establish clinic accuracy or real-user usability. |
+| Hosting / repository | Vercel deployment noted in `docs/TEST_LOG.md`; GitHub repository | Existing deployment and docs only; no Week 13 preview or operations system. |
+| Credentials | `.env.example` documents optional Supabase URL and public anon key | Never commit secrets; do not expose service-role credentials or private operational data to clients. |
 
-### External dependencies and ownership
+No new stack, integration, or third-party service is assumed. The first implementation decision must follow team approval of this packet and a security/data-design review for any private operational record.
 
-The owner, Inés Escoto, is responsible for documenting affected-person evidence, maintaining evidence labels, defining acceptance checks, reviewing simulated data, and deciding whether claims are supported. Dependencies include access to an image-generation tool for the pre-coding mockup, hosting and source-control accounts, a venture-owned domain if one is selected, and (for any future real-data use) suitable provider-data sources, permissions, provenance, and verification. None of those external arrangements is asserted as already complete.
+## 10. Mechanical tests, user tests, feedback, and release loop
 
-## Security and privacy requirements
+### Mechanical tests (before any real clinic information)
 
-- Validate and constrain all patient inputs on the server boundary as well as in the interface; reject malformed values explicitly.
-- Do not put secrets, service-role keys, or credentials in source code or client bundles. Use deployment-managed environment secrets.
-- Use fictitious demo provider records only; do not use real patient information or imply demo-provider verification.
-- Enable and test Supabase Row Level Security for tables exposed to the application. Grant only the access needed for each role; never rely on client-side checks as authorization.
-- If personal data is stored, authentication is required. Minimize retained data, document its purpose and retention, and restrict access. If that cannot be implemented safely, do not persist personal data.
-- Do not collect sensitive health details that are not necessary for the comparison task.
+- Price cards require source, confirmation date, owner, next action, and next update date; otherwise fee status is unconfirmed.
+- Unsupported, expired, missing, or conflicting fee data never renders as clinic-confirmed.
+- State-machine tests prove external-channel open ≠ request sent, request sent ≠ appointment confirmed, and only explicit clinic-acceptance evidence permits confirmed.
+- Update tests change synthetic values, then verify the exact value, source, date, status, audit entry, and target delivery window at the UI/API boundary.
+- Simulate late updates, failed delivery, contradictory values, absent clinic response, and operator unavailability; require visible uncertainty and human escalation.
+- Verify external alternatives remain visible, are labeled non-integrated, and do not imply RutaSalud tracking.
+- Test accessibility, keyboard flow, responsive layouts, input validation, error states, and that no real patient information is collected.
+- Test authorization and row-level access for any future operational storage. Do not reuse the existing public provider table for private contact or clinic operational records.
 
-## Testing, feedback, and redeployment plan
+### Synthetic persona tests
 
-1. **Mechanical testing:** verify input validation, boundary cases, full provider-by-constraint coverage, correct match/mismatch/unknown classification, explanation content, simulated-data labels, stop/revise paths, and responsive rendering. Test RLS and authorization if persistence is present.
-2. **Persona testing:** use the exact-user scenario as a test persona, then test with a real affected person only with informed consent. Record what the participant actually did and said; distinguish observed behavior from interpretation. Do not describe a hypothetical persona exercise as user research.
-3. **Bug fixing:** log reproducible defects, prioritize safety, misleading labels, omitted providers, incorrect status/explanation, and accessibility issues first; fix and rerun the affected tests before release.
-4. **Redeployment:** deploy a preview for review, confirm the build and smoke-test the live preview, then deploy the accepted version. Verify the deployed URL and key flows after each deployment. If a release misrepresents simulated or unverified information, stop sharing it, correct the issue, and redeploy.
-5. **Evidence review:** after testing, report what was tested, by whom or with what fixture, what remains unverified, and any limitations. Simulated or intermediate results must never be presented as verified real-world success.
+Use clearly synthetic personas only to discover workflow gaps—for example, a budget-constrained patient who sees an unconfirmed fee and needs to decide whether to call. Label personas, clinic profiles, fees, update events, messages, and outcomes **SIMULATED** in test data and reports. The current Week 12 synthetic persona document is not Week 13 validation and supplies no clinic or booking evidence.
 
-## Implementation plan
+### Five real-user sessions (required; none yet recorded)
 
-Commit and deployment counts below are a planned minimum; they are not claims that work has already been completed. Keep each commit reviewable and run relevant checks before merging or deploying.
+Recruit five adults from the exact target audience with informed consent; at least three must be strangers to the project team. Do not recruit by using patient lists or collect diagnosis, treatment, or other unnecessary sensitive details. Give each participant the same neutral task: compare options, judge whether the fee is confirmed and why, choose a next step, then explain whether a request was sent or an appointment confirmed.
 
-| Sequence | Planned commit / milestone | Verification or outcome |
+Measure for every session:
+
+- **Task completion:** reached and selected a next-step option without moderator instruction (yes/no).
+- **Time:** elapsed time from task start to decision, in minutes/seconds.
+- **Confusion:** observed hesitation or incorrect interpretation, with task step and neutral observation.
+- **Errors:** incorrect fee-source/date interpretation, treating an external click as delivery, or treating a request as an appointment.
+- **Comprehension check:** participant states what evidence would be needed to call an appointment confirmed.
+- **Feedback:** short factual summary; exact quotations only with separate permission and accurate transcription.
+
+Consent, anonymize session IDs, record no identifying details, and separate observation from interpretation. Do not fill the event log with examples that might be mistaken for findings.
+
+### Feedback / event log (empty until sessions occur)
+
+| Session ID | Stranger to team? | Consent recorded? | Task completed? | Time | Confusion observed | Errors | Comprehension / feedback | Follow-up issue |
+|---|---|---|---|---|---|---|---|---|
+| No sessions recorded | — | — | — | — | — | — | — | — |
+
+### Bug-fix-redeploy-retest
+
+1. Log reproducible bugs with anonymized evidence and severity; prioritize false confirmation, wrong/stale fees, privacy/security, then task-blocking, accessibility, and usability issues.
+2. Assign an owner and next action; fix the root cause without fabricating data or weakening evidence thresholds.
+3. Run focused mechanical and synthetic tests, then repeat every affected real-user task with consent. A false-certainty error blocks release; repeat the full five-session protocol after material status/wording changes if they could affect understanding.
+4. Deploy a preview only after review; verify source/date/status, external-route labels, escalation, and permissions in the deployed build.
+5. Recheck that deployed data matches the clinic-confirmed source and date. Roll back or mark unconfirmed on discrepancy; record deployment, test evidence, failures, and next action.
+
+## 11. Blueprint and security mapping
+
+**Blueprint status:** Week 13 Blueprint is a **simulated draft pending actual team approval**. This packet does not represent it as approved. Only the supplied relevant condition is mapped; confirm other conditions against the team's official Blueprint rather than inventing them.
+
+| Requirement | Proposed response | Evidence needed / release gate |
 |---|---|---|
-| 1 | `docs: add venture packet and evidence boundaries` | Review this packet, acceptance criteria, scope, and mockup requirement before coding. |
-| 2 | `feat: add patient constraint entry` | Validate budget, maximum distance, schedule, and preferences; test valid and invalid inputs. |
-| 3 | `feat: add labeled simulated provider fixtures` | Use fictitious records and verify that simulated-data labeling is prominent. |
-| 4 | `feat: compare providers against every constraint` | Test every provider/constraint pair and match, mismatch, and unknown explanations. |
-| 5 | `feat: add transparent comparison and patient controls` | Test revise, stop, and independent-choice paths; verify no hidden selection or booking. |
-| 6 | `test: cover comparison, security, and accessibility` | Run mechanical tests, persona review, RLS checks if persistence exists, and fix findings. |
-| 7 | `docs: record release checks and evidence status` | Document tested behavior, known limits, data status, and deployment verification. |
+| Blueprint Condition 4 — operational reliability: ownership of updates and testing whether updates reach the system accurately and on time | Require an assigned update owner, next action, and next update date per record; maintain source/date and auditable state changes; test the end-to-end update path and escalate exceptions to a human. | Named operator, consenting clinics, measurable update target, completed delivery tests, and exception log; all currently outstanding. |
+| Shadow safeguard — false certainty about prices, bookings, and verification | Show fee provenance/date; mark unsupported or outdated values unconfirmed; accurately distinguish external contact, request sent, and appointment confirmed; require clinic acceptance evidence for confirmation. | Mechanical state tests plus five-user comprehension target; no Week 13 evidence yet. |
+| Data minimization and privacy | Do not collect patient health information or store patient contact details in this pilot. Keep synthetic test data synthetic; anonymize session logs. | Review every field and log before implementation; document consent and retention for user testing. |
+| Access control and least privilege | Keep private operator/clinic records out of the existing publicly readable provider table; design authenticated, role-limited access and test RLS before any private records are stored. | Approved schema/policy and negative access tests; not implemented. |
+| Secrets and service boundaries | Keep service-role secrets server-only and deployment-managed; use only the public anon key where appropriate; validate external destinations and API inputs. | Review environment config, built client bundle, and route behavior before release. |
+| Human accountability | Route stale, conflicting, late, or unsupported records to a human operator; do not silently fall back to a confirmed status. | Named escalation owner, response procedure, and tested failure paths; not yet assigned. |
 
-**Deployment 1 — preview:** after the core comparison flow is implemented, deploy a preview and verify input, comparisons, labels, stop/revise behavior, and mobile/keyboard access. Fix defects and redeploy the preview as needed.
+## 12. Limitations, evidence gaps, and unverified claims
 
-**Deployment 2 — live application:** after acceptance checks pass, deploy the live application and smoke-test the same critical paths at the deployed address. Confirm it uses only clearly labeled simulated data and does not imply real provider verification or real-world success. Any later deployment must repeat these checks.
+- Existing product behavior is a fictional-provider comparison; this packet does not implement a handoff, clinic data, contact tracking, or booking.
+- No consenting clinics, clinic-confirmed fees, verified contact routes, request records, appointment acceptances, or provider partnerships are evidenced. The 3–5 clinic pilot is proposed only.
+- No Week 13 image-generation capability was available; the required feature image remains missing.
+- No Week 13 real-user sessions have occurred. The five-session target and success thresholds above are plans, not findings. Existing Week 12 synthetic personas and mechanical tests are not substitutes.
+- Doctoralia is the benchmark named for the assignment; its current local features and comparative performance have not been verified here.
+- The proposed one-business-day update target and four-minute usability target are acceptance proposals, not measured operating performance or commitments.
+- The simulated Week 13 Blueprint is pending actual team approval. No other Blueprint condition is inferred or claimed as satisfied.
+- Any statement about clinic participation, current fees, availability, successful contact, booking confirmation, data accuracy, user preference, or competitive advantage remains unverified until supported by recorded evidence.
+
+## Before-code decision gate
+
+Do not implement the handoff feature until the team reviews and approves the simulated Blueprint draft, decides who owns operational updates/escalations, specifies evidence and freshness rules, approves the privacy/access design, and obtains consent/data permissions for any real clinic information. Until then, retain current simulated-data labeling and make no claim of clinic recruitment, verification, integration, or confirmed appointments.
