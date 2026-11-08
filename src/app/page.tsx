@@ -11,11 +11,20 @@ import {
   PatientPreferences,
   Provider,
   ProviderComparison,
-  scheduleLabel,
   schedules,
   validatePreferences,
 } from "@/lib/comparison";
 import { demoProviders } from "@/lib/demo-providers";
+import {
+  type DemoAppointmentAction,
+  type DemoAppointmentStatus,
+  getPriceReliability,
+  getProviderFactStatus,
+  hasPriceEvidence,
+  isOutsideNetwork,
+  type PriceReliability,
+  transitionDemoAppointment,
+} from "@/lib/handoff";
 
 type FormValues = {
   budgetMxn: string;
@@ -47,6 +56,53 @@ const scheduleOptions = {
   tarde: "Por la tarde",
   noche: "Por la noche",
 } as const;
+
+const priceStatusLabels: Record<PriceReliability, string> = {
+  simulated: "Precio simulado · no confirmado",
+  "clinic-confirmed": "Confirmado por la clínica",
+  unconfirmed: "Precio no confirmado",
+  outdated: "Precio desactualizado · no confirmado",
+  missing: "Precio no disponible",
+};
+
+const appointmentStatusLabels: Record<DemoAppointmentStatus, string> = {
+  "not-started": "Aún no preparada",
+  prepared: "Solicitud preparada · SIMULACIÓN",
+  sent: "Solicitud enviada · SIMULACIÓN (no se envió)",
+  "awaiting-clinic": "Respuesta pendiente · SIMULACIÓN (sin contacto real)",
+  confirmed: "Cita confirmada · SIMULACIÓN (no existe reserva real)",
+};
+
+const appointmentSteps: Array<{
+  status: Exclude<DemoAppointmentStatus, "not-started">;
+  label: string;
+}> = [
+  { status: "prepared", label: "Solicitud preparada" },
+  { status: "sent", label: "Solicitud enviada" },
+  { status: "awaiting-clinic", label: "Respuesta de la clínica" },
+  { status: "confirmed", label: "Cita confirmada" },
+];
+
+const demoAppointmentActions: Partial<
+  Record<DemoAppointmentStatus, { action: DemoAppointmentAction; label: string }>
+> = {
+  "not-started": {
+    action: "prepare",
+    label: "Preparar solicitud (simulación)",
+  },
+  prepared: {
+    action: "simulate-send",
+    label: "Simular envío (no se enviará)",
+  },
+  sent: {
+    action: "simulate-clinic-receipt",
+    label: "Simular respuesta (sin contacto real)",
+  },
+  "awaiting-clinic": {
+    action: "simulate-clinic-acceptance",
+    label: "Simular aceptación (sin cita real)",
+  },
+};
 
 function isProviderResponse(value: unknown): value is ProviderResponse {
   if (typeof value !== "object" || value === null || !("providers" in value) || !("source" in value)) {
@@ -182,7 +238,7 @@ export default function Home() {
           <span>
             {source === "local"
               ? "Todos los perfiles son ficticios; no representan doctores, citas ni precios reales."
-              : "Los perfiles no representan una recomendación ni disponibilidad en tiempo real. Revisa el estado de cada dato."}
+              : "Los perfiles no representan una recomendación ni disponibilidad en tiempo real. Revisa cada dato y confirma precios directamente con la clínica."}
           </span>
         </aside>
 
@@ -404,10 +460,11 @@ export default function Home() {
                     key={comparison.provider.id}
                   />
                 ))}
+                <ClarityFeedback />
                 <p className="choice-note">
                   Esta comparación no es un diagnóstico ni una recomendación.
-                  Confirma directamente cualquier dato que necesites. Tú
-                  decides; aquí no se agenda ni se contacta a nadie.
+                  Confirma precios y horarios directamente. Tú decides; aquí no
+                  se contacta a nadie ni se agenda una cita real.
                 </p>
               </div>
             )}
@@ -418,7 +475,8 @@ export default function Home() {
       <footer className="site-footer">
         <span>RutaSalud · Proyecto de demostración</span>
         <span>
-          Sin diagnósticos, disponibilidad garantizada ni reservas automáticas.
+          Sin diagnósticos ni disponibilidad garantizada. Las citas de esta demo
+          no son reservas reales.
         </span>
       </footer>
     </div>
@@ -431,10 +489,23 @@ function ComparisonCard({
   comparison: ProviderComparison;
 }) {
   const { provider, constraints } = comparison;
+  const [demoStatus, setDemoStatus] =
+    useState<DemoAppointmentStatus>("not-started");
   const compromises = constraints.filter(
     (constraint) => constraint.status !== "coincide",
   );
   const isSimulated = provider.dataStatus === "simulated";
+  const outsideNetwork = isOutsideNetwork(provider);
+  const priceReliability = getPriceReliability(provider);
+  const hasEvidence = hasPriceEvidence(provider);
+  const nextAction = demoAppointmentActions[demoStatus];
+
+  function advanceDemo() {
+    if (!nextAction) return;
+    setDemoStatus((current) =>
+      transitionDemoAppointment(current, nextAction.action),
+    );
+  }
 
   return (
     <article className="provider-card">
@@ -448,35 +519,55 @@ function ComparisonCard({
             <span className={`data-tag ${isSimulated ? "simulated" : "unverified"}`}>
               {isSimulated ? "Perfil ficticio" : "Datos no verificados"}
             </span>
-          </div>
-          <div className="provider-facts">
-            <span>
-              Precio:{" "}
-              {isSimulated && provider.consultationPriceMxn !== null
-                ? formatMxn(provider.consultationPriceMxn)
-                : "desconocido"}
-            </span>
-            <span>
-              Distancia ficticia (no usa tu ubicación):{" "}
-              {isSimulated && provider.distanceKm !== null
-                ? formatKm(provider.distanceKm)
-                : "desconocida"}
-            </span>
-            <span>
-              Horario:{" "}
-              {isSimulated && provider.schedules !== null
-                ? provider.schedules.map((item) => scheduleLabel(item)).join(", ")
-                : "desconocido"}
-            </span>
-            <span>
-              Profesional:{" "}
-              {isSimulated && provider.gender !== null
-                ? genderLabel(provider.gender)
-                : "desconocido"}
+            <span className={`network-tag ${outsideNetwork ? "outside" : ""}`}>
+              {outsideNetwork
+                ? "Fuera de la red"
+                : provider.networkStatus === "in-network"
+                  ? "En la red"
+                  : "Red no informada"}
+              {isSimulated ? " · simulado" : ""}
             </span>
           </div>
         </div>
       </div>
+
+      <div className="provider-facts" aria-label="Información del proveedor">
+        <FactRow
+          label="Especialidad"
+          value={provider.specialty ?? null}
+          status={getProviderFactStatus(provider, provider.specialty)}
+        />
+        <FactRow
+          label="Horario"
+          value={
+            provider.schedules?.map((item) => scheduleOptions[item]).join(", ") ??
+            null
+          }
+          status={getProviderFactStatus(
+            provider,
+            provider.schedules?.length ? provider.schedules.join(",") : null,
+          )}
+        />
+        <FactRow
+          label="Profesional"
+          value={provider.gender ? genderLabel(provider.gender) : null}
+          status={getProviderFactStatus(provider, provider.gender)}
+        />
+        <FactRow
+          label="Distancia ficticia (no usa tu ubicación)"
+          value={
+            provider.distanceKm === null
+              ? null
+              : `${formatKm(provider.distanceKm)}${isSimulated ? " · simulada" : ""}`
+          }
+          status={getProviderFactStatus(provider, provider.distanceKm)}
+        />
+      </div>
+
+      <PriceSummary
+        provider={provider}
+        reliability={priceReliability}
+      />
 
       <div className="constraint-list">
         {constraints.map((constraint) => (
@@ -515,6 +606,220 @@ function ComparisonCard({
           </ul>
         )}
       </div>
+
+      <section className="handoff-panel" aria-label={`Siguiente paso para ${provider.name}`}>
+        <div className="handoff-heading">
+          <div>
+            <span className="step-label">SIGUIENTE PASO</span>
+            <h4>Contacto y cita</h4>
+          </div>
+          <span className="simulation-label">SOLO SIMULACIÓN</span>
+        </div>
+
+        {outsideNetwork ? (
+          <p className="network-explanation">
+            Fuera de la red de RutaSalud. Si decides continuar, coordina y
+            confirma la cita directamente con el proveedor. No rastreamos ese
+            contacto; no hay un canal verificado disponible en esta demo.
+          </p>
+        ) : (
+          <p className="network-explanation">
+            Esta relación con la red también es simulada; RutaSalud no tiene un
+            canal integrado para contactar a esta clínica.
+          </p>
+        )}
+
+        <div className="follow-up-details">
+          <p>
+            <strong>Precio:</strong> {priceStatusLabels[priceReliability]}
+          </p>
+          {hasEvidence && provider.priceEvidence && (
+            <p>
+              <strong>Fuente:</strong> {provider.priceEvidence.source} ·{" "}
+              <strong>Confirmado:</strong>{" "}
+              {formatEvidenceDate(provider.priceEvidence.confirmedAt)}
+            </p>
+          )}
+          <p>
+            <strong>Aviso a la clínica:</strong> Pendiente; no integrado y no
+            enviado.
+          </p>
+          <p>
+            <strong>Responsable:</strong>{" "}
+            {provider.followUp?.owner ?? "No asignado"}
+          </p>
+          <p>
+            <strong>Próxima acción:</strong>{" "}
+            {provider.followUp?.nextAction ?? "Por definir"}
+          </p>
+          <p>
+            <strong>Próxima actualización:</strong>{" "}
+            {provider.followUp?.nextUpdateAt
+              ? formatEvidenceDate(provider.followUp.nextUpdateAt)
+              : "Sin fecha asignada"}
+          </p>
+        </div>
+
+        <ol className="appointment-progress" aria-label="Etapas de la solicitud simulada">
+          {appointmentSteps.map((step) => {
+            const stepIndex = appointmentSteps.findIndex(
+              ({ status }) => status === step.status,
+            );
+            const activeIndex = appointmentSteps.findIndex(
+              ({ status }) => status === demoStatus,
+            );
+            const isComplete = activeIndex >= stepIndex;
+
+            return (
+              <li
+                className={isComplete ? "complete" : ""}
+                key={step.status}
+                aria-current={demoStatus === step.status ? "step" : undefined}
+              >
+                <strong>{step.label}</strong>
+                <span>
+                  {isComplete ? appointmentStatusLabels[step.status] : "Pendiente · simulado"}
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+        <p className="workflow-status" aria-live="polite">
+          {appointmentStatusLabels[demoStatus]}
+        </p>
+        <p className="simulation-disclaimer">
+          Ninguna acción se envía a la clínica. No se preparan datos personales
+          ni médicos y esta demo no crea una cita.
+        </p>
+        {nextAction ? (
+          <button className="secondary-button" type="button" onClick={advanceDemo}>
+            {nextAction.label}
+          </button>
+        ) : (
+          <button
+            className="text-button"
+            type="button"
+            onClick={() => setDemoStatus("not-started")}
+          >
+            Reiniciar demostración
+          </button>
+        )}
+      </section>
     </article>
   );
+}
+
+function FactRow({
+  label,
+  value,
+  status,
+}: {
+  label: string;
+  value: string | null;
+  status: "simulated" | "unverified" | "missing";
+}) {
+  const statusText = {
+    simulated: "Simulado",
+    unverified: "No verificado",
+    missing: "No disponible",
+  }[status];
+
+  return (
+    <div className="provider-fact">
+      <span className="provider-fact-label">{label}</span>
+      <strong>{value ?? "Información no disponible"}</strong>
+      <span className={`fact-status ${status}`}>{statusText}</span>
+    </div>
+  );
+}
+
+function PriceSummary({
+  provider,
+  reliability,
+}: {
+  provider: Provider;
+  reliability: PriceReliability;
+}) {
+  const price = provider.consultationPriceMxn;
+  const isEvidenceBased = reliability === "clinic-confirmed";
+  const warning = !isEvidenceBased;
+
+  return (
+    <section className={`price-summary ${warning ? "warning" : "confirmed"}`}>
+      <div className="price-heading">
+        <span>Consulta</span>
+        <strong>{price === null ? "Precio no disponible" : formatMxn(price)}</strong>
+      </div>
+      <span className={`price-status ${reliability}`}>
+        {priceStatusLabels[reliability]}
+      </span>
+      {hasPriceEvidence(provider) && provider.priceEvidence && (
+        <p className="price-evidence">
+          Fuente: {provider.priceEvidence.source} · Última confirmación:{" "}
+          {formatEvidenceDate(provider.priceEvidence.confirmedAt)}
+        </p>
+      )}
+      <p className="price-reconfirm">
+        {isEvidenceBased
+          ? "El precio puede cambiar; reconfírmalo directamente con la clínica antes de acudir."
+          : "Confirma directamente cualquier precio con la clínica antes de acudir. Este dato no está confirmado."}
+      </p>
+    </section>
+  );
+}
+
+function ClarityFeedback() {
+  const [feedback, setFeedback] = useState<"clear" | "unclear" | null>(null);
+  const [counts, setCounts] = useState({ clear: 0, unclear: 0 });
+
+  function recordFeedback(value: "clear" | "unclear") {
+    if (feedback) return;
+    setFeedback(value);
+    setCounts((current) => ({ ...current, [value]: current[value] + 1 }));
+  }
+
+  return (
+    <section className="feedback-panel" aria-labelledby="feedback-title">
+      <div>
+        <h3 id="feedback-title">¿La información fue clara?</h3>
+        <p>
+          Conteo local de esta vista: clara {counts.clear} · no clara{" "}
+          {counts.unclear}. No se envía ni guarda tu respuesta.
+        </p>
+      </div>
+      <div className="feedback-actions">
+        <button
+          className="secondary-button"
+          type="button"
+          disabled={feedback !== null}
+          onClick={() => recordFeedback("clear")}
+        >
+          Sí, fue clara
+        </button>
+        <button
+          className="secondary-button"
+          type="button"
+          disabled={feedback !== null}
+          onClick={() => recordFeedback("unclear")}
+        >
+          No fue clara
+        </button>
+      </div>
+      {feedback && (
+        <p className="feedback-thanks" role="status">
+          Gracias. Esta respuesta solo cuenta en esta vista y se borrará al
+          recargar.
+        </p>
+      )}
+    </section>
+  );
+}
+
+function formatEvidenceDate(value: string): string {
+  const parsed = Date.parse(value);
+  if (!Number.isFinite(parsed)) return "fecha no válida";
+  return new Intl.DateTimeFormat("es-MX", {
+    dateStyle: "medium",
+    timeZone: "UTC",
+  }).format(parsed);
 }

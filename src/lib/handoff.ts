@@ -23,6 +23,13 @@ export type DemoAppointmentAction =
   | "simulate-clinic-receipt"
   | "simulate-clinic-acceptance";
 
+export function hasPriceEvidence(provider: Provider, now: number = Date.now()): boolean {
+  const evidence = provider.priceEvidence;
+  if (!evidence?.source.trim() || !evidence.confirmedAt.trim()) return false;
+  const confirmedAt = Date.parse(evidence.confirmedAt);
+  return Number.isFinite(confirmedAt) && confirmedAt <= now;
+}
+
 export function getPriceReliability(
   provider: Provider,
   now: number = Date.now(),
@@ -36,16 +43,10 @@ export function getPriceReliability(
   }
   if (provider.dataStatus === "simulated") return "simulated";
 
+  if (!hasPriceEvidence(provider, now)) return "unconfirmed";
   const evidence = provider.priceEvidence;
-  if (!evidence?.source.trim() || !evidence.confirmedAt.trim()) {
-    return "unconfirmed";
-  }
-
+  if (!evidence) return "unconfirmed";
   const confirmedAt = Date.parse(evidence.confirmedAt);
-  if (!Number.isFinite(confirmedAt) || confirmedAt > now) {
-    return "unconfirmed";
-  }
-
   const age = now - confirmedAt;
   return age > PRICE_FRESHNESS_DAYS * DAY_IN_MILLISECONDS
     ? "outdated"
