@@ -231,7 +231,7 @@ Consent, anonymize session IDs, record no identifying details, and separate obse
 
 ## Week 13 implementation status
 
-The local demo now retains the Week 12 comparison form/results and adds provider fact status, fee evidence/freshness labels, pending ownership/update fields, outside-network guidance, simulated appointment transitions, and ephemeral clarity feedback. Mechanical tests, lint, production build, and a local browser smoke test are recorded in [docs/TEST_LOG.md](./TEST_LOG.md); they demonstrate interface mechanics only. They are not clinic verification, real request/booking evidence, or real-user research.
+The demo retains the Week 12 comparison form/results and adds provider fact status, fee evidence/freshness labels, pending ownership/update fields, outside-network guidance, simulated appointment transitions, and ephemeral clarity feedback. Mechanical tests, lint, production build, local browser smoke testing, and the post-push live smoke check are recorded in [docs/TEST_LOG.md](./TEST_LOG.md); they demonstrate interface mechanics only. They are not clinic verification, real request/booking evidence, or real-user research. The existing GitHub-triggered Vercel deployment now serves this demo.
 
 The implementation does not contact clinics, send notifications, submit requests, confirm real appointments, collect patient details, or persist user feedback. No clinic-confirmed price currently exists in the fixtures or existing database schema; all fixture prices and appointment examples are simulated. The Week 13 image remains conceptual, and the 3–5-clinic pilot and five real-user sessions (at least three strangers) remain outstanding.
 

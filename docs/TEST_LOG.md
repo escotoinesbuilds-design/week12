@@ -63,4 +63,11 @@ After pushing, the live URL was reloaded and retested. Blank submission focused 
 - Clarity feedback incremented only the in-memory local count and stated it is not sent or saved.
 - At a 390 px viewport, document width remained 390 px; no horizontal overflow was observed.
 
-These are local mechanical/browser checks only. They are not clinic verification, real appointment evidence, or the required five real-user sessions. No deployed Week 13 retest has been performed yet.
+These are local mechanical/browser checks only. They are not clinic verification, real appointment evidence, or the required five real-user sessions.
+
+### Post-push Vercel smoke check
+
+**Live URL:** `https://rutasalud-w12.vercel.app/`
+**Source pushed to `main`:** `6a80dfb`
+
+After the push, the existing live URL served the Week 13 footer and handoff interface. A valid comparison rendered 4 cards, including simulated fee labels and the outside-network direct-arrangement guidance. At 390 px, the live document width was 390 px. This confirms the existing GitHub-triggered deployment serves the new demo UI; it does not confirm real provider data, clinic contact, booking, or user outcomes.
