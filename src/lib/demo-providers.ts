@@ -9,6 +9,13 @@ export const demoProviders: Provider[] = [
     schedules: ["tarde"],
     gender: "mujer",
     dataStatus: "simulated",
+    specialty: "Medicina general",
+    networkStatus: "in-network",
+    followUp: {
+      owner: null,
+      nextAction: "Confirmar directamente la tarifa y el horario con la clínica",
+      nextUpdateAt: null,
+    },
   },
   {
     id: "perfil-ficticio-02",
@@ -18,6 +25,13 @@ export const demoProviders: Provider[] = [
     schedules: null,
     gender: "hombre",
     dataStatus: "simulated",
+    specialty: "Medicina general",
+    networkStatus: "in-network",
+    followUp: {
+      owner: null,
+      nextAction: "Confirmar directamente la tarifa y el horario con la clínica",
+      nextUpdateAt: null,
+    },
   },
   {
     id: "perfil-ficticio-03",
@@ -27,6 +41,13 @@ export const demoProviders: Provider[] = [
     schedules: ["manana"],
     gender: "mujer",
     dataStatus: "simulated",
+    specialty: "Medicina general",
+    networkStatus: "in-network",
+    followUp: {
+      owner: null,
+      nextAction: "Confirmar directamente la tarifa y el horario con la clínica",
+      nextUpdateAt: null,
+    },
   },
   {
     id: "perfil-ficticio-04",
@@ -36,5 +57,12 @@ export const demoProviders: Provider[] = [
     schedules: ["noche"],
     gender: null,
     dataStatus: "simulated",
+    specialty: "Medicina general",
+    networkStatus: "outside-network",
+    followUp: {
+      owner: null,
+      nextAction: "Contactar directamente al proveedor para confirmar sus datos",
+      nextUpdateAt: null,
+    },
   },
 ];

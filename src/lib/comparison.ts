@@ -14,6 +14,19 @@ export type PatientPreferences = {
   genderPreference: GenderPreference;
 };
 
+export type ProviderNetworkStatus = "in-network" | "outside-network" | "unknown";
+
+export type PriceEvidence = {
+  source: string;
+  confirmedAt: string;
+};
+
+export type ProviderFollowUp = {
+  owner: string | null;
+  nextAction: string | null;
+  nextUpdateAt: string | null;
+};
+
 export type Provider = {
   id: string;
   name: string;
@@ -22,6 +35,10 @@ export type Provider = {
   schedules: readonly Schedule[] | null;
   gender: ProviderGender;
   dataStatus: "simulated" | "unverified";
+  specialty?: string | null;
+  priceEvidence?: PriceEvidence | null;
+  networkStatus?: ProviderNetworkStatus;
+  followUp?: ProviderFollowUp;
 };
 
 export type ConstraintResult = {
