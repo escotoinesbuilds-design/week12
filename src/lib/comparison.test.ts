@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   compareProvider,
   compareProviders,
+  summarizeComparisons,
   validatePreferences,
 } from "./comparison";
 import type { PatientPreferences, Provider } from "./comparison";
@@ -108,6 +109,42 @@ describe("compareProvider", () => {
     expect(result.constraints.every(({ status }) => status === "desconocido")).toBe(
       true,
     );
+  });
+});
+
+describe("summarizeComparisons", () => {
+  it("counts a provider as a complete match only when every preference matches", () => {
+    const result = compareProvider(provider, preferences);
+    const summary = summarizeComparisons([result]);
+
+    expect(summary.completeMatches).toEqual([result]);
+    expect(summary.alternatives).toEqual([]);
+  });
+
+  it("keeps mismatching and unknown records visible as alternatives", () => {
+    const partial = compareProvider(
+      { ...provider, schedules: null },
+      preferences,
+    );
+    const summary = summarizeComparisons([partial]);
+
+    expect(summary.completeMatches).toEqual([]);
+    expect(summary.alternatives).toEqual([partial]);
+  });
+
+  it("reports zero complete matches while preserving every alternative", () => {
+    const partial = compareProvider(
+      { ...provider, consultationPriceMxn: 1_500 },
+      preferences,
+    );
+    const unknown = compareProvider(
+      { ...provider, id: "perfil-no-verificado", dataStatus: "unverified" },
+      preferences,
+    );
+    const summary = summarizeComparisons([partial, unknown]);
+
+    expect(summary.completeMatches).toHaveLength(0);
+    expect(summary.alternatives).toEqual([partial, unknown]);
   });
 });
 

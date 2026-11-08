@@ -53,6 +53,11 @@ export type ProviderComparison = {
   constraints: ConstraintResult[];
 };
 
+export type ComparisonSummary = {
+  completeMatches: ProviderComparison[];
+  alternatives: ProviderComparison[];
+};
+
 export type PreferenceInput = {
   budgetMxn: unknown;
   maxDistanceKm: unknown;
@@ -251,6 +256,23 @@ export function compareProviders(
   preferences: PatientPreferences,
 ): ProviderComparison[] {
   return providers.map((provider) => compareProvider(provider, preferences));
+}
+
+export function summarizeComparisons(
+  comparisons: readonly ProviderComparison[],
+): ComparisonSummary {
+  const completeMatches: ProviderComparison[] = [];
+  const alternatives: ProviderComparison[] = [];
+
+  for (const comparison of comparisons) {
+    if (comparison.constraints.every(({ status }) => status === "coincide")) {
+      completeMatches.push(comparison);
+    } else {
+      alternatives.push(comparison);
+    }
+  }
+
+  return { completeMatches, alternatives };
 }
 
 export function formatMxn(amount: number): string {

@@ -8,10 +8,12 @@ import {
   formatMxn,
   genderLabel,
   genderPreferences,
+  type ComparisonSummary,
   PatientPreferences,
   Provider,
   ProviderComparison,
   schedules,
+  summarizeComparisons,
   validatePreferences,
 } from "@/lib/comparison";
 import { demoProviders } from "@/lib/demo-providers";
@@ -128,6 +130,8 @@ export default function Home() {
   );
   const formRef = useRef<HTMLFormElement>(null);
   const focusInvalidField = useRef(false);
+  const comparisonSummary =
+    comparisons === null ? null : summarizeComparisons(comparisons);
 
   useEffect(() => {
     let active = true;
@@ -453,7 +457,14 @@ export default function Home() {
             )}
 
             {!loadingProviders && comparisons && comparisons.length > 0 && (
-              <div className="comparison-list" aria-live="polite">
+              <div
+                className="comparison-list"
+                id="comparison-options"
+                aria-live="polite"
+              >
+                {comparisonSummary && (
+                  <ComparisonSummaryPanel summary={comparisonSummary} />
+                )}
                 {comparisons.map((comparison) => (
                   <ComparisonCard
                     comparison={comparison}
@@ -494,6 +505,7 @@ function ComparisonCard({
   const compromises = constraints.filter(
     (constraint) => constraint.status !== "coincide",
   );
+  const isCompleteMatch = compromises.length === 0;
   const isSimulated = provider.dataStatus === "simulated";
   const outsideNetwork = isOutsideNetwork(provider);
   const priceReliability = getPriceReliability(provider);
@@ -508,7 +520,14 @@ function ComparisonCard({
   }
 
   return (
-    <article className="provider-card">
+    <article
+      className={`provider-card ${isCompleteMatch ? "complete-match" : "alternative-match"}`}
+      aria-label={
+        isCompleteMatch
+          ? `${provider.name}: coincidencia completa`
+          : `${provider.name}: alternativa, ${compromises.length} preferencias por revisar`
+      }
+    >
       <div className="provider-card-top">
         <div className="provider-avatar" aria-hidden="true">
           +
@@ -526,6 +545,11 @@ function ComparisonCard({
                   ? "En la red"
                   : "Red no informada"}
               {isSimulated ? " · simulado" : ""}
+            </span>
+            <span className={`fit-badge ${isCompleteMatch ? "complete" : "alternative"}`}>
+              {isCompleteMatch
+                ? "Coincidencia completa"
+                : `Alternativa · ${compromises.length} por revisar`}
             </span>
           </div>
         </div>
@@ -591,17 +615,23 @@ function ComparisonCard({
       </div>
 
       <div
-        className={`tradeoff-note ${compromises.length === 0 ? "all-match" : ""}`}
+        className={`tradeoff-note ${isCompleteMatch ? "all-match" : ""}`}
       >
         <strong>
-          {compromises.length === 0
+          {isCompleteMatch
             ? "Según los datos simulados, coincide con tus criterios."
-            : "Compromisos y datos por confirmar"}
+            : "Esta alternativa no cumple todas tus preferencias."}
         </strong>
-        {compromises.length > 0 && (
+        {!isCompleteMatch && (
           <ul>
-            {compromises.map((item) => (
-              <li key={item.key}>{item.explanation}</li>
+            {compromises.map((constraint) => (
+              <li key={constraint.key}>
+                <strong>
+                  {constraint.label}:{" "}
+                  {statusLabels[constraint.status].toLocaleLowerCase("es-MX")}.
+                </strong>{" "}
+                {constraint.explanation}
+              </li>
             ))}
           </ul>
         )}
@@ -706,6 +736,49 @@ function ComparisonCard({
         )}
       </section>
     </article>
+  );
+}
+
+function ComparisonSummaryPanel({
+  summary,
+}: {
+  summary: ComparisonSummary;
+}) {
+  const hasCompleteMatch = summary.completeMatches.length > 0;
+
+  return (
+    <section
+      className={`comparison-summary ${hasCompleteMatch ? "has-matches" : "no-matches"}`}
+      aria-live="polite"
+      aria-labelledby="comparison-summary-title"
+    >
+      <div>
+        <span className="step-label">RESUMEN DE COINCIDENCIAS</span>
+        <h3 id="comparison-summary-title">
+          {hasCompleteMatch
+            ? `${summary.completeMatches.length} opción${summary.completeMatches.length === 1 ? "" : "es"} coincide${summary.completeMatches.length === 1 ? "" : "n"} con todas tus preferencias`
+            : "No encontramos una opción que coincida con todas tus preferencias"}
+        </h3>
+        <p>
+          {summary.alternatives.length > 0
+            ? `Mostramos ${summary.alternatives.length} alternativa${summary.alternatives.length === 1 ? "" : "s"} aunque tenga${summary.alternatives.length === 1 ? "" : "n"} aspectos que no coinciden o son desconocidos, para que puedas revisar los motivos y decidir.`
+            : "Todas las opciones mostradas coinciden con tus criterios según la información disponible."}
+        </p>
+        {!hasCompleteMatch && (
+          <p className="summary-next-step">
+            Siguiente paso: revisa en cada alternativa qué preferencia no coincide
+            o es desconocida, o cambia tus preferencias. Tú eliges; RutaSalud no
+            selecciona una opción por ti.
+          </p>
+        )}
+      </div>
+      <nav className="summary-actions" aria-label="Opciones para continuar">
+        {summary.alternatives.length > 0 && (
+          <a href="#comparison-options">Revisar alternativas</a>
+        )}
+        <a href="#preferences-title">Cambiar preferencias</a>
+      </nav>
+    </section>
   );
 }
 
