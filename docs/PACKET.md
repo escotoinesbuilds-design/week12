@@ -28,7 +28,9 @@ If clinics are not consenting or any prerequisite is unmet by module close, repo
 
 ## 4. New-feature mockup — required image
 
-**BLOCKED: image-generation capability is not available in this session.** No image-generated Week 13 feature mockup has been created or saved under `docs/`. The existing Week 12 comparison mockup is not a mockup of this handoff feature and is not substituted here. Create and embed the generated mockup before implementation review; do not treat this notice or a text diagram as the image deliverable.
+![Conceptual Week 13 doctor-comparison and handoff mockup](./week13_mockup.png.png)
+
+This is a conceptual mockup, not evidence of live functionality or clinic participation. Every depicted provider, fee, date, verification badge, availability, request, and appointment status is simulated and must not be presented as real or confirmed.
 
 ## 5. Proposed feature flow
 
