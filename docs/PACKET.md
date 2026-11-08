@@ -1,9 +1,11 @@
-# RutaSalud — Week 13 Business Bending Packet (before code)
+# RutaSalud — Week 13 Business Bending Packet
 
 **Venture:** RutaSalud, a Mexico City patient-led doctor comparison platform
-**Project state:** Existing Week 12 comparison prototype; Week 13 feature is a proposal only.
+**Project state:** Existing Week 12 comparison prototype; Week 13 local-demo implementation is planned below.
 **Blueprint state:** Simulated draft pending actual team approval. It is not approved.
 **Evidence boundary:** No clinics are claimed as recruited or verified, no Week 13 user sessions have been conducted, and no booking or clinic response is evidenced.
+
+The Week 13 plan below is committed before application changes. It supersedes the earlier pre-code wording only for the local, simulated demonstration; it does not authorize real clinic operations, real patient data, or claims of approval.
 
 ## 1. Problem in my own words
 
@@ -220,13 +222,69 @@ Consent, anonymize session IDs, record no identifying details, and separate obse
 
 - Existing product behavior is a fictional-provider comparison; this packet does not implement a handoff, clinic data, contact tracking, or booking.
 - No consenting clinics, clinic-confirmed fees, verified contact routes, request records, appointment acceptances, or provider partnerships are evidenced. The 3–5 clinic pilot is proposed only.
-- No Week 13 image-generation capability was available; the required feature image remains missing.
+- The linked Week 13 image is a conceptual generated mockup only. Its depicted providers, fees, dates, verification, availability, requests, and appointments are not evidence.
 - No Week 13 real-user sessions have occurred. The five-session target and success thresholds above are plans, not findings. Existing Week 12 synthetic personas and mechanical tests are not substitutes.
 - Doctoralia is the benchmark named for the assignment; its current local features and comparative performance have not been verified here.
 - The proposed one-business-day update target and four-minute usability target are acceptance proposals, not measured operating performance or commitments.
 - The simulated Week 13 Blueprint is pending actual team approval. No other Blueprint condition is inferred or claimed as satisfied.
 - Any statement about clinic participation, current fees, availability, successful contact, booking confirmation, data accuracy, user preference, or competitive advantage remains unverified until supported by recorded evidence.
 
-## Before-code decision gate
+## Week 13 product charter and implementation plan
 
-Do not implement the handoff feature until the team reviews and approves the simulated Blueprint draft, decides who owns operational updates/escalations, specifies evidence and freshness rules, approves the privacy/access design, and obtains consent/data permissions for any real clinic information. Until then, retain current simulated-data labeling and make no claim of clinic recruitment, verification, integration, or confirmed appointments.
+### Core feature
+
+Add a mobile-first, evidence-aware handoff panel to each comparison result. It presents specialty and schedule when supplied; marks each fact as simulated, unverified, missing, or clinic-confirmed only when its own evidence supports that status; flags missing, stale, or unsupported fees; and surfaces the next action, responsible owner (or explicitly “not assigned”), and follow-up date (or “not set”). Patients keep control of what to do. Outside-network providers are explicitly marked and any appointment must be arranged directly.
+
+The appointment interaction is a **local simulation only**. A patient may prepare a simulated request and advance through visibly simulated sent, awaiting-clinic-response, and confirmed examples to understand the states. No request or notification is transmitted, no clinic is contacted, and no actual appointment is made. Real “request sent” requires evidence of submission/delivery; real “confirmed” requires clinic acceptance evidence. Neither real state is implemented in this phase.
+
+### Responsibility boundaries
+
+- **Patient:** reviews evidence, decides whether and how to contact a provider, may stop or choose an alternative, and is not asked for medical or identifying details.
+- **System:** displays existing comparison results, exposes provenance/unknowns without inferring verification, and labels every simulated workflow state.
+- **Clinic:** no participation or response is assumed in this implementation. The mockup and synthetic records do not represent clinic commitments.
+- **Operator:** demo records have no real update owner; show “not assigned” and a pending next action rather than imply an operator has verified or contacted a clinic. Future real records require a named owner, next action, and update date.
+- **External provider:** outside-network label and direct-arrangement boundary remain visible; no unverified link, call, or contact action is presented as integrated or tracked.
+
+### Acceptance criteria for this implementation
+
+1. Existing Week 12 preference entry, validation/focus behavior, deterministic comparison, and all provider cards remain available.
+2. Provider specialty, price, schedule, and other supplied facts are displayed; null data is called missing, and unverified data never appears verified.
+3. Every synthetic fee and workflow value is conspicuously simulated. A real fee cannot appear clinic-confirmed without its source and confirmation date; missing, invalid, or older-than-30-days confirmation is unconfirmed/outdated. The 30-day window is a conservative prototype rule, not a clinic agreement, operating commitment, or independently validated freshness policy.
+4. Appointment states are distinct. All demo transitions are labeled simulated and explicitly state that nothing was sent/booked. The UI offers no real send or confirm action.
+5. Clinic notification remains “pending / not sent” because there is no integration.
+6. Out-of-network records are labeled; the interface says to arrange appointments directly and does not imply RutaSalud tracking.
+7. Pending action, owner assignment, and next update date are visible; unknown or unresolved values remain pending.
+8. A minimal feedback mechanism counts clarity responses in page memory only. Counts reset when the page is reloaded; no personal/medical data, analytics endpoint, cookie, or persistent browser storage is introduced.
+9. Automated tests cover provider evidence and price freshness, handoff transitions, outside-network labels, patient choice, and all preserved Week 12 behavior; lint and production build pass.
+
+### User flow
+
+1. Patient enters the existing comparison preferences and sees all matching, mismatching, and unknown tradeoffs as before.
+2. Patient reviews the provider's specialty, schedule, price status, evidence date/source if available, simulated/unverified/missing facts, network status, and pending operator follow-up.
+3. Patient chooses to stop, consider the provider, arrange contact directly for an outside-network provider, or explore the explicitly simulated request-state demonstration.
+4. Any simulated prepared/sent/awaiting/confirmed transition remains tagged as simulated; clinic notification says it was not sent, and no real booking claim is made.
+5. Patient may optionally submit a yes/no clarity response. Only aggregate in-memory counts are shown in the current page; no response is transmitted or retained.
+
+### Testing and evidence plan
+
+- Extend deterministic unit tests for field evidence, missing/stale fee states, valid/invalid appointment transitions, outside-network boundaries, and patient-choice paths.
+- Run existing and new mechanical tests, lint, and production build. Smoke-test at desktop and mobile widths and verify existing validation, comparison, accessibility labels, and no horizontal overflow.
+- Use only visibly synthetic fixtures/personas during development. Do not invent clinic responses or real-user findings.
+- The five real-user sessions (at least three strangers), consent, task completion/time/confusion/error logging, and acceptance targets in Section 3 remain required before any real-world pilot claim. They are not completed by automated or synthetic tests.
+- Preserve the historical Week 12 evidence in `docs/TEST_LOG.md` and `docs/PERSONA_TEST.md`; these are prior mechanical/synthetic records, not Week 13 user research.
+
+### Demonstrated functionality versus real-world operations
+
+The existing local fixtures demonstrate comparison mechanics only. This Week 13 phase may demonstrate fee labels, follow-up fields, and a simulated appointment-state walkthrough in the browser, but does not verify an actual doctor, specialty, price, schedule, clinic, notification, request delivery, availability, or appointment. No provider data migration, clinic integration, patient-data storage, or real analytics is included. Do not change any label to “verified,” “sent,” or “confirmed” for a real operation without the corresponding source/evidence.
+
+### Commit and release sequence
+
+| Sequence | Commit scope | Validation / boundary |
+|---|---|---|
+| 1 | `docs: define Week 13 implementation charter` | Update this packet before application code; preserve Week 12 evidence. |
+| 2 | `feat: model provider evidence and simulated handoff` | Add typed evidence/price-state and guarded simulation logic; no network or persistence. |
+| 3 | `feat: add trustworthy provider handoff interface` | Keep comparison intact; add mobile-first details, follow-up, simulated workflow, outside-provider and ephemeral-feedback UI. |
+| 4 | `test: cover Week 13 trust boundaries` | Add focused regression tests; run tests, lint, build and smoke checks; update `DECISIONS.md` with findings and next action. |
+| 5 | Push `main` | Use existing GitHub/Vercel integration only; verify the existing deployment if it completes. |
+
+Real clinic data, a real notification/request path, actual appointment confirmation, and a live operational owner remain gated on team approval, clinic consent, access/privacy design, and evidence. Until then, retain simulated labeling and human decision-making.
