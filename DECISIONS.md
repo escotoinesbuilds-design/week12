@@ -13,7 +13,7 @@
 
 ## Week 13 next action
 
-The existing GitHub-triggered Vercel deployment now serves the pushed Week 13 demo. Next, obtain team approval of the simulated Blueprint draft and assign a real operational owner before any live clinic data is considered. Recruit consenting general-practice clinics and conduct five consented real-user sessions (at least three strangers), recording task completion, time, confusion, and errors without patient medical information. Do not claim a pilot, clinic verification, real request, or confirmed appointment until supporting evidence exists.
+The existing GitHub-triggered Vercel deployment now serves the pushed Week 13 demo. The project owner reports that five real people tested RutaSalud, including at least three strangers; dates, individual feedback, consent records, measurements, and observed usability problems have not yet been supplied. See [docs/REAL_USER_TESTING.md](./docs/REAL_USER_TESTING.md); do not conflate this report with the Week 12 synthetic persona or mechanical tests. Next, document only verifiable anonymized session evidence, including completion, time, confusion, and errors, without patient medical information. Obtain team approval of the simulated Blueprint draft and assign a real operational owner before any live clinic data is considered. Do not claim a pilot, clinic verification, real request, or confirmed appointment until supporting evidence exists.
 
 ## Week 12 decisions (historical, retained)
 
