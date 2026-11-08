@@ -31,6 +31,36 @@ The ranking reflects the reported threat to the search-to-decision workflow, not
 
 These are design priorities based on the supplied reports; they are not claims that a given issue occurred during a directly observed task. No counts beyond the stated six participants or three strangers are inferred.
 
+## Round 2 finding: specialty relevance
+
+This is a second testing round with the same participant recorded above as the law firm partner, age 62; it is not a seventh participant. The project owner supplied this exact feedback:
+
+> "You have to narrow your options. Why would I want a psychiatrist if I need a cardiologist? Sort it by specialization, not general doctors."
+
+The participant also requested specialty-based filtering, specific appointment times, and emergency contacts or urgent appointments. No date, task, observed behavior, or measurement for this round was supplied.
+
+### Why this threatens search-to-decision
+
+Showing a provider with a different listed specialty among undifferentiated results can make the comparison irrelevant to the patient's stated search and obscure whether any profile matches the filter. This threatens the search-to-decision goal before price, distance, schedule, or provider preferences can help. A matching specialty label is only a literal data comparison; it does not establish credentials, clinical suitability, or treatment advice.
+
+The earlier three-pain-point ranking above is preserved as written. This is a separate, newly reported finding from a repeat participant, not a basis for retroactively changing the earlier ranking or claiming measured frequency.
+
+### Implemented response and boundaries
+
+- Added a specialty selector with a no-preference option.
+- When a specialty is selected, profiles with an exactly matching listed specialty are grouped first. Profiles with a different, missing, or unverified specialty are separated and explicitly not presented as clinical alternatives.
+- If no listed specialty matches, the interface says so and identifies the separated profiles; other existing budget, distance, schedule, and gender comparisons remain available.
+- The app compares the specialty label only. It does not infer suitability, recommend treatment, verify credentials, or automatically choose a provider. All local demo profiles remain labeled fictional/simulated.
+- Specific appointment times, urgent appointment handling, and emergency contacts were not implemented. They would require reliable operational sources and are outside this comparison-filter fix; no emergency service is offered by the demo.
+
+Before/after screenshots document the old unfiltered workflow and the implemented simulated specialty filter. They are interface evidence only, not a retest with this participant or evidence of improved performance.
+
+### Specialty-filter evidence
+
+![Before: comparison results without specialty selection](./specialty-before.png)
+
+![After: specialty-selected results with matching and nonmatching profiles separated](./specialty-after.png)
+
 ## 3. Implemented response and before/after evidence
 
 The #1 comparison-clarity improvement is implemented in the interface:

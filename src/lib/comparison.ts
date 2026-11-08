@@ -1,17 +1,35 @@
 export const schedules = ["manana", "tarde", "noche"] as const;
 export const genderPreferences = ["mujer", "hombre", "sin-preferencia"] as const;
+export const specialties = [
+  "Medicina general",
+  "Cardiología",
+  "Psiquiatría",
+  "Dermatología",
+  "Ginecología",
+  "Pediatría",
+  "Traumatología y ortopedia",
+] as const;
 
 export type Schedule = (typeof schedules)[number];
 export type GenderPreference = (typeof genderPreferences)[number];
+export type SpecialtyPreference =
+  | (typeof specialties)[number]
+  | "sin-especialidad";
 export type ProviderGender = Exclude<GenderPreference, "sin-preferencia"> | null;
 export type ComparisonStatus = "coincide" | "no-coincide" | "desconocido";
-export type ConstraintKey = "presupuesto" | "distancia" | "horario" | "genero";
+export type ConstraintKey =
+  | "presupuesto"
+  | "distancia"
+  | "horario"
+  | "genero"
+  | "especialidad";
 
 export type PatientPreferences = {
   budgetMxn: number;
   maxDistanceKm: number;
   schedule: Schedule;
   genderPreference: GenderPreference;
+  specialtyPreference: SpecialtyPreference;
 };
 
 export type ProviderNetworkStatus = "in-network" | "outside-network" | "unknown";
@@ -56,6 +74,9 @@ export type ProviderComparison = {
 export type ComparisonSummary = {
   completeMatches: ProviderComparison[];
   alternatives: ProviderComparison[];
+  specialtyMatches: ProviderComparison[];
+  specialtyNonMatches: ProviderComparison[];
+  specialtyPreference: SpecialtyPreference;
 };
 
 export type PreferenceInput = {
@@ -63,6 +84,7 @@ export type PreferenceInput = {
   maxDistanceKm: unknown;
   schedule: unknown;
   genderPreference: unknown;
+  specialtyPreference: unknown;
 };
 
 export type ValidationResult =
@@ -77,6 +99,10 @@ const isSchedule = (value: unknown): value is Schedule =>
 
 const isGenderPreference = (value: unknown): value is GenderPreference =>
   value === "mujer" || value === "hombre" || value === "sin-preferencia";
+
+const isSpecialtyPreference = (value: unknown): value is SpecialtyPreference =>
+  value === "sin-especialidad" ||
+  specialties.some((specialty) => specialty === value);
 
 function parseBoundedNumber(
   value: unknown,
@@ -109,6 +135,9 @@ export function validatePreferences(input: PreferenceInput): ValidationResult {
   const genderPreference = isGenderPreference(input.genderPreference)
     ? input.genderPreference
     : null;
+  const specialtyPreference = isSpecialtyPreference(input.specialtyPreference)
+    ? input.specialtyPreference
+    : null;
 
   if ("error" in budget) errors.budgetMxn = budget.error;
   if ("error" in distance) errors.maxDistanceKm = distance.error;
@@ -116,13 +145,17 @@ export function validatePreferences(input: PreferenceInput): ValidationResult {
   if (genderPreference === null) {
     errors.genderPreference = "Elige una preferencia de profesional válida.";
   }
+  if (specialtyPreference === null) {
+    errors.specialtyPreference = "Elige una especialidad válida.";
+  }
 
   if (
     Object.keys(errors).length > 0 ||
     "error" in budget ||
     "error" in distance ||
     schedule === null ||
-    genderPreference === null
+    genderPreference === null ||
+    specialtyPreference === null
   ) {
     return { valid: false, errors };
   }
@@ -134,6 +167,7 @@ export function validatePreferences(input: PreferenceInput): ValidationResult {
       maxDistanceKm: distance.value,
       schedule,
       genderPreference,
+      specialtyPreference,
     },
   };
 }
@@ -142,6 +176,32 @@ export function compareProvider(
   provider: Provider,
   preferences: PatientPreferences,
 ): ProviderComparison {
+  const specialtyConstraint: ConstraintResult | null =
+    preferences.specialtyPreference === "sin-especialidad"
+      ? null
+      : provider.dataStatus === "unverified" || !provider.specialty?.trim()
+        ? {
+            key: "especialidad",
+            label: "Especialidad",
+            status: "desconocido",
+            explanation:
+              "La especialidad no está verificada o no se indica; no se puede confirmar si coincide.",
+          }
+        : normalizeSpecialty(provider.specialty) ===
+            normalizeSpecialty(preferences.specialtyPreference)
+          ? {
+              key: "especialidad",
+              label: "Especialidad",
+              status: "coincide",
+              explanation: `La especialidad indicada (${provider.specialty}) coincide exactamente con tu filtro. Esto no confirma idoneidad clínica.`,
+            }
+          : {
+              key: "especialidad",
+              label: "Especialidad",
+              status: "no-coincide",
+              explanation: `El perfil indica ${provider.specialty}; no coincide exactamente con el filtro ${preferences.specialtyPreference}. No se presenta como alternativa clínica.`,
+            };
+
   if (provider.dataStatus === "unverified") {
     const labels: Array<[ConstraintKey, string]> = [
       ["presupuesto", "Presupuesto"],
@@ -149,15 +209,16 @@ export function compareProvider(
       ["horario", "Horario"],
       ["genero", "Preferencia de profesional"],
     ];
-
+    const constraints: ConstraintResult[] = labels.map(([key, label]) => ({
+      key,
+      label,
+      status: "desconocido" as const,
+      explanation: "La información de este perfil no está verificada; no se puede confirmar esta coincidencia.",
+    }));
+    if (specialtyConstraint) constraints.push(specialtyConstraint);
     return {
       provider,
-      constraints: labels.map(([key, label]) => ({
-        key,
-        label,
-        status: "desconocido",
-        explanation: "La información de este perfil no está verificada; no se puede confirmar esta coincidencia.",
-      })),
+      constraints,
     };
   }
 
@@ -248,6 +309,8 @@ export function compareProvider(
           },
   ];
 
+  if (specialtyConstraint) constraints.push(specialtyConstraint);
+
   return { provider, constraints };
 }
 
@@ -260,19 +323,44 @@ export function compareProviders(
 
 export function summarizeComparisons(
   comparisons: readonly ProviderComparison[],
+  specialtyPreference: SpecialtyPreference,
 ): ComparisonSummary {
   const completeMatches: ProviderComparison[] = [];
   const alternatives: ProviderComparison[] = [];
+  const specialtyMatches: ProviderComparison[] = [];
+  const specialtyNonMatches: ProviderComparison[] = [];
 
   for (const comparison of comparisons) {
-    if (comparison.constraints.every(({ status }) => status === "coincide")) {
-      completeMatches.push(comparison);
+    const specialtyConstraint = comparison.constraints.find(
+      ({ key }) => key === "especialidad",
+    );
+    const matchesSpecialty =
+      specialtyPreference === "sin-especialidad" ||
+      specialtyConstraint?.status === "coincide";
+
+    if (matchesSpecialty) {
+      specialtyMatches.push(comparison);
     } else {
+      specialtyNonMatches.push(comparison);
+    }
+
+    if (
+      matchesSpecialty &&
+      comparison.constraints.every(({ status }) => status === "coincide")
+    ) {
+      completeMatches.push(comparison);
+    } else if (matchesSpecialty) {
       alternatives.push(comparison);
     }
   }
 
-  return { completeMatches, alternatives };
+  return {
+    completeMatches,
+    alternatives,
+    specialtyMatches,
+    specialtyNonMatches,
+    specialtyPreference,
+  };
 }
 
 export function formatMxn(amount: number): string {
@@ -295,4 +383,12 @@ export function scheduleLabel(schedule: Schedule): string {
 
 export function genderLabel(gender: Exclude<GenderPreference, "sin-preferencia">): string {
   return { mujer: "mujer", hombre: "hombre" }[gender];
+}
+
+function normalizeSpecialty(specialty: string): string {
+  return specialty
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("es-MX");
 }

@@ -102,7 +102,34 @@ These are screenshots of local synthetic demonstrations. They show the code chan
 
 The initial canonical-page reload returned cached prior HTML. A cache-busting query on the same branded URL loaded the updated deployment. The live comparison then showed 1 complete match and 3 alternatives for the full-match scenario, and 0 complete matches with 4 alternatives plus the no-complete-match message for the stricter scenario. The page returned HTTP 200. This verifies the deployed interface behavior only; it is not evidence of participant retesting or improved user outcomes.
 
-### Post-push Vercel smoke check
+## Round 2 specialty-filter retest
+
+**Test date:** 2026-11-08
+**Environment:** Local production build in browser; all provider fixtures and preference values were simulated.
+
+### Browser scenarios
+
+- Selecting **Medicina general** returned 4 profiles in the exact-specialty group and 0 in the separated group. Each listed the selected specialty and retained the budget, distance, schedule, and gender comparisons.
+- Selecting **Cardiología** returned 0 matching profiles and 4 separately grouped general-medicine profiles. The page stated no exact specialty match, labeled each excluded profile as not matching, and omitted the simulated contact/appointment panel from those cards.
+- Selecting **Psiquiatría** returned 0 matching profiles and 4 separated profiles, with the no-specialty-match message.
+- Selecting **Sin preferencia** returned all 4 profiles in the existing comparison view with the original 4 preference rows and no specialty-specific groups.
+- At 390 px viewport width, the document remained 390 px wide with no horizontal overflow.
+- The no-preference default and existing four comparison criteria remain covered by unit tests. Specialty filtering compares listed labels only; it does not verify credentials or clinical suitability.
+
+### Automated results
+
+- `npm test`: passed (2 test files, 23 tests), covering exact specialty match, different and missing specialty handling, zero specialty matches, unsupported specialty validation, and unchanged budget/distance/schedule/gender checks.
+- `npm run lint`: passed.
+- `npm run build`: passed with Next.js 16.4.3.
+
+### Before/after evidence
+
+- [Before specialty filtering](./specialty-before.png): existing comparison workflow with no specialty preference field.
+- [After specialty filtering](./specialty-after.png): simulated cardiology filter with the no-match message and general-medicine profiles separated from specialty matches.
+
+The screenshots and checks demonstrate UI behavior only. The Round 2 participant has not been retested after this implementation; no performance improvement, clinical suitability, real provider specialty, booking, appointment time, or emergency service is claimed.
+
+### Initial Week 13 post-push Vercel smoke check (historical)
 
 **Live URL:** `https://rutasalud-w12.vercel.app/`
 **Source pushed to `main`:** `6a80dfb`

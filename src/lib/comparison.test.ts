@@ -12,6 +12,7 @@ const preferences: PatientPreferences = {
   maxDistanceKm: 5,
   schedule: "tarde",
   genderPreference: "mujer",
+  specialtyPreference: "sin-especialidad",
 };
 
 const provider: Provider = {
@@ -22,6 +23,7 @@ const provider: Provider = {
   schedules: ["tarde"],
   gender: "mujer",
   dataStatus: "simulated",
+  specialty: "Medicina general",
 };
 
 describe("compareProvider", () => {
@@ -110,12 +112,70 @@ describe("compareProvider", () => {
       true,
     );
   });
+
+  it("matches the selected specialty by its listed name only", () => {
+    const result = compareProvider(
+      { ...provider, specialty: "CARDIOLOGÍA" },
+      { ...preferences, specialtyPreference: "Cardiología" },
+    );
+
+    expect(result.constraints.find(({ key }) => key === "especialidad")).toMatchObject({
+      status: "coincide",
+      explanation: expect.stringContaining("no confirma idoneidad clínica"),
+    });
+  });
+
+  it("separates a different listed specialty from clinical alternatives", () => {
+    const result = compareProvider(provider, {
+      ...preferences,
+      specialtyPreference: "Cardiología",
+    });
+
+    expect(result.constraints.find(({ key }) => key === "especialidad")).toMatchObject({
+      status: "no-coincide",
+      explanation: expect.stringContaining("No se presenta como alternativa clínica"),
+    });
+  });
+
+  it("does not treat a missing listed specialty as a match", () => {
+    const result = compareProvider(
+      { ...provider, specialty: null },
+      { ...preferences, specialtyPreference: "Medicina general" },
+    );
+
+    expect(result.constraints.find(({ key }) => key === "especialidad")).toMatchObject({
+      status: "desconocido",
+      explanation: expect.stringContaining("no se indica"),
+    });
+  });
+
+  it("keeps budget, distance, schedule, and gender checks when specialty is selected", () => {
+    const result = compareProvider(
+      {
+        ...provider,
+        consultationPriceMxn: 1_500,
+        distanceKm: 9,
+        schedules: ["manana"],
+        gender: "hombre",
+      },
+      { ...preferences, specialtyPreference: "Medicina general" },
+    );
+
+    expect(
+      result.constraints
+        .filter(({ key }) => key !== "especialidad")
+        .map(({ status }) => status),
+    ).toEqual(["no-coincide", "no-coincide", "no-coincide", "no-coincide"]);
+    expect(result.constraints.find(({ key }) => key === "especialidad")?.status).toBe(
+      "coincide",
+    );
+  });
 });
 
 describe("summarizeComparisons", () => {
   it("counts a provider as a complete match only when every preference matches", () => {
     const result = compareProvider(provider, preferences);
-    const summary = summarizeComparisons([result]);
+    const summary = summarizeComparisons([result], preferences.specialtyPreference);
 
     expect(summary.completeMatches).toEqual([result]);
     expect(summary.alternatives).toEqual([]);
@@ -126,7 +186,7 @@ describe("summarizeComparisons", () => {
       { ...provider, schedules: null },
       preferences,
     );
-    const summary = summarizeComparisons([partial]);
+    const summary = summarizeComparisons([partial], preferences.specialtyPreference);
 
     expect(summary.completeMatches).toEqual([]);
     expect(summary.alternatives).toEqual([partial]);
@@ -141,10 +201,26 @@ describe("summarizeComparisons", () => {
       { ...provider, id: "perfil-no-verificado", dataStatus: "unverified" },
       preferences,
     );
-    const summary = summarizeComparisons([partial, unknown]);
+    const summary = summarizeComparisons(
+      [partial, unknown],
+      preferences.specialtyPreference,
+    );
 
     expect(summary.completeMatches).toHaveLength(0);
     expect(summary.alternatives).toEqual([partial, unknown]);
+  });
+
+  it("keeps nonmatching specialties separate when no listed specialty matches", () => {
+    const specialtyPreference = "Cardiología";
+    const results = compareProviders(
+      [provider, { ...provider, id: "perfil-general-2" }],
+      { ...preferences, specialtyPreference },
+    );
+    const summary = summarizeComparisons(results, specialtyPreference);
+
+    expect(summary.specialtyMatches).toHaveLength(0);
+    expect(summary.specialtyNonMatches).toEqual(results);
+    expect(summary.alternatives).toHaveLength(0);
   });
 });
 
@@ -156,6 +232,7 @@ describe("validatePreferences", () => {
         maxDistanceKm: "5.5",
         schedule: "tarde",
         genderPreference: "sin-preferencia",
+        specialtyPreference: "sin-especialidad",
       }),
     ).toEqual({
       valid: true,
@@ -164,6 +241,7 @@ describe("validatePreferences", () => {
         maxDistanceKm: 5.5,
         schedule: "tarde",
         genderPreference: "sin-preferencia",
+        specialtyPreference: "sin-especialidad",
       },
     });
   });
@@ -174,6 +252,7 @@ describe("validatePreferences", () => {
       maxDistanceKm: "101",
       schedule: "madrugada",
       genderPreference: "otro",
+      specialtyPreference: "Neurocirugía",
     });
 
     expect(result.valid).toBe(false);
@@ -183,6 +262,7 @@ describe("validatePreferences", () => {
         "maxDistanceKm",
         "schedule",
         "genderPreference",
+        "specialtyPreference",
       ]);
     }
   });

@@ -8,10 +8,12 @@ import {
   formatMxn,
   genderLabel,
   genderPreferences,
+  specialties,
   type ComparisonSummary,
   PatientPreferences,
   Provider,
   ProviderComparison,
+  SpecialtyPreference,
   schedules,
   summarizeComparisons,
   validatePreferences,
@@ -33,6 +35,7 @@ type FormValues = {
   maxDistanceKm: string;
   schedule: string;
   genderPreference: string;
+  specialtyPreference: string;
 };
 
 type ProviderResponse = {
@@ -45,6 +48,7 @@ const initialForm: FormValues = {
   maxDistanceKm: "",
   schedule: "",
   genderPreference: "sin-preferencia",
+  specialtyPreference: "sin-especialidad",
 };
 
 const statusLabels = {
@@ -128,10 +132,14 @@ export default function Home() {
   const [comparisons, setComparisons] = useState<ProviderComparison[] | null>(
     null,
   );
+  const [comparisonSpecialtyPreference, setComparisonSpecialtyPreference] =
+    useState<SpecialtyPreference>("sin-especialidad");
   const formRef = useRef<HTMLFormElement>(null);
   const focusInvalidField = useRef(false);
   const comparisonSummary =
-    comparisons === null ? null : summarizeComparisons(comparisons);
+    comparisons === null
+      ? null
+      : summarizeComparisons(comparisons, comparisonSpecialtyPreference);
 
   useEffect(() => {
     let active = true;
@@ -203,6 +211,7 @@ export default function Home() {
 
     setErrors({});
     focusInvalidField.current = false;
+    setComparisonSpecialtyPreference(result.value.specialtyPreference);
     setComparisons(compareProviders(providers, result.value));
   }
 
@@ -211,6 +220,7 @@ export default function Home() {
     setErrors({});
     focusInvalidField.current = false;
     setComparisons(null);
+    setComparisonSpecialtyPreference("sin-especialidad");
   }
 
   return (
@@ -359,6 +369,46 @@ export default function Home() {
               </div>
 
               <div className="field">
+                <label htmlFor="specialtyPreference">
+                  Especialidad de atención
+                </label>
+                <select
+                  id="specialtyPreference"
+                  name="specialtyPreference"
+                  value={form.specialtyPreference}
+                  onChange={(event) =>
+                    updateForm(
+                      "specialtyPreference",
+                      event.target.value,
+                    )
+                  }
+                  aria-invalid={Boolean(errors.specialtyPreference)}
+                  aria-describedby={
+                    errors.specialtyPreference
+                      ? "specialtyPreference-error specialtyPreference-hint"
+                      : "specialtyPreference-hint"
+                  }
+                  required
+                >
+                  <option value="sin-especialidad">Sin preferencia</option>
+                  {specialties.map((specialty) => (
+                    <option key={specialty} value={specialty}>
+                      {specialty}
+                    </option>
+                  ))}
+                </select>
+                <p className="field-hint" id="specialtyPreference-hint">
+                  Se compara solo el nombre de especialidad indicado en el
+                  perfil; no confirma idoneidad clínica.
+                </p>
+                {errors.specialtyPreference && (
+                  <p className="field-error" id="specialtyPreference-error">
+                    {errors.specialtyPreference}
+                  </p>
+                )}
+              </div>
+
+              <div className="field">
                 <label htmlFor="genderPreference">
                   Preferencia de profesional
                 </label>
@@ -465,12 +515,80 @@ export default function Home() {
                 {comparisonSummary && (
                   <ComparisonSummaryPanel summary={comparisonSummary} />
                 )}
-                {comparisons.map((comparison) => (
-                  <ComparisonCard
-                    comparison={comparison}
-                    key={comparison.provider.id}
-                  />
-                ))}
+                {comparisonSummary?.specialtyPreference !== "sin-especialidad" &&
+                  comparisonSummary && (
+                    <>
+                      <section
+                        className={`specialty-results-notice ${comparisonSummary.specialtyMatches.length === 0 ? "no-specialty-matches" : ""}`}
+                        aria-live="polite"
+                      >
+                        <h3>
+                          {comparisonSummary.specialtyMatches.length === 0
+                            ? `No encontramos perfiles que indiquen ${comparisonSummary.specialtyPreference}`
+                            : `${comparisonSummary.specialtyMatches.length} perfil${comparisonSummary.specialtyMatches.length === 1 ? "" : "es"} indica${comparisonSummary.specialtyMatches.length === 1 ? "" : "n"} ${comparisonSummary.specialtyPreference}`}
+                        </h3>
+                        <p>
+                          La etiqueta de especialidad se compara literalmente
+                          con el filtro y, en esta demo, los perfiles son
+                          simulados. Una coincidencia de nombre no verifica
+                          credenciales ni idoneidad clínica.
+                        </p>
+                      </section>
+
+                      {comparisonSummary.specialtyMatches.length > 0 && (
+                        <section
+                          className="specialty-group"
+                          aria-labelledby="specialty-matches-title"
+                        >
+                          <h3 id="specialty-matches-title">
+                            Perfiles que indican la especialidad elegida
+                          </h3>
+                          {comparisonSummary.specialtyMatches.map(
+                            (comparison) => (
+                              <ComparisonCard
+                                comparison={comparison}
+                                key={comparison.provider.id}
+                              />
+                            ),
+                          )}
+                        </section>
+                      )}
+
+                      {comparisonSummary.specialtyNonMatches.length > 0 && (
+                        <section
+                          className="specialty-group specialty-excluded-group"
+                          aria-labelledby="specialty-excluded-title"
+                        >
+                          <div className="specialty-excluded-notice">
+                            <h3 id="specialty-excluded-title">
+                              Otros perfiles: especialidad distinta o no disponible
+                            </h3>
+                            <p>
+                              Se separan para explicar el filtro. No se
+                              presentan como alternativas clínicas ni como
+                              opciones adecuadas para tu necesidad.
+                            </p>
+                          </div>
+                          {comparisonSummary.specialtyNonMatches.map(
+                            (comparison) => (
+                              <ComparisonCard
+                                comparison={comparison}
+                                key={comparison.provider.id}
+                                specialtyExcluded
+                              />
+                            ),
+                          )}
+                        </section>
+                      )}
+                    </>
+                  )}
+                {comparisonSummary?.specialtyPreference === "sin-especialidad" &&
+                  comparisons.map((comparison) => (
+                    <ComparisonCard
+                      comparison={comparison}
+                      key={comparison.provider.id}
+                    />
+                  ))}
                 <ClarityFeedback />
                 <p className="choice-note">
                   Esta comparación no es un diagnóstico ni una recomendación.
@@ -496,14 +614,19 @@ export default function Home() {
 
 function ComparisonCard({
   comparison,
+  specialtyExcluded = false,
 }: {
   comparison: ProviderComparison;
+  specialtyExcluded?: boolean;
 }) {
   const { provider, constraints } = comparison;
   const [demoStatus, setDemoStatus] =
     useState<DemoAppointmentStatus>("not-started");
   const compromises = constraints.filter(
     (constraint) => constraint.status !== "coincide",
+  );
+  const specialtyConstraint = constraints.find(
+    (constraint) => constraint.key === "especialidad",
   );
   const isCompleteMatch = compromises.length === 0;
   const isSimulated = provider.dataStatus === "simulated";
@@ -521,11 +644,13 @@ function ComparisonCard({
 
   return (
     <article
-      className={`provider-card ${isCompleteMatch ? "complete-match" : "alternative-match"}`}
+      className={`provider-card ${specialtyExcluded ? "specialty-excluded" : isCompleteMatch ? "complete-match" : "alternative-match"}`}
       aria-label={
-        isCompleteMatch
-          ? `${provider.name}: coincidencia completa`
-          : `${provider.name}: alternativa, ${compromises.length} preferencias por revisar`
+        specialtyExcluded
+          ? `${provider.name}: no coincide con la especialidad solicitada; no es una alternativa clínica`
+          : isCompleteMatch
+            ? `${provider.name}: coincidencia completa`
+            : `${provider.name}: alternativa para comparar preferencias, ${compromises.length} por revisar`
       }
     >
       <div className="provider-card-top">
@@ -546,10 +671,16 @@ function ComparisonCard({
                   : "Red no informada"}
               {isSimulated ? " · simulado" : ""}
             </span>
-            <span className={`fit-badge ${isCompleteMatch ? "complete" : "alternative"}`}>
-              {isCompleteMatch
-                ? "Coincidencia completa"
-                : `Alternativa · ${compromises.length} por revisar`}
+            <span
+              className={`fit-badge ${specialtyExcluded ? "specialty-excluded" : isCompleteMatch ? "complete" : "alternative"}`}
+            >
+              {specialtyExcluded
+                ? specialtyConstraint?.status === "desconocido"
+                  ? "Especialidad no disponible / no verificada"
+                  : "No coincide con especialidad"
+                : isCompleteMatch
+                  ? "Coincidencia completa"
+                  : `Alternativa · ${compromises.length} por revisar`}
             </span>
           </div>
         </div>
@@ -615,12 +746,14 @@ function ComparisonCard({
       </div>
 
       <div
-        className={`tradeoff-note ${isCompleteMatch ? "all-match" : ""}`}
+        className={`tradeoff-note ${isCompleteMatch && !specialtyExcluded ? "all-match" : ""} ${specialtyExcluded ? "specialty-tradeoff-note" : ""}`}
       >
         <strong>
-          {isCompleteMatch
-            ? "Según los datos simulados, coincide con tus criterios."
-            : "Esta alternativa no cumple todas tus preferencias."}
+          {specialtyExcluded
+            ? "Este perfil no coincide con la especialidad elegida y no se presenta como alternativa clínica."
+            : isCompleteMatch
+              ? "Según los datos simulados, coincide con tus criterios."
+              : "Esta alternativa para comparar preferencias no cumple todos tus criterios."}
         </strong>
         {!isCompleteMatch && (
           <ul>
@@ -637,6 +770,7 @@ function ComparisonCard({
         )}
       </div>
 
+      {!specialtyExcluded && (
       <section className="handoff-panel" aria-label={`Siguiente paso para ${provider.name}`}>
         <div className="handoff-heading">
           <div>
@@ -735,6 +869,7 @@ function ComparisonCard({
           </button>
         )}
       </section>
+      )}
     </article>
   );
 }
@@ -745,6 +880,19 @@ function ComparisonSummaryPanel({
   summary: ComparisonSummary;
 }) {
   const hasCompleteMatch = summary.completeMatches.length > 0;
+  const noSpecialtyMatch =
+    summary.specialtyPreference !== "sin-especialidad" &&
+    summary.specialtyMatches.length === 0;
+  const summaryDescription = noSpecialtyMatch
+    ? `No hay perfiles que indiquen ${summary.specialtyPreference}; los perfiles de otras especialidades se muestran separados y no como alternativas clínicas.`
+    : summary.alternatives.length > 0
+      ? summary.specialtyPreference === "sin-especialidad"
+        ? `Mostramos ${summary.alternatives.length} alternativa${summary.alternatives.length === 1 ? "" : "s"} aunque tenga${summary.alternatives.length === 1 ? "" : "n"} aspectos que no coinciden o son desconocidos, para que puedas revisar los motivos y decidir.`
+        : `Mostramos ${summary.alternatives.length} perfil${summary.alternatives.length === 1 ? "" : "es"} que indica${summary.alternatives.length === 1 ? "" : "n"} ${summary.specialtyPreference}; otros criterios pueden no coincidir o ser desconocidos.`
+      : summary.specialtyPreference !== "sin-especialidad" &&
+          summary.specialtyNonMatches.length > 0
+        ? `Los perfiles de otras especialidades siguen separados y no se presentan como alternativas clínicas. Los perfiles con ${summary.specialtyPreference} cumplen los criterios comparados.`
+        : "Todas las opciones mostradas coinciden con tus criterios según la información disponible.";
 
   return (
     <section
@@ -759,16 +907,14 @@ function ComparisonSummaryPanel({
             ? `${summary.completeMatches.length} opción${summary.completeMatches.length === 1 ? "" : "es"} coincide${summary.completeMatches.length === 1 ? "" : "n"} con todas tus preferencias`
             : "No encontramos una opción que coincida con todas tus preferencias"}
         </h3>
-        <p>
-          {summary.alternatives.length > 0
-            ? `Mostramos ${summary.alternatives.length} alternativa${summary.alternatives.length === 1 ? "" : "s"} aunque tenga${summary.alternatives.length === 1 ? "" : "n"} aspectos que no coinciden o son desconocidos, para que puedas revisar los motivos y decidir.`
-            : "Todas las opciones mostradas coinciden con tus criterios según la información disponible."}
-        </p>
+        <p>{summaryDescription}</p>
         {!hasCompleteMatch && (
           <p className="summary-next-step">
-            Siguiente paso: revisa en cada alternativa qué preferencia no coincide
-            o es desconocida, o cambia tus preferencias. Tú eliges; RutaSalud no
-            selecciona una opción por ti.
+            Siguiente paso:{" "}
+            {noSpecialtyMatch
+              ? "cambia la especialidad solicitada o revisa los otros filtros. RutaSalud no recomienda proveedores."
+              : "revisa qué preferencia no coincide o es desconocida, o cambia tus preferencias."}{" "}
+            Tú eliges; RutaSalud no selecciona una opción por ti.
           </p>
         )}
       </div>
@@ -776,6 +922,11 @@ function ComparisonSummaryPanel({
         {summary.alternatives.length > 0 && (
           <a href="#comparison-options">Revisar alternativas</a>
         )}
+        {summary.specialtyPreference !== "sin-especialidad" &&
+          summary.specialtyMatches.length === 0 &&
+          summary.specialtyNonMatches.length > 0 && (
+            <a href="#specialty-excluded-title">Ver perfiles separados</a>
+          )}
         <a href="#preferences-title">Cambiar preferencias</a>
       </nav>
     </section>
