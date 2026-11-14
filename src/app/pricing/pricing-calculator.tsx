@@ -13,6 +13,7 @@ import {
   type PricingValidationErrors,
 } from "@/lib/pricing";
 import styles from "./pricing.module.css";
+import PricingScenarios from "./pricing-scenarios";
 
 const numericFields: Array<{
   key: PricingNumericField;
@@ -394,6 +395,14 @@ export default function PricingCalculator() {
           )}
         </section>
 
+        <PricingScenarios
+          assumptions={assumptions}
+          canSave={isValid}
+          onLoad={(loaded) => {
+            setPlanId(loaded.planId);
+            setRaw(toRawAssumptions(loaded));
+          }}
+        />
       </main>
 
       <footer className={styles.footer}>
