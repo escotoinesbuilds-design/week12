@@ -90,6 +90,24 @@ a {
   font-size: 14px;
 }
 
+.site-navigation {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.site-navigation a {
+  color: var(--teal-dark);
+  font-size: 14px;
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+.site-navigation a:focus-visible {
+  outline: 3px solid #55aaa6;
+  outline-offset: 3px;
+}
+
 .main-content {
   width: min(1480px, 100%);
   margin: 0 auto;
@@ -1041,6 +1059,16 @@ a {
     max-width: 112px;
     font-size: 11px;
     text-align: right;
+  }
+
+  .site-navigation {
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .site-navigation a {
+    font-size: 12px;
   }
 
   .main-content {

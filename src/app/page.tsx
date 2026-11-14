@@ -232,7 +232,10 @@ export default function Home() {
           </span>
           <span>RutaSalud</span>
         </Link>
-        <span className="header-note">Comparación transparente</span>
+        <nav className="site-navigation" aria-label="Navegación principal">
+          <Link href="/pricing">Precios para clínicas</Link>
+          <span className="header-note">Comparación transparente</span>
+        </nav>
       </header>
 
       <main className="main-content mx-auto">
