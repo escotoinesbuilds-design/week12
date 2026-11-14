@@ -148,6 +148,15 @@ export function validatePricingAssumptions(
       !Number.isInteger(value)
     ) {
       errors[field] = "Ingresa un número entero de consultas atendidas.";
+      continue;
+    }
+
+    const stepUnits = (value - rule.min) / rule.step;
+    const nearestStep = Math.round(stepUnits);
+    const stepTolerance =
+      Number.EPSILON * Math.max(1, Math.abs(stepUnits)) * 8;
+    if (Math.abs(stepUnits - nearestStep) > stepTolerance) {
+      errors[field] = `Usa incrementos de ${rule.step.toLocaleString("es-MX")}.`;
     }
   }
 

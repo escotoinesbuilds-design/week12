@@ -27,4 +27,13 @@
 
 **Actual before fix:** The browser considered the input invalid, while the application considered it valid and displayed results. This is inconsistent validation and can produce an unintended projection.
 
-The regression test and follow-up deployment will be recorded after the fix. No persona test was conducted as part of this mechanical test.
+At the time of this live baseline, the bug was not yet fixed. Regression and deployment status are recorded below. No persona test was conducted as part of this mechanical test.
+
+## Fix and regression verification
+
+- **Fix:** The shared calculator validator now checks that every numeric assumption conforms to its declared step, using a floating-point tolerance. Staff hours such as `0.1` are rejected for a `0.25`-hour increment; `0.25` is accepted. Invalid values cannot reach the calculation.
+- **Regression test:** `src/lib/pricing.test.ts` verifies the `0.1` rejection, calculation refusal, and valid `0.25` calculation (`$27.50` administrative savings with the default `$110` hourly cost).
+- **Pre-deployment checks:** `npm run lint` passed; `npm test` passed (34 tests); `npm run build` passed and included the static `/pricing` route.
+- **Live status:** The first deployment exhibited the bug above. The second deployment and post-deployment browser retest are pending; no post-fix live result is claimed here.
+
+No persona test was conducted; that remains a separate activity.

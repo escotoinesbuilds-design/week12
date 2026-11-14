@@ -54,4 +54,24 @@ describe("pricing assumptions and calculations", () => {
       "No se puede calcular con supuestos inválidos.",
     );
   });
+
+  it("rejects staff-hour values that do not match the calculator's 0.25-hour step", () => {
+    const invalid = {
+      ...defaultPricingAssumptions,
+      staffHoursSaved: 0.1,
+    };
+    const valid = {
+      ...defaultPricingAssumptions,
+      staffHoursSaved: 0.25,
+    };
+
+    expect(validatePricingAssumptions(invalid).staffHoursSaved).toBe(
+      "Usa incrementos de 0.25.",
+    );
+    expect(() => calculatePricing(invalid)).toThrow(
+      "No se puede calcular con supuestos inválidos.",
+    );
+    expect(validatePricingAssumptions(valid).staffHoursSaved).toBeUndefined();
+    expect(calculatePricing(valid).administrativeSavings).toBe(27.5);
+  });
 });
