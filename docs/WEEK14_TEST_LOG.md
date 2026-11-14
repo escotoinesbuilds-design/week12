@@ -34,6 +34,7 @@ At the time of this live baseline, the bug was not yet fixed. Regression and dep
 - **Fix:** The shared calculator validator now checks that every numeric assumption conforms to its declared step, using a floating-point tolerance. Staff hours such as `0.1` are rejected for a `0.25`-hour increment; `0.25` is accepted. Invalid values cannot reach the calculation.
 - **Regression test:** `src/lib/pricing.test.ts` verifies the `0.1` rejection, calculation refusal, and valid `0.25` calculation (`$27.50` administrative savings with the default `$110` hourly cost).
 - **Pre-deployment checks:** `npm run lint` passed; `npm test` passed (34 tests); `npm run build` passed and included the static `/pricing` route.
-- **Live status:** The first deployment exhibited the bug above. The second deployment and post-deployment browser retest are pending; no post-fix live result is claimed here.
+- **Live status:** The second deployment is verified at <https://rutasalud-w12.vercel.app/pricing>. Browser interaction confirmed `0.1` staff hours is marked invalid with “Usa incrementos de 0.25.” and calculation results are withheld; `0.25` is accepted and updates the result. Basic still reports ratios as not applicable. A named scenario saved, survived refresh, reloaded its `0.25`-hour assumption, and deleted successfully. At 375 px the plan cards remained two columns with no horizontal overflow; no browser console/page errors were observed.
+- **Deployment count:** The first deployment reproduced the bug; the second deployment includes the fix and regression test.
 
 No persona test was conducted; that remains a separate activity.
