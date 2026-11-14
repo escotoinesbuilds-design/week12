@@ -143,6 +143,22 @@ export default function PricingCalculator() {
     () => (isValid ? calculatePricing(assumptions) : null),
     [assumptions, isValid],
   );
+  const conservativeCalculation = useMemo(() => {
+    const conservativeAssumptions = {
+      ...assumptions,
+      additionalAttendedConsultations: 0,
+      contributionProfitPerConsultation: 0,
+      staffHoursSaved: 0,
+      staffHourlyCost: 0,
+      monthlyPlatformOnboardingSupportCost: 0,
+    };
+
+    return Object.keys(
+      validatePricingAssumptions(conservativeAssumptions),
+    ).length === 0
+      ? calculatePricing(conservativeAssumptions)
+      : null;
+  }, [assumptions]);
   function updateNumber(field: PricingNumericField, value: string) {
     setRaw((current) => ({ ...current, [field]: value }));
   }
@@ -286,7 +302,11 @@ export default function PricingCalculator() {
             <>
               <div className={styles.resultGrid}>
                 <article className={styles.resultCard}>
-                  <h3>Valor estimado para la clínica</h3>
+                  <h3>Escenario estimado · tus supuestos</h3>
+                  <p className={styles.scenarioDescription}>
+                    Beneficios hipotéticos según las consultas y horas que
+                    ingresaste.
+                  </p>
                   <dl>
                     <div>
                       <dt>Contribución de consultas adicionales</dt>
@@ -296,15 +316,10 @@ export default function PricingCalculator() {
                       <dt>Ahorro administrativo estimado</dt>
                       <dd>{money(calculation.administrativeSavings)}</dd>
                     </div>
-                    <div className={styles.resultEmphasis}>
+                    <div>
                       <dt>Beneficio mensual estimado</dt>
                       <dd>{money(calculation.totalClinicBenefit)}</dd>
                     </div>
-                  </dl>
-                </article>
-                <article className={styles.resultCard}>
-                  <h3>Costos y valor neto de la clínica</h3>
-                  <dl>
                     <div>
                       <dt>Suscripción propuesta</dt>
                       <dd>{money(calculation.subscriptionExpense)}</dd>
@@ -330,6 +345,44 @@ export default function PricingCalculator() {
                       </dd>
                     </div>
                   </dl>
+                </article>
+                <article className={`${styles.resultCard} ${styles.conservativeCard}`}>
+                  <h3>Escenario conservador · sin beneficios demostrados</h3>
+                  <p className={styles.scenarioDescription}>
+                    Supone cero consultas adicionales y cero horas de ahorro
+                    administrativo. No es una predicción ni un resultado
+                    verificado.
+                  </p>
+                  {conservativeCalculation ? (
+                    <dl>
+                      <div>
+                        <dt>Beneficio considerado</dt>
+                        <dd>{money(conservativeCalculation.totalClinicBenefit)}</dd>
+                      </div>
+                      <div>
+                        <dt>Suscripción propuesta</dt>
+                        <dd>{money(conservativeCalculation.subscriptionExpense)}</dd>
+                      </div>
+                      <div>
+                        <dt>Implementación/soporte de la clínica</dt>
+                        <dd>
+                          {money(conservativeCalculation.clinicImplementationExpense)}
+                        </dd>
+                      </div>
+                      <div className={styles.resultEmphasis}>
+                        <dt>Resultado neto mensual conservador</dt>
+                        <dd>{money(conservativeCalculation.netClinicValue)}</dd>
+                      </div>
+                    </dl>
+                  ) : (
+                    <p className={styles.invalidNotice}>
+                      Corrige los costos para calcular este escenario.
+                    </p>
+                  )}
+                  <p className={styles.conservativeFormula}>
+                    $0 de beneficios − suscripción − costos mensuales de la
+                    clínica.
+                  </p>
                 </article>
                 <article className={styles.platformCard}>
                   <h3>Economía estimada de RutaSalud</h3>

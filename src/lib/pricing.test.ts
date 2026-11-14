@@ -42,6 +42,30 @@ describe("pricing assumptions and calculations", () => {
     expect(result.netRoiPercent).toBeNull();
   });
 
+  it("calculates the conservative outcome with no consultations or staff savings", () => {
+    const result = calculatePricing({
+      ...defaultPricingAssumptions,
+      additionalAttendedConsultations: 0,
+      staffHoursSaved: 0,
+    });
+
+    expect(result.totalClinicBenefit).toBe(0);
+    expect(result.subscriptionExpense).toBe(699);
+    expect(result.clinicImplementationExpense).toBe(0);
+    expect(result.netClinicValue).toBe(-699);
+  });
+
+  it("includes entered clinic costs in the conservative outcome", () => {
+    const result = calculatePricing({
+      ...defaultPricingAssumptions,
+      additionalAttendedConsultations: 0,
+      staffHoursSaved: 0,
+      monthlyClinicImplementationCost: 125,
+    });
+
+    expect(result.netClinicValue).toBe(-824);
+  });
+
   it.each([
     ["negative consultations", { additionalAttendedConsultations: -1 }],
     ["fractional consultations", { additionalAttendedConsultations: 1.5 }],

@@ -1,5 +1,13 @@
 # RutaSalud application decisions
 
+## Week 14 synthetic pricing persona finding and decision
+
+- **Finding:** A synthetic evaluation of five live `/pricing` screenshots described the calculator as understandable but said its default financial projections were not trusted because additional attended consultations and staff-time savings had not been demonstrated. This is synthetic feedback, not a real clinic session or willingness-to-pay evidence.
+- **Implemented response:** Show the user's adjustable estimate beside a clearly labeled conservative scenario with zero additional consultations and zero staff hours saved. The conservative net result subtracts the selected subscription and the clinic's entered monthly implementation/support costs. At Clinic Essentials ($699 MXN/month) with no other clinic costs, it is −$699 MXN/month. The scenario is expressly described as neither a prediction nor a verified outcome.
+- **Preserved behavior:** The existing adjustable calculation, formulas, and saved scenarios remain unchanged. No payment, integration, or external service was added.
+- **Developer verification boundary:** Local unit/browser checks and post-deploy verification assess implementation behavior only; Mariana did not test the improved version.
+- **Still unverified:** Whether any clinic will pay a specific tier price; whether additional attended consultations or staff-time savings occur; actual clinic/platform costs; whether proposed tools justify the subscription; and whether clinic users understand the new conservative comparison in real use.
+
 ## Week 13 implementation decisions
 
 - **Workflow boundary:** The handoff is a browser-local demonstration only. Prepared, sent, clinic-response, and confirmed examples are always labeled simulated; no notification, request, contact, or booking is transmitted or stored.
