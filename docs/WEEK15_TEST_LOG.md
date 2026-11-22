@@ -32,6 +32,18 @@ The official [November 2026 Next.js security release](https://nextjs.org/blog/no
 - Campaign files are static SVGs and can be downloaded from the launch page. All sample profiles, prices, distances, and schedules are clearly labeled fictitious or simulated. The graphics do not claim provider quality, verified availability, or a real/confirmed appointment.
 - No contact form, waitlist, medical-information field, tracking, or external service was added.
 
+## Post-push Vercel verification
+
+After pushing implementation commit `7237a11` to the existing `main` branch:
+
+- The existing canonical `https://rutasalud-w12.vercel.app/launch` returned HTTP 200 and rendered the Week 15 launch page.
+- `/launch/opengraph-image` returned HTTP 200 as `image/png`.
+- All six campaign SVG files under `/campaign/week15/` returned HTTP 200 as `image/svg+xml`.
+- The existing `/` comparison route and `/api/providers` returned HTTP 200.
+- In the live browser, the primary launch-page action navigated to `/#preferences-title`; the existing comparison form loaded and its comparison button was enabled.
+
+This confirms the existing Vercel deployment serves the implementation. It does not show that the campaign has been distributed to an audience.
+
 ## Distribution evidence boundary
 
 No campaign asset has been placed in a public channel or sent to an audience as part of this implementation. No audience exposure, reactions, participant sessions, or engagement are claimed. Completion still requires permitted placements of two pieces and the planned five-person, consented, anonymized usability test, with actual task completion, elapsed time, confusion, and evidence/next-step understanding recorded separately.

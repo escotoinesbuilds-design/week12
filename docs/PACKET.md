@@ -459,5 +459,6 @@ Application implementation in a later Week 15 step is accepted only if:
 - The three planned finished pieces are available as files under `public/campaign/week15/`: one square comparison graphic, four evidence-status carousel slides, and one vertical next-step graphic. Their copy and examples remain explicitly fictional/simulated.
 - The three other content concepts above remain purposeful sketches/headlines.
 - The page includes a generated PNG Open Graph image for sharing. No waitlist or contact form is present.
+- The existing Vercel URL serves `/launch`, its PNG share preview, and all campaign graphics after the Week 15 push.
 - Automated and local browser checks are recorded in [docs/WEEK15_TEST_LOG.md](./WEEK15_TEST_LOG.md). These are implementation checks, not evidence that the assets have reached an audience.
 - **Distribution remains incomplete:** no channel placement, audience exposure, participant task session, reaction, or engagement has been reported. The five-person consented test and two permitted placements remain required before claiming Week 15 success.

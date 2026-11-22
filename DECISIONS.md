@@ -6,7 +6,8 @@
 - **Campaign assets:** Created one finished graphic for each planned series: a square comparison example, a four-slide evidence carousel, and a vertical next-step checklist. All people, profiles, and prices in the graphics are explicitly fictitious or simulated. The three remaining packet headlines remain sketches.
 - **Privacy and distribution:** No waitlist, contact form, medical-data field, tracking, or external service was added. The assets are prepared for sharing, but no audience placement, exposure, response, or engagement has been recorded.
 - **Security fix:** The project used `next@16.4.3`, affected by the November 2026 Next.js security release. Updated Next.js and its paired `eslint-config-next` to the minimum patched 16.x release, `16.4.5`; React and other unrelated dependencies were not upgraded.
-- **Verification boundary:** Automated tests, lint, production build, local route/link checks, and responsive browser checks demonstrate software behavior only. They are not audience or distribution evidence.
+- **Deployment:** Pushed the implementation to the existing GitHub `main`; the existing Vercel URL now serves `/launch`, the PNG share preview, and all campaign graphics. The live comparison CTA reaches the enabled existing preference form.
+- **Verification boundary:** Automated tests, lint, production build, local/live route-link checks, and responsive browser checks demonstrate software behavior only. They are not audience or distribution evidence.
 
 ## Week 15 packet decisions
 
