@@ -7,11 +7,11 @@
 
 ## Evidence limits
 
-The project owner confirms promotional outreach messages were sent to participants and included the RutaSalud launch-page link and three feedback questions. The outreach date, specific channel, message count, delivery/open records, exact question wording, consent records, participant demographics, task script, and observation record were not supplied. This is owner-reported sending, not independent confirmation that each message was delivered, read, or opened.
+The project owner reports that all five participants agreed to participate voluntarily; both finished promotional graphics and the RutaSalud launch-page link were shared with them; and all five provided feedback and reported completing the comparison task. The outreach date, specific channel, message count, delivery/open records, exact question wording, formal consent records, participant demographics, task script, and observation record were not supplied. These confirmations are owner-reported, not independently verified delivery or website analytics. Task completion remains participant-reported.
 
-A screenshot of one outreach message was reviewed separately. It shows the promotional message, a launch-page link, and disclosure that provider profiles are simulated. The screenshot documents the content visible in that one message; it does not independently establish recipient delivery, an actual link click or visit, or distribution of two separate campaign graphics. The screenshot is not reproduced here.
+A screenshot of one outreach message was reviewed separately. It shows the promotional message, a launch-page link, and disclosure that provider profiles are simulated. The screenshot documents the content visible in that one message; it does not independently establish recipient delivery, an actual link click or visit, or sharing of both separate campaign graphics. The owner-reported sharing confirmation is recorded separately below. The screenshot is not reproduced here.
 
-The five responses below are self-reported reactions and hypothetical click intentions. They include preferences among graphic concepts, but do not establish that respondents saw the finished Week 15 assets. A separate set of task results reports self-described completion and simulation awareness; no independently observed site visit or task performance is available. No collection date or outreach channel is assigned to an individual response.
+The five responses below are self-reported reactions and hypothetical click intentions. They include preferences among graphic concepts; the owner separately reports that both finished Week 15 promotional graphics were shared with the participants. A separate set of task results reports self-described completion and simulation awareness; no independently observed site visit or task performance is available. No collection date or outreach channel is assigned to an individual response.
 
 “Would click” records stated intent only. The task reports below record participant-reported task completion, not independently observed completion or measured time. The notes do not establish actual clicks, impressions, conversions, engagement, or real-doctor verification. A prior technical check confirmed the public launch route was available; that check does not establish participant behavior. No such measures are inferred here.
 
@@ -19,9 +19,9 @@ The five responses below are self-reported reactions and hypothetical click inte
 
 | Evidence source | What it supports | What it does not support |
 |---|---|---|
-| Project-owner confirmation | Promotional messages were reportedly sent to participants with the launch-page link and three feedback questions. | Exact send date, specific channel, moderator/channel permission, number delivered, message opens, website exposure, or actual clicks. |
-| Separately reviewed screenshot of one message | The visible message included promotion, a launch-page link, and disclosure that provider profiles are simulated. | Delivery to a recipient, a link click or website visit, or proof that two separate campaign graphics were delivered or posted. |
-| Five anonymous response summaries | Self-reported understanding, visual preferences, and hypothetical click intentions, preserved below. | Consent records, independently verified exposure, actual clicks, conversions, or verified provider data. |
+| Project-owner confirmation | All five participants reportedly agreed voluntarily; both finished promotional graphics and the launch-page link were shared with them; all five provided feedback and reported completing the task. | Independent delivery receipts, exact date/channel/URL for each asset, moderator/account permission, measured website visits or clicks, or independently observed task completion. No formal consent records were supplied. |
+| Separately reviewed screenshot of one message | The visible message included promotion, a launch-page link, and disclosure that provider profiles are simulated. | Delivery to a recipient, a link click or website visit, or independent proof that both separate campaign graphics were shared. |
+| Five anonymous response summaries | Self-reported understanding, visual preferences, and hypothetical click intentions, preserved below. | Formal consent records, independently verified exposure, actual clicks, conversions, or verified provider data. |
 | Five-person task-results report | Self-reported task completion, approximate time, confusion, recognition of the simulated-data disclosure, and intended next action, recorded below. | Independently observed task performance or time, consent records, analytics, or verified provider data. |
 | Earlier technical route check | The public launch page and its comparison action were available during the prior technical check. | Whether any participant opened the link or completed a task. |
 
@@ -48,7 +48,7 @@ These are descriptive counts from the five supplied notes, not a representative 
 
 ## Five-person comparison-task results
 
-The following results are participant-reported. Completion and time are not independently observed or measured. No test date, task script, consent record, or per-participant outreach channel was provided.
+The following results are participant-reported. Completion and time are not independently observed or measured. The project owner confirms that all five participants agreed voluntarily; no formal consent records, test date, task script, or per-participant outreach channel were provided.
 
 | Participant | Completion | Reported time | Confusion or feedback | Simulation awareness | Reported next action |
 |---|---|---|---|---|---|
@@ -92,6 +92,6 @@ The three finished campaign assets, launch page, and Week 15 strategy are unchan
 
 ## Distribution status
 
-Promotional outreach is reported by the project owner, and one message's content was visible in a separately reviewed screenshot. Five participants later reported completing a comparison task and recognizing the simulation label, but these reports are not independent observation. The available evidence does not establish channel permission or placement of two distinct finished campaign pieces in permitted channels, and no consent records were supplied. Although the participants self-reported task completion, the available information does not establish that five consented participants opened the site.
+The project owner reports that all five participants agreed voluntarily, both finished promotional graphics and the launch-page link were shared with them, and all five provided feedback and reported completing the comparison task. One message's content was also visible in a separately reviewed screenshot. The sharing and consent confirmations are owner-reported; task completion remains participant-reported. The specific identities of the two assets and their associated channels, URLs, dates, and moderator/account permission are not documented, so placement in permitted channels is not established. No independent delivery receipts or measured website visits/clicks are available.
 
-Reported completion times, confusion, simulation awareness, and intended next actions are tabulated above; elapsed time and task outcomes were not independently measured or observed. Actual visits, clicks, impressions, conversions, appointments, and engagement are not claimed. The screenshot does not establish that two separate campaign graphics were delivered. Week 15 distribution success has not been demonstrated by the reported sending, screenshot, or self-reported results alone.
+Reported completion times, confusion, simulation awareness, and intended next actions are tabulated above; elapsed time and task outcomes were not independently measured or observed. Actual visits, clicks, impressions, conversions, appointments, and engagement are not claimed. The screenshot does not independently establish that both graphics were shared; that confirmation is owner-reported. The required record identifying each asset and its channel, URL, date, and permission context remains incomplete.
