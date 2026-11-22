@@ -50,6 +50,24 @@ The project owner confirms promotional outreach messages were sent to participan
 
 A screenshot of one outreach message was reviewed separately. It showed the promotional message, launch-page link, and disclosure that provider profiles are simulated. It documents the visible content of that one message only; it does not establish delivery, a link click, a visit, or delivery of two separate campaign graphics. The screenshot is not included in this repository.
 
-The five anonymous responses are documented in [docs/WEEK15_DISTRIBUTION_TEST.md](./WEEK15_DISTRIBUTION_TEST.md). They report self-described understanding, graphic preferences, and hypothetical click intent. They are not verified website visits, clicks, conversions, completed tasks, or provider verification.
+The five anonymous responses are documented in [docs/WEEK15_DISTRIBUTION_TEST.md](./WEEK15_DISTRIBUTION_TEST.md). They report self-described understanding, graphic preferences, and hypothetical click intent. The separate task reports below are also self-reported; neither set verifies site visits, clicks, conversions, or provider information.
 
-The available evidence does not establish placement of two distinct finished pieces in permitted channels or that five consented participants opened the website and completed the planned match/evidence/next-step task. Consent, independently established exposure, task success, elapsed time, confusion, and task-based understanding remain unreported. No impressions, actual clicks, conversions, or engagement are claimed; Week 15 distribution success remains unproven.
+## Five-person comparison-task feedback (self-reported)
+
+The five anonymous participants reported:
+
+| Participant | Completion | Approximate time | Confusion or feedback | Recognized simulated data | Stated next action |
+|---|---|---|---|---|---|
+| Person 1 | Yes | 2 minutes | Too much information at first; preferred name, specialty, and cost first. | Yes | Verify real doctor information and prices. |
+| Person 2 | Yes | 1–2 minutes | None reported; recognized the demonstration label. | Yes | Examine profile and availability before booking. |
+| Person 3 | Yes | 3 minutes | Too much results text; suggested better mobile organization. | Yes | Verify hospital affiliation and references. |
+| Person 4 | Yes | 2 minutes | Unclear what happens after choosing a doctor and how an appointment is booked. | Yes | Check actual availability and confirm price. |
+| Person 5 | Yes | 1.5 minutes | None reported. | Yes | Check credentials, experience, and availability. |
+
+All completion and time values above are participant-reported, not independently observed task outcomes or measured durations. The aggregate response is 5/5 reported completion, approximate times from 1 to 3 minutes, 5/5 reported recognizing simulation, two reports of information overload, one report of booking confusion, and two reports of no significant confusion. Person 3's original Spanish-language understanding response remains verbatim in the linked distribution record; no Spanish wording for this task feedback was provided or inferred.
+
+The responses indicate that people reported recognizing the simulation disclosure, while information density and booking guidance remain issues. The next actions are intended follow-ups only; they do not establish that a participant verified a doctor, price, hospital affiliation, credentials, or appointment availability.
+
+## Remaining distribution evidence
+
+The available evidence does not establish placement of two distinct finished pieces in permitted channels or provide consent records. Although all five participants self-reported task completion, the available information does not establish that five consented participants opened the site, and it does not independently verify task behavior or time. Confusion, simulation awareness, and next actions are documented as self-reports; there is no verified website analytics. No impressions, actual clicks, conversions, confirmed appointments, or engagement are claimed; Week 15 distribution success remains unproven.

@@ -11,9 +11,9 @@ The project owner confirms promotional outreach messages were sent to participan
 
 A screenshot of one outreach message was reviewed separately. It shows the promotional message, a launch-page link, and disclosure that provider profiles are simulated. The screenshot documents the content visible in that one message; it does not independently establish recipient delivery, an actual link click or visit, or distribution of two separate campaign graphics. The screenshot is not reproduced here.
 
-The five responses below are self-reported reactions and hypothetical click intentions. They include preferences among graphic concepts, but do not establish that respondents saw the finished Week 15 assets or visited the launch page. No collection date or outreach channel is assigned to an individual response.
+The five responses below are self-reported reactions and hypothetical click intentions. They include preferences among graphic concepts, but do not establish that respondents saw the finished Week 15 assets. A separate set of task results reports self-described completion and simulation awareness; no independently observed site visit or task performance is available. No collection date or outreach channel is assigned to an individual response.
 
-“Would click” records stated intent only. These notes do not establish actual clicks, website visits, impressions, conversions, completed tasks, engagement, or real-doctor verification. A prior technical check confirmed the public launch route was available; that check does not establish participant behavior. No such measures are inferred here.
+“Would click” records stated intent only. The task reports below record participant-reported task completion, not independently observed completion or measured time. The notes do not establish actual clicks, impressions, conversions, engagement, or real-doctor verification. A prior technical check confirmed the public launch route was available; that check does not establish participant behavior. No such measures are inferred here.
 
 ## Outreach evidence record
 
@@ -21,7 +21,8 @@ The five responses below are self-reported reactions and hypothetical click inte
 |---|---|---|
 | Project-owner confirmation | Promotional messages were reportedly sent to participants with the launch-page link and three feedback questions. | Exact send date, specific channel, moderator/channel permission, number delivered, message opens, website exposure, or actual clicks. |
 | Separately reviewed screenshot of one message | The visible message included promotion, a launch-page link, and disclosure that provider profiles are simulated. | Delivery to a recipient, a link click or website visit, or proof that two separate campaign graphics were delivered or posted. |
-| Five anonymous response summaries | Self-reported understanding, visual preferences, and hypothetical click intentions, preserved below. | Consent records, completed tasks, independently verified exposure, actual clicks, conversions, or verified provider data. |
+| Five anonymous response summaries | Self-reported understanding, visual preferences, and hypothetical click intentions, preserved below. | Consent records, independently verified exposure, actual clicks, conversions, or verified provider data. |
+| Five-person task-results report | Self-reported task completion, approximate time, confusion, recognition of the simulated-data disclosure, and intended next action, recorded below. | Independently observed task performance or time, consent records, analytics, or verified provider data. |
 | Earlier technical route check | The public launch page and its comparison action were available during the prior technical check. | Whether any participant opened the link or completed a task. |
 
 ## Anonymous responses
@@ -45,6 +46,32 @@ The five responses below are self-reported reactions and hypothetical click inte
 
 These are descriptive counts from the five supplied notes, not a representative sample, measured usability result, or evidence that the launch page improved understanding.
 
+## Five-person comparison-task results
+
+The following results are participant-reported. Completion and time are not independently observed or measured. No test date, task script, consent record, or per-participant outreach channel was provided.
+
+| Participant | Completion | Reported time | Confusion or feedback | Simulation awareness | Reported next action |
+|---|---|---|---|---|---|
+| Person 1 | Yes, self-reported. | Approximately 2 minutes. | Too much information in the initial doctor comparison; preferred seeing name, specialty, and cost first. | Yes. | Verify real doctor information and prices before deciding. |
+| Person 2 | Yes, self-reported. | Approximately 1–2 minutes. | None reported. | Yes; recognized the demonstration label. | Examine the doctor's profile and availability before booking. |
+| Person 3 | Yes, self-reported. | Approximately 3 minutes. | Too much text in the doctor results; suggested better mobile organization. | Yes. | Verify the doctor's hospital affiliation and references. |
+| Person 4 | Yes, self-reported. | Approximately 2 minutes. | Unclear what happens after choosing a doctor and how an appointment would be booked. | Yes. | Check actual availability and confirm consultation price. |
+| Person 5 | Yes, self-reported. | Approximately 1.5 minutes. | None reported. | Yes. | Check credentials, experience, and appointment availability. |
+
+Person 3's previously supplied Spanish-language understanding response remains verbatim in the anonymous responses table above. No Spanish-language wording for this separate task feedback was supplied or created.
+
+### Summary and interpretation
+
+- **5/5** reported completing the comparison task; these are self-reports, not independently observed results.
+- Reported times ranged from approximately **1 to 3 minutes**; these are participant estimates, not measured durations.
+- **5/5** reported recognizing that doctor information was simulated.
+- **2/5** mentioned information overload (Persons 1 and 3).
+- **1/5** mentioned booking confusion (Person 4).
+- **2/5** reported no significant confusion (Persons 2 and 5).
+- Reported next actions emphasized independent checks of real prices, availability, profiles, credentials, experience, affiliation, or references. These intentions do not verify any doctor information or show that follow-up occurred.
+
+The self-reports suggest that the simulation disclosure was noticed, while result density and booking guidance remain concerns. They do not establish that the disclosure was effective for every user, that the live site or its analytics recorded visits, or that any person booked an appointment.
+
 ## Evaluation of Week 15 brand decisions
 
 | Existing decision | What these responses suggest | Evaluation and boundary |
@@ -65,6 +92,6 @@ The three finished campaign assets, launch page, and Week 15 strategy are unchan
 
 ## Distribution status
 
-Promotional outreach is reported by the project owner, and one message's content was visible in a separately reviewed screenshot. The available evidence does not establish channel permission or placement of two distinct finished campaign pieces in permitted channels. It also does not establish that five consented participants opened the launch page or completed the planned match/evidence/next-step task.
+Promotional outreach is reported by the project owner, and one message's content was visible in a separately reviewed screenshot. Five participants later reported completing a comparison task and recognizing the simulation label, but these reports are not independent observation. The available evidence does not establish channel permission or placement of two distinct finished campaign pieces in permitted channels, and no consent records were supplied. Although the participants self-reported task completion, the available information does not establish that five consented participants opened the site.
 
-Still unreported are consent records, independently established website exposure, task completion, elapsed time, observed confusion, and task-based understanding of evidence status and next step. Actual visits, clicks, impressions, conversions, and engagement are not claimed. Week 15 distribution success has not been demonstrated by the reported sending, screenshot, or self-reported responses alone.
+Reported completion times, confusion, simulation awareness, and intended next actions are tabulated above; elapsed time and task outcomes were not independently measured or observed. Actual visits, clicks, impressions, conversions, appointments, and engagement are not claimed. The screenshot does not establish that two separate campaign graphics were delivered. Week 15 distribution success has not been demonstrated by the reported sending, screenshot, or self-reported results alone.
