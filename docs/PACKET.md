@@ -194,6 +194,7 @@ The prior evidence is limited and mostly user-reported:
 - A separate returned participant reported that the specialty was too broad and asked to sort or narrow by specialization.
 - The comparison and specialty fixes were implemented and mechanically/live-deployment checked, but no identified participant has been reported as retesting either fix.
 - Therefore, the evidence supports specific **hypotheses** to test, not a claim that clarity, confidence, specialty filtering, or booking understanding improved.
+- Five anonymous audience responses were later supplied: all five described RutaSalud's basic value proposition and stated a hypothetical willingness to click, subject to their stated conditions. Verification/trust, simpler comparison visuals, stronger contrast, and booking clarity appeared in the feedback. The collection context does not establish actual website or campaign-asset exposure, clicks, task completion, or verified provider data; details are recorded in [docs/WEEK15_DISTRIBUTION_TEST.md](./WEEK15_DISTRIBUTION_TEST.md).
 
 ### Promise we will not make
 
@@ -461,4 +462,5 @@ Application implementation in a later Week 15 step is accepted only if:
 - The page includes a generated PNG Open Graph image for sharing. No waitlist or contact form is present.
 - The existing Vercel URL serves `/launch`, its PNG share preview, and all campaign graphics after the Week 15 push.
 - Automated and local browser checks are recorded in [docs/WEEK15_TEST_LOG.md](./WEEK15_TEST_LOG.md). These are implementation checks, not evidence that the assets have reached an audience.
-- **Distribution remains incomplete:** no channel placement, audience exposure, participant task session, reaction, or engagement has been reported. The five-person consented test and two permitted placements remain required before claiming Week 15 success.
+- **Qualitative responses:** Five anonymous audience-response summaries are recorded in [docs/WEEK15_DISTRIBUTION_TEST.md](./WEEK15_DISTRIBUTION_TEST.md). They are self-reported understanding and hypothetical click intentions, not verified exposure to the website or finished assets, visits, clicks, conversions, or completed tasks.
+- **Distribution remains incomplete:** no documented channel placement, verified website exposure, consented task completion, or engagement evidence was supplied. The two permitted placements and the planned five-person task test with actual task, time, confusion, and evidence/next-step observations remain required before claiming Week 15 success.

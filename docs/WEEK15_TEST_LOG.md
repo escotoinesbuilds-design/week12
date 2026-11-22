@@ -46,4 +46,6 @@ This confirms the existing Vercel deployment serves the implementation. It does 
 
 ## Distribution evidence boundary
 
-No campaign asset has been placed in a public channel or sent to an audience as part of this implementation. No audience exposure, reactions, participant sessions, or engagement are claimed. Completion still requires permitted placements of two pieces and the planned five-person, consented, anonymized usability test, with actual task completion, elapsed time, confusion, and evidence/next-step understanding recorded separately.
+Five anonymous audience-response summaries were subsequently supplied and documented in [docs/WEEK15_DISTRIBUTION_TEST.md](./WEEK15_DISTRIBUTION_TEST.md). All five describe the basic RutaSalud value proposition and report hypothetical click willingness subject to stated conditions. These are self-reported reactions, not verified website visits, clicks, conversions, completed tasks, or provider verification. The response collection date, channel, consent record, participant demographics, and whether respondents saw the launch page or finished campaign files were not provided.
+
+No evidence of permitted public-channel placement, impressions, actual clicks, completed participant tasks, elapsed times, or engagement was supplied. The planned two placements and five-person consented, anonymized task test remain incomplete; Week 15 distribution success is not claimed.
