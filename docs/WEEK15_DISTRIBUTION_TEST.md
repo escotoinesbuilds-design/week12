@@ -1,4 +1,4 @@
-# Week 15 qualitative audience responses
+# Week 15 distribution evidence and qualitative responses
 
 **Documentation date:** 2026-11-22
 
@@ -7,9 +7,22 @@
 
 ## Evidence limits
 
-The five responses below are self-reported reactions and hypothetical click intentions. No collection date, recruitment method, outreach channel, consent record, participant demographics, task script, or observation record was supplied. The responses include preferences among graphic concepts, but the supplied notes do not establish whether the respondents saw the finished Week 15 assets or visited the launch page.
+The project owner confirms promotional outreach messages were sent to participants and included the RutaSalud launch-page link and three feedback questions. The outreach date, specific channel, message count, delivery/open records, exact question wording, consent records, participant demographics, task script, and observation record were not supplied. This is owner-reported sending, not independent confirmation that each message was delivered, read, or opened.
 
-“Would click” records stated intent only. These notes do not establish actual clicks, website visits, impressions, conversions, completed tasks, engagement, or real-doctor verification. No such measures are inferred here.
+A screenshot of one outreach message was reviewed separately. It shows the promotional message, a launch-page link, and disclosure that provider profiles are simulated. The screenshot documents the content visible in that one message; it does not independently establish recipient delivery, an actual link click or visit, or distribution of two separate campaign graphics. The screenshot is not reproduced here.
+
+The five responses below are self-reported reactions and hypothetical click intentions. They include preferences among graphic concepts, but do not establish that respondents saw the finished Week 15 assets or visited the launch page. No collection date or outreach channel is assigned to an individual response.
+
+“Would click” records stated intent only. These notes do not establish actual clicks, website visits, impressions, conversions, completed tasks, engagement, or real-doctor verification. A prior technical check confirmed the public launch route was available; that check does not establish participant behavior. No such measures are inferred here.
+
+## Outreach evidence record
+
+| Evidence source | What it supports | What it does not support |
+|---|---|---|
+| Project-owner confirmation | Promotional messages were reportedly sent to participants with the launch-page link and three feedback questions. | Exact send date, specific channel, moderator/channel permission, number delivered, message opens, website exposure, or actual clicks. |
+| Separately reviewed screenshot of one message | The visible message included promotion, a launch-page link, and disclosure that provider profiles are simulated. | Delivery to a recipient, a link click or website visit, or proof that two separate campaign graphics were delivered or posted. |
+| Five anonymous response summaries | Self-reported understanding, visual preferences, and hypothetical click intentions, preserved below. | Consent records, completed tasks, independently verified exposure, actual clicks, conversions, or verified provider data. |
+| Earlier technical route check | The public launch page and its comparison action were available during the prior technical check. | Whether any participant opened the link or completed a task. |
 
 ## Anonymous responses
 
@@ -52,4 +65,6 @@ The three finished campaign assets, launch page, and Week 15 strategy are unchan
 
 ## Distribution status
 
-This response summary does not establish that campaign assets were placed in permitted channels, that the launch page received visits, or that five people completed the planned task. Channel permission, actual exposure, consented task completion, elapsed time, confusion, and evidence/next-step understanding remain unreported. Week 15 distribution success has not been demonstrated by these responses.
+Promotional outreach is reported by the project owner, and one message's content was visible in a separately reviewed screenshot. The available evidence does not establish channel permission or placement of two distinct finished campaign pieces in permitted channels. It also does not establish that five consented participants opened the launch page or completed the planned match/evidence/next-step task.
+
+Still unreported are consent records, independently established website exposure, task completion, elapsed time, observed confusion, and task-based understanding of evidence status and next step. Actual visits, clicks, impressions, conversions, and engagement are not claimed. Week 15 distribution success has not been demonstrated by the reported sending, screenshot, or self-reported responses alone.

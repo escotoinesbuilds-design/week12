@@ -42,10 +42,14 @@ After pushing implementation commit `7237a11` to the existing `main` branch:
 - The existing `/` comparison route and `/api/providers` returned HTTP 200.
 - In the live browser, the primary launch-page action navigated to `/#preferences-title`; the existing comparison form loaded and its comparison button was enabled.
 
-This confirms the existing Vercel deployment serves the implementation. It does not show that the campaign has been distributed to an audience.
+This confirms the existing Vercel deployment serves the implementation. It does not show that participants opened the page or completed a task.
 
-## Distribution evidence boundary
+## Post-launch reported outreach and evidence boundary
 
-Five anonymous audience-response summaries were subsequently supplied and documented in [docs/WEEK15_DISTRIBUTION_TEST.md](./WEEK15_DISTRIBUTION_TEST.md). All five describe the basic RutaSalud value proposition and report hypothetical click willingness subject to stated conditions. These are self-reported reactions, not verified website visits, clicks, conversions, completed tasks, or provider verification. The response collection date, channel, consent record, participant demographics, and whether respondents saw the launch page or finished campaign files were not provided.
+The project owner confirms promotional outreach messages were sent to participants with the RutaSalud launch-page link and three feedback questions. The exact send date, specific channel, message count, channel permission, delivery/open records, exact wording of the questions, and consent records were not supplied. This is reported outreach, not independent evidence that recipients received or opened messages or visited the site.
 
-No evidence of permitted public-channel placement, impressions, actual clicks, completed participant tasks, elapsed times, or engagement was supplied. The planned two placements and five-person consented, anonymized task test remain incomplete; Week 15 distribution success is not claimed.
+A screenshot of one outreach message was reviewed separately. It showed the promotional message, launch-page link, and disclosure that provider profiles are simulated. It documents the visible content of that one message only; it does not establish delivery, a link click, a visit, or delivery of two separate campaign graphics. The screenshot is not included in this repository.
+
+The five anonymous responses are documented in [docs/WEEK15_DISTRIBUTION_TEST.md](./WEEK15_DISTRIBUTION_TEST.md). They report self-described understanding, graphic preferences, and hypothetical click intent. They are not verified website visits, clicks, conversions, completed tasks, or provider verification.
+
+The available evidence does not establish placement of two distinct finished pieces in permitted channels or that five consented participants opened the website and completed the planned match/evidence/next-step task. Consent, independently established exposure, task success, elapsed time, confusion, and task-based understanding remain unreported. No impressions, actual clicks, conversions, or engagement are claimed; Week 15 distribution success remains unproven.
