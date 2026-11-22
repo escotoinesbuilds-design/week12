@@ -1,5 +1,20 @@
 # RutaSalud application decisions
 
+## Week 15 packet decisions
+
+- **Packet boundary:** This commit documents the Week 15 distribution and launch strategy only. It does not implement campaign assets, website changes, analytics, contact storage, or deployment changes.
+- **Patient position:** RutaSalud remains free for patients. The exact promise is transparent consultation-information comparison and clear evidence/next-step presentation, not a promise of a verified match or the best doctor.
+- **Evidence position:** Existing findings from six reported real-person feedback sessions and the returned participant's specialty comment are hypotheses and user reports, not validated improvements or measured outcomes. No post-fix participant retest is claimed.
+- **Price and appointment boundaries:** All provider, price, and availability examples in Week 15 planning remain fictional or simulated unless independently evidenced. No page may state that an appointment is confirmed or that an appointment can be booked without evidence.
+- **Patient independence:** Clinic payment must not change ranking or verification standards. RutaSalud must not collect medical information or use it for comparison.
+- **Distribution boundary:** The proposed test uses two permitted, consent-conscious placements and five consented anonymized participants as the planned sample. Distribution success requires a real route check and separately recorded task, time, confusion, and evidence/next-step understanding.
+- **Stack boundary:** Reuse the existing Next.js/React/Tailwind repository, public read-only provider patterns, GitHub repository, and Vercel deployment path. Do not add a project, repository, API key, or unnecessary package.
+- **Clinic model:** Small-clinic willingness to pay is unproven. Clinic payment evidence will remain distinct from positive feedback or intent.
+
+## Week 15 next action
+
+After this packet commit, pause application and marketing work until the implementation assignment is requested. If implementation proceeds, it should first preserve existing code and behavior, add only the approved working next action, and test the exact two-piece distribution on permitted channels. Do not collect names, contact details, or health details unless a separate informed, purpose-specific opt-in implementation is approved and a real notice, retention, and deletion process exists.
+
 ## Week 14 synthetic pricing persona finding and decision
 
 - **Finding:** A synthetic evaluation of five live `/pricing` screenshots described the calculator as understandable but said its default financial projections were not trusted because additional attended consultations and staff-time savings had not been demonstrated. This is synthetic feedback, not a real clinic session or willingness-to-pay evidence.
