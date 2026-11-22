@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="title description">
+  <title id="title">Carrusel: evidencia necesaria, lámina 2</title>
+  <desc id="description">Para describir un precio como confirmado se requiere confirmación de la clínica, fuente trazable y fecha; el ejemplo mostrado sigue siendo ficticio.</desc>
+  <rect width="1080" height="1080" fill="#f3f6f9"/>
+  <rect x="54" y="54" width="972" height="972" rx="40" fill="#ffffff" stroke="#d3dee8" stroke-width="3"/>
+  <rect x="88" y="88" width="372" height="52" rx="26" fill="#805c0a"/>
+  <text x="274" y="123" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle" letter-spacing="1">EJEMPLO FICTICIO</text>
+  <text x="88" y="216" fill="#066863" font-family="Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="2">QUÉ ESTÁ CONFIRMADO · 2/4</text>
+  <text x="88" y="315" fill="#1b2f49" font-family="Arial, sans-serif" font-size="61" font-weight="700">¿Qué evidencia hace falta?</text>
+  <rect x="88" y="385" width="904" height="111" rx="18" fill="#edf6f5"/>
+  <circle cx="142" cy="441" r="25" fill="#087c78"/>
+  <text x="142" y="451" fill="#ffffff" font-family="Arial, sans-serif" font-size="29" font-weight="700" text-anchor="middle">1</text>
+  <text x="193" y="451" fill="#1b2f49" font-family="Arial, sans-serif" font-size="29" font-weight="700">Confirmación de la clínica</text>
+  <rect x="88" y="518" width="904" height="111" rx="18" fill="#edf6f5"/>
+  <circle cx="142" cy="574" r="25" fill="#087c78"/>
+  <text x="142" y="584" fill="#ffffff" font-family="Arial, sans-serif" font-size="29" font-weight="700" text-anchor="middle">2</text>
+  <text x="193" y="584" fill="#1b2f49" font-family="Arial, sans-serif" font-size="29" font-weight="700">Una fuente que se pueda rastrear</text>
+  <rect x="88" y="651" width="904" height="111" rx="18" fill="#edf6f5"/>
+  <circle cx="142" cy="707" r="25" fill="#087c78"/>
+  <text x="142" y="717" fill="#ffffff" font-family="Arial, sans-serif" font-size="29" font-weight="700" text-anchor="middle">3</text>
+  <text x="193" y="717" fill="#1b2f49" font-family="Arial, sans-serif" font-size="29" font-weight="700">La fecha de esa información</text>
+  <text x="88" y="839" fill="#1b2f49" font-family="Arial, sans-serif" font-size="27" font-weight="700">Esta pieza no contiene evidencia real.</text>
+  <text x="88" y="892" fill="#52657b" font-family="Arial, sans-serif" font-size="25">Las cifras de ejemplo siguen siendo simuladas.</text>
+  <text x="88" y="974" fill="#066863" font-family="Arial, sans-serif" font-size="24" font-weight="700">RutaSalud · rutasalud-w12.vercel.app/launch</text>
+</svg>

@@ -278,9 +278,9 @@ The three finished concepts 1, 3, and 5 are the planned campaign assets. Concept
 
 | Asset | Series | Format | Contents |
 |---|---|---|---|
-| A: complete-match card | Qué significa la coincidencia | 1080 × 1080 social graphic | Count of complete matches, an alternative label explanation, and link to `/comparison` |
-| B: evidence-status carousel | Qué está confirmado | 4-slide Instagram/WhatsApp-ready carousel | Source/date/missing status examples, all explicitly simulated for launch testing, and link to `/` |
-| C: next-step checklist | Después, tú decides | Mobile vertical 1080 × 1920 graphic | Review fields, do not infer confirmation, and a visible “Revisar opciones” link |
+| A: complete-match card | Qué significa la coincidencia | 1080 × 1080 social graphic | Count of complete matches, an alternative label explanation, and link to `/launch` |
+| B: evidence-status carousel | Qué está confirmado | 4-slide Instagram/WhatsApp-ready carousel | Source/date/missing status examples, all explicitly simulated for launch testing, and link to `/launch` |
+| C: next-step checklist | Después, tú decides | Mobile vertical 1080 × 1920 graphic | Review fields, do not infer confirmation, and a visible `/launch` link |
 
 All price and provider examples used in campaign assets must be fictional/simulated, marked as such, and must not resemble a real clinic claim. The three assets use at least two formats: square graphic, carousel, and vertical graphic.
 
@@ -346,7 +346,7 @@ Week 15 succeeds only if, before the campaign package closes, two planned pieces
 - No sensitive medical information, diagnosis, or clinical record collection.
 - No payments, CRM, analytics that identify users, ad platform account, database, API, secret, or third-party tracking integration.
 - No new project, repository, API key, or deployment target.
-- No implementation of the campaign assets until an explicit later assignment step.
+- No waitlist/contact collection, paid advertising account, or campaign assets beyond the three planned Week 15 pieces.
 
 ### Architecture and stack
 
@@ -354,7 +354,7 @@ Reuse the existing Next.js/React/Tailwind application, browser-only state, Supab
 
 | Area | Existing/reused choice | Week 15 boundary |
 |---|---|---|
-| Application | Existing Next.js and React app | Add only a future explicit next-action or opt-in implementation after this packet commit |
+| Application | Existing Next.js and React app | Public `/launch` page; primary CTA links to the existing `/#preferences-title` comparison form |
 | Styling | Existing Tailwind CSS | Mobile-first, accessible evidence labels, no new design system |
 | Data | Existing fictional/unverified provider patterns and optional read-only Supabase | No live verification claims or patient storage |
 | Analytics | None; use optional aggregate link parameters or test counts only if approved | No cross-site identifiers, sensitive fields, or invented performance |
@@ -452,3 +452,12 @@ Application implementation in a later Week 15 step is accepted only if:
 6. No wording claims “best,” confirmed availability, confirmed appointment, real user improvement, or validated willingness to pay.
 7. Any future opt-in contact field is explicit, purpose-specific, separately consented, and has a real notice, retention, and withdrawal path.
 8. Automated tests, lint, build, mobile smoke checks, and an actual distribution record pass before the campaign is described as tested.
+
+### Implementation status
+
+- The existing application now serves the public launch page at `/launch`. Its primary action links to the existing comparison workflow; no separate project or deployment was created.
+- The three planned finished pieces are available as files under `public/campaign/week15/`: one square comparison graphic, four evidence-status carousel slides, and one vertical next-step graphic. Their copy and examples remain explicitly fictional/simulated.
+- The three other content concepts above remain purposeful sketches/headlines.
+- The page includes a generated PNG Open Graph image for sharing. No waitlist or contact form is present.
+- Automated and local browser checks are recorded in [docs/WEEK15_TEST_LOG.md](./WEEK15_TEST_LOG.md). These are implementation checks, not evidence that the assets have reached an audience.
+- **Distribution remains incomplete:** no channel placement, audience exposure, participant task session, reaction, or engagement has been reported. The five-person consented test and two permitted placements remain required before claiming Week 15 success.

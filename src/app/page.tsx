@@ -233,6 +233,7 @@ export default function Home() {
           <span>RutaSalud</span>
         </Link>
         <nav className="site-navigation" aria-label="Navegación principal">
+          <Link href="/launch">Conoce RutaSalud</Link>
           <Link href="/pricing">Precios para clínicas</Link>
           <span className="header-note">Comparación transparente</span>
         </nav>

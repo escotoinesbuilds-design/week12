@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="title description">
+  <title id="title">Carrusel: qué está confirmado, lámina 1</title>
+  <desc id="description">Portada educativa de demostración sobre distinguir información confirmada, incierta y simulada.</desc>
+  <rect width="1080" height="1080" fill="#f3f6f9"/>
+  <rect x="54" y="54" width="972" height="972" rx="40" fill="#ffffff" stroke="#d3dee8" stroke-width="3"/>
+  <rect x="88" y="88" width="372" height="52" rx="26" fill="#805c0a"/>
+  <text x="274" y="123" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle" letter-spacing="1">EJEMPLO FICTICIO</text>
+  <text x="88" y="216" fill="#066863" font-family="Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="2">QUÉ ESTÁ CONFIRMADO · 1/4</text>
+  <text x="88" y="327" fill="#1b2f49" font-family="Arial, sans-serif" font-size="66" font-weight="700">¿Qué sabemos</text>
+  <text x="88" y="404" fill="#1b2f49" font-family="Arial, sans-serif" font-size="66" font-weight="700">de esta cifra?</text>
+  <rect x="88" y="478" width="904" height="250" rx="24" fill="#fff8e6" stroke="#efd99f" stroke-width="2"/>
+  <text x="132" y="553" fill="#604d21" font-family="Arial, sans-serif" font-size="29" font-weight="700">Consulta de muestra</text>
+  <text x="132" y="642" fill="#1b2f49" font-family="Arial, sans-serif" font-size="70" font-weight="700">$950 MXN</text>
+  <rect x="659" y="594" width="270" height="56" rx="28" fill="#805c0a"/>
+  <text x="794" y="630" fill="#ffffff" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle">SIMULADO</text>
+  <text x="88" y="811" fill="#1b2f49" font-family="Arial, sans-serif" font-size="31" font-weight="700">No es un precio de una clínica real.</text>
+  <text x="88" y="872" fill="#52657b" font-family="Arial, sans-serif" font-size="27">Desliza para ver qué evidencia haría falta.</text>
+  <text x="88" y="974" fill="#066863" font-family="Arial, sans-serif" font-size="24" font-weight="700">RutaSalud · rutasalud-w12.vercel.app/launch</text>
+</svg>

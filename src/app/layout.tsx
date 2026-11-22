@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://rutasalud-w12.vercel.app"),
   title: "RutaSalud | Compara opciones de atención",
   description:
     "Compara perfiles de demostración según tus preferencias. Tú decides qué hacer después.",

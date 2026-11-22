@@ -1,8 +1,16 @@
 # RutaSalud application decisions
 
+## Week 15 launch implementation and security patch
+
+- **Launch route:** Added the public `/launch` page in the existing application. It describes the patient audience and positioning, explains match and evidence states, and points its primary action to the existing comparison form at `/#preferences-title`.
+- **Campaign assets:** Created one finished graphic for each planned series: a square comparison example, a four-slide evidence carousel, and a vertical next-step checklist. All people, profiles, and prices in the graphics are explicitly fictitious or simulated. The three remaining packet headlines remain sketches.
+- **Privacy and distribution:** No waitlist, contact form, medical-data field, tracking, or external service was added. The assets are prepared for sharing, but no audience placement, exposure, response, or engagement has been recorded.
+- **Security fix:** The project used `next@16.4.3`, affected by the November 2026 Next.js security release. Updated Next.js and its paired `eslint-config-next` to the minimum patched 16.x release, `16.4.5`; React and other unrelated dependencies were not upgraded.
+- **Verification boundary:** Automated tests, lint, production build, local route/link checks, and responsive browser checks demonstrate software behavior only. They are not audience or distribution evidence.
+
 ## Week 15 packet decisions
 
-- **Packet boundary:** This commit documents the Week 15 distribution and launch strategy only. It does not implement campaign assets, website changes, analytics, contact storage, or deployment changes.
+- **Packet boundary:** The original packet was committed before coding. This follow-up implements only the requested launch page and three planned campaign pieces; it does not add analytics, contact storage, or a new deployment target.
 - **Patient position:** RutaSalud remains free for patients. The exact promise is transparent consultation-information comparison and clear evidence/next-step presentation, not a promise of a verified match or the best doctor.
 - **Evidence position:** Existing findings from six reported real-person feedback sessions and the returned participant's specialty comment are hypotheses and user reports, not validated improvements or measured outcomes. No post-fix participant retest is claimed.
 - **Price and appointment boundaries:** All provider, price, and availability examples in Week 15 planning remain fictional or simulated unless independently evidenced. No page may state that an appointment is confirmed or that an appointment can be booked without evidence.
@@ -13,7 +21,7 @@
 
 ## Week 15 next action
 
-After this packet commit, pause application and marketing work until the implementation assignment is requested. If implementation proceeds, it should first preserve existing code and behavior, add only the approved working next action, and test the exact two-piece distribution on permitted channels. Do not collect names, contact details, or health details unless a separate informed, purpose-specific opt-in implementation is approved and a real notice, retention, and deletion process exists.
+The launch implementation is complete. Before claiming Week 15 distribution success, obtain channel permission, place two pieces before the intended audience, and conduct the five-person consented, anonymized task test in [docs/WEEK15_TEST_LOG.md](./docs/WEEK15_TEST_LOG.md). Record actual exposure, task completion, time, confusion, and evidence/next-step understanding separately. Do not collect names, contact details, or health details unless a separate informed, purpose-specific opt-in implementation is approved and a real notice, retention, and deletion process exists.
 
 ## Week 14 synthetic pricing persona finding and decision
 

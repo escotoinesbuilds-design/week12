@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title description">
+  <title id="title">Lista de demostración para decidir el siguiente paso</title>
+  <desc id="description">Una guía con preguntas para revisar en una opción alternativa. Todos los datos son ficticios; no confirma precio, disponibilidad ni cita.</desc>
+  <rect width="1080" height="1920" fill="#f3f6f9"/>
+  <rect x="54" y="54" width="972" height="1812" rx="40" fill="#ffffff" stroke="#d3dee8" stroke-width="3"/>
+  <rect x="88" y="95" width="372" height="52" rx="26" fill="#805c0a"/>
+  <text x="274" y="130" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle" letter-spacing="1">EJEMPLO FICTICIO</text>
+  <text x="88" y="245" fill="#066863" font-family="Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="2">DESPUÉS, TÚ DECIDES</text>
+  <text x="88" y="360" fill="#1b2f49" font-family="Arial, sans-serif" font-size="66" font-weight="700">¿Encontraste una</text>
+  <text x="88" y="438" fill="#1b2f49" font-family="Arial, sans-serif" font-size="66" font-weight="700">alternativa?</text>
+  <text x="88" y="504" fill="#52657b" font-family="Arial, sans-serif" font-size="29">Revisa lo que sabes y lo que falta por confirmar.</text>
+  <rect x="88" y="586" width="904" height="750" rx="26" fill="#f9fbfd" stroke="#d3dee8" stroke-width="2"/>
+  <text x="132" y="659" fill="#1b2f49" font-family="Arial, sans-serif" font-size="34" font-weight="700">Antes de decidir, revisa:</text>
+  <circle cx="153" cy="745" r="14" fill="#087c78"/>
+  <text x="192" y="756" fill="#1b2f49" font-family="Arial, sans-serif" font-size="29">¿La especialidad coincide con lo que buscas?</text>
+  <circle cx="153" cy="839" r="14" fill="#087c78"/>
+  <text x="192" y="850" fill="#1b2f49" font-family="Arial, sans-serif" font-size="29">¿El precio tiene fuente y fecha?</text>
+  <circle cx="153" cy="933" r="14" fill="#087c78"/>
+  <text x="192" y="944" fill="#1b2f49" font-family="Arial, sans-serif" font-size="29">¿La distancia y el horario son conocidos?</text>
+  <circle cx="153" cy="1027" r="14" fill="#087c78"/>
+  <text x="192" y="1038" fill="#1b2f49" font-family="Arial, sans-serif" font-size="29">¿Qué dato todavía está pendiente?</text>
+  <circle cx="153" cy="1121" r="14" fill="#087c78"/>
+  <text x="192" y="1132" fill="#1b2f49" font-family="Arial, sans-serif" font-size="29">¿Qué quieres confirmar directamente?</text>
+  <rect x="88" y="1400" width="904" height="191" rx="24" fill="#fff8e6" stroke="#efd99f" stroke-width="2"/>
+  <text x="132" y="1474" fill="#604d21" font-family="Arial, sans-serif" font-size="28" font-weight="700">Este ejemplo no envía una solicitud.</text>
+  <text x="132" y="1526" fill="#604d21" font-family="Arial, sans-serif" font-size="25">Ver un perfil no confirma precio, horario ni cita.</text>
+  <text x="88" y="1666" fill="#1b2f49" font-family="Arial, sans-serif" font-size="29" font-weight="700">Puedes revisar, cambiar tus filtros o salir.</text>
+  <text x="88" y="1731" fill="#52657b" font-family="Arial, sans-serif" font-size="25">No hay una elección automática ni presión para continuar.</text>
+  <rect x="88" y="1780" width="455" height="54" rx="27" fill="#087c78"/>
+  <text x="315" y="1816" fill="#ffffff" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle">rutasalud-w12.vercel.app/launch</text>
+</svg>

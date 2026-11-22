@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="title description">
+  <title id="title">Carrusel: información no confirmada, lámina 3</title>
+  <desc id="description">Ejemplo ficticio de cómo marcar una cifra cuando falta fuente y fecha; no es el precio de un proveedor real.</desc>
+  <rect width="1080" height="1080" fill="#f3f6f9"/>
+  <rect x="54" y="54" width="972" height="972" rx="40" fill="#ffffff" stroke="#d3dee8" stroke-width="3"/>
+  <rect x="88" y="88" width="372" height="52" rx="26" fill="#805c0a"/>
+  <text x="274" y="123" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle" letter-spacing="1">EJEMPLO FICTICIO</text>
+  <text x="88" y="216" fill="#066863" font-family="Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="2">QUÉ ESTÁ CONFIRMADO · 3/4</text>
+  <text x="88" y="320" fill="#1b2f49" font-family="Arial, sans-serif" font-size="61" font-weight="700">Si falta la evidencia</text>
+  <rect x="88" y="389" width="904" height="282" rx="24" fill="#fff0ef" stroke="#e9c2c0" stroke-width="2"/>
+  <text x="132" y="464" fill="#612622" font-family="Arial, sans-serif" font-size="28" font-weight="700">Ejemplo sin fuente ni fecha</text>
+  <text x="132" y="551" fill="#1b2f49" font-family="Arial, sans-serif" font-size="68" font-weight="700">$950 MXN</text>
+  <rect x="615" y="505" width="315" height="56" rx="28" fill="#991b1b"/>
+  <text x="772" y="541" fill="#ffffff" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle">NO CONFIRMADO</text>
+  <text x="132" y="617" fill="#612622" font-family="Arial, sans-serif" font-size="23">En esta demostración, cifra y perfil son inventados.</text>
+  <text x="88" y="767" fill="#1b2f49" font-family="Arial, sans-serif" font-size="29" font-weight="700">No completes lo que no sabes.</text>
+  <text x="88" y="824" fill="#52657b" font-family="Arial, sans-serif" font-size="26">Marca lo pendiente o no disponible con claridad.</text>
+  <text x="88" y="974" fill="#066863" font-family="Arial, sans-serif" font-size="24" font-weight="700">RutaSalud · rutasalud-w12.vercel.app/launch</text>
+</svg>
