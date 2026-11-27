@@ -1,0 +1,311 @@
+.page {
+  min-height: 100vh;
+  background: #f3f6f9;
+  color: #1b2f49;
+}
+
+.skipLink {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  left: 8px;
+  transform: translateY(-160%);
+  border-radius: 6px;
+  background: #fff;
+  padding: 9px 12px;
+  color: #1b2f49;
+  font-weight: 700;
+}
+
+.skipLink:focus {
+  transform: translateY(0);
+}
+
+.page a:focus-visible {
+  outline: 3px solid #14532d;
+  outline-offset: 3px;
+}
+
+.main {
+  width: min(1080px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 42px 0 64px;
+}
+
+.intro {
+  max-width: 820px;
+  margin: 0 0 30px;
+  padding-left: 20px;
+  border-left: 5px solid #087c78;
+}
+
+.eyebrow,
+.slideLabel {
+  margin: 0 0 8px;
+  color: #066863;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.intro h1 {
+  margin: 0;
+  font-size: clamp(36px, 6vw, 58px);
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+}
+
+.lead {
+  max-width: 680px;
+  margin: 14px 0 0;
+  color: #52657b;
+  font-size: clamp(17px, 2.2vw, 20px);
+  line-height: 1.5;
+}
+
+.deck {
+  display: grid;
+  gap: 16px;
+}
+
+.slide {
+  min-width: 0;
+  border: 1px solid #d3dee8;
+  border-radius: 18px;
+  background: #fff;
+  padding: clamp(20px, 4vw, 34px);
+  box-shadow: 0 2px 6px rgb(26 47 73 / 4%);
+}
+
+.slideHeader {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.number {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #e5f3f1;
+  color: #066863;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.slideLabel {
+  margin-bottom: 5px;
+}
+
+.slideTitle {
+  margin: 0;
+  font-size: clamp(22px, 3.2vw, 31px);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.bodyCopy {
+  max-width: 850px;
+  margin: 0;
+  color: #334b66;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.note,
+.privacyRisk {
+  margin-top: 18px;
+  border: 1px solid #efd99f;
+  border-radius: 12px;
+  background: #fff8e6;
+  padding: 15px 17px;
+  color: #604d21;
+  line-height: 1.55;
+}
+
+.criteria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.criteria li {
+  border: 1px solid #c9d6e2;
+  border-radius: 999px;
+  background: #f7fafc;
+  padding: 8px 12px;
+  color: #233d56;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.statusGrid,
+.evidenceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.statusCard,
+.evidenceCard,
+.priceCard {
+  min-width: 0;
+  border: 1px solid #d3dee8;
+  border-radius: 13px;
+  background: #f9fbfd;
+  padding: 16px;
+}
+
+.statusCard p,
+.evidenceCard p {
+  margin: 10px 0 0;
+  color: #334b66;
+  line-height: 1.5;
+}
+
+.statusTag,
+.evidenceLabel {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.match {
+  background: #e5f3f1;
+  color: #075e59;
+}
+
+.alternative {
+  background: #fff0d6;
+  color: #805c0a;
+}
+
+.caveat,
+.evidenceLimit {
+  color: #52657b;
+  font-size: 14px;
+}
+
+.caveat {
+  margin: 16px 0 0;
+}
+
+.evidenceLabel {
+  margin: 0;
+  background: #e8eff5;
+  color: #294762;
+}
+
+.evidenceCard h3 {
+  margin: 12px 0 0;
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.evidenceCard .evidenceLimit {
+  border-top: 1px solid #d3dee8;
+  padding-top: 11px;
+  font-size: 13px;
+}
+
+.priceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.priceCard {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: #f4faf9;
+  text-align: center;
+}
+
+.priceCard p,
+.priceCard span {
+  margin: 0;
+  color: #52657b;
+  font-size: 14px;
+}
+
+.priceCard strong {
+  color: #066863;
+  font-size: clamp(24px, 3.5vw, 34px);
+  line-height: 1.2;
+}
+
+.privacyRisk {
+  border-color: #d3dee8;
+  background: #f4f7fa;
+  color: #334b66;
+}
+
+.privacyRisk p {
+  margin: 7px 0 0;
+}
+
+.shadowClause {
+  margin: 20px 0 0;
+  border-left: 5px solid #087c78;
+  border-radius: 0 10px 10px 0;
+  background: #e5f3f1;
+  padding: 16px 18px;
+  color: #124e49;
+  font-size: 18px;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+@media (max-width: 620px) {
+  .main {
+    padding-top: 30px;
+    padding-bottom: 40px;
+  }
+
+  .intro {
+    margin-bottom: 22px;
+    padding-left: 14px;
+  }
+
+  .slide {
+    padding: 18px;
+  }
+
+  .slideHeader {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 11px;
+  }
+
+  .number {
+    width: 36px;
+    height: 36px;
+  }
+
+  .statusGrid,
+  .evidenceGrid,
+  .priceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .bodyCopy,
+  .shadowClause {
+    font-size: 16px;
+  }
+
+  .note,
+  .privacyRisk {
+    padding: 13px;
+  }
+}

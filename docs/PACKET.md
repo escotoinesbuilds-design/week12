@@ -1,3 +1,93 @@
+# RutaSalud — Week 16 Reliability & Trust Packet
+
+**Objective:** Reduce reliability failures that could mislead patients or undermine trust in the existing RutaSalud experience. This packet records expected and observed check results separately; it does not claim real-user validation or production security certification.
+
+## 1. Problem and exact target user
+
+Patients in Mexico City can have difficulty comparing incomplete or uncertain consultation information and understanding what a result means or what they can responsibly do next. A misleading claim about price verification or live appointment availability could turn that uncertainty into false confidence.
+
+The primary user is a Spanish-speaking adult patient in Mexico City, or a caregiver acting for them, comparing non-emergency care options using non-medical preferences such as budget, distance, schedule, specialty, and provider preference. The patient needs clear comparison states, evidence limitations, and a patient-controlled next step. RutaSalud must not ask for diagnosis or other medical details.
+
+## 2. Week 16 success definition
+
+Week 16 succeeds only after all three checks below have actually been run and their observed results recorded separately from these expectations:
+
+1. A tester completes the existing doctor comparison in a mobile viewport or fresh browser using synthetic preferences and can understand the resulting match/alternative states, simulated-data labels, and next step.
+2. The existing Week 15 creative-checking process rejects the unsupported claim specified below, with the reason recorded; the claim is not published.
+3. The relevant mobile page is readable, has no horizontal overflow, and keeps important information and controls visible.
+
+Any consequential failure that could mislead a patient or undermine trust takes priority over commercial experiments. If a check has not been run, its result remains **pending**.
+
+## 3. Scope cut: reliability and failure prevention
+
+- This is a reliability and trust review of existing behavior, not a feature-building or redesign week.
+- The subsequent user-requested `/about` defense deck is a static, five-section presentation page with a navigation link, not a new patient or clinic product capability.
+- No new patient/clinic product behavior, data collection, clinical workflow, booking, payment, integration, analytics, dependency, API key, repository, or deployment target beyond the requested static presentation route and its navigation link.
+- Do not publish the unsupported test claim or change existing campaign assets to include it.
+- Preserve existing implementation, commit, deployment, and evidence history. Any later code change requires a separately approved scope after the checks.
+
+## 4. Existing architecture and stack
+
+Reuse the current Next.js App Router application with React, TypeScript, and Tailwind CSS; deterministic comparison and preference validation in `src/lib/comparison.ts`; local fictional profiles in `src/lib/demo-providers.ts`; and the optional read-only Supabase provider source in `src/lib/supabase.ts`. The existing deployment path remains the current GitHub repository and Vercel deployment. Do not add a service or credential.
+
+The comparison is at `/` (`src/app/page.tsx`) and loads provider data through `/api/providers` (`src/app/api/providers/route.ts`). Existing `/launch` and `/pricing` routes remain in scope only as reference material. Initial Week 16 inspection found no `/about` route; the requested static defense deck was subsequently added at `/about` (`src/app/about/page.tsx`) and linked from the existing comparison-page navigation.
+
+## 5. Existing visual and flow material
+
+Preserve and reuse the existing image-generated references: [Week 12 doctor-comparison mockup](./week12_doctor_comparison_mockup.png), [Week 13 handoff mockup](./week13_mockup.png.png), and [Week 14 clinic-pricing mockup](./week14_mockup.png). They are conceptual design material, not proof of real provider verification, prices, availability, bookings, or clinic outcomes.
+
+Keep the existing [Week 15 Mermaid user flow](#mermaid-user-flow) and responsibility flow as the current product-flow references. No diagram or mockup update is needed for this reliability-only scope.
+
+## 6. Global benchmark and Mexican adaptation
+
+Use Doctoralia, Zocdoc, and Doctolib as global discovery and appointment-oriented product benchmarks. This is a reference set, not a claim that RutaSalud has equivalent coverage, current competitor features, or better outcomes. Verify and date any specific competitor comparison before publishing it.
+
+Adapt the product to patients and small clinics in Mexico: Spanish (Mexico), MXN, mobile-first use, transparent source/status/date language, understandable next steps, and low operational burden for small clinics. Patient access remains free. Clinic subscriptions remain proposed commercial hypotheses: $699 MXN and $1,299 MXN per month, with a proposed one-month free trial. None is validated revenue or evidence of willingness to pay.
+
+## 7. Three-year direction
+
+Over three years, if evidence supports it, RutaSalud could help patients in Mexico compare understandable, current, traceable care information while keeping patient access free. It could offer small clinics practical administrative tools with transparent terms and measured recurring value. Growth depends on reliable information, patient trust, sustainable clinic value, and observed payer behavior—not simulated savings or stated intent alone.
+
+## 8. Required Week 16 checks — expected vs. actual results
+
+The expected outcomes and the results observed on November 27, 2026 are separated below. Browser screenshots are retained in the existing `docs/` directory; see the linked evidence.
+
+| Check | Existing target | Test input/action | Expected result | Actual result |
+|---|---|---|---|---|
+| Core task | `/` comparison form (`src/app/page.tsx`) and its `/api/providers` data path | In a fresh local production browser at 390 × 844, enter synthetic preferences: $1,000 MXN, 5 km, afternoon schedule, female doctor; leave specialty at no preference; submit and review results and next steps. | Comparison completes; match/alternative and unknown states are understandable; each profile is clearly labeled fictitious/simulated or unverified as applicable; no real appointment, confirmed price, or real-time availability is implied. | **Passed in browser.** The app used four local synthetic profiles: one complete match and three alternatives (with 3, 2, and 4 criteria respectively to review); mismatch and unknown states appeared. All four cards said “Perfil ficticio.” The comparison states that the information is simulated and does not book a real appointment. Evidence: [320 px mobile page](./week16-mobile-320.png) and [390 px result summary](./week16-comparison-summary-390.png). |
+| Safe failure | Existing Week 15 creative/content-accuracy and transparency checks in this packet and `docs/WEEK15_TEST_LOG.md` | Manually apply the existing claim-review criteria to: “All RutaSalud doctors have verified prices and real-time appointment availability.” Do not publish it. | Reject the claim because there is no evidence establishing all-provider price verification or real-time appointment availability; leave the claim unpublished. | **Rejected; not published.** The Week 15 content-accuracy rule requires evidence for claims and disallows implied verified prices/availability; its transparency rule rejects claims of real availability or confirmation. The current demo records are simulated or unverified and do not provide real-time availability. This was a manual editorial check, not an automated checker. The existing process rejected the claim; no correction was needed. |
+| Accessibility | Mobile comparison at `/` during the initial Week 16 check | Inspect the local production application at 320 × 844 and 390 × 844 for readability, horizontal overflow, and access to key information, the comparison button, and results. | Text and statuses remain readable, no horizontal overflow occurs, and key information and controls remain accessible. | **Passed for the checked criteria.** At both widths, document/body width equaled viewport width (320/320 and 390/390); no horizontal overflow. The page and synthetic-data notice wrapped without clipping; comparison button and result summary were reachable by scrolling. Button boxes measured 254 × 49 px at 320 and 324 × 49 px at 390. Visual evidence is in the linked screenshots. No physical-device or screen-reader test was performed. |
+
+No consequential application failure was reproduced, so no application correction was made. The most important untested privacy risk is accidental entry of identifying information in the clinic-pricing scenario name, which is stored with hypothetical assumptions in browser `localStorage`; the UI warns users not to enter personal, patient, or clinical information, but this storage is not authenticated or user-isolated. Do not use identifying information there; verify any future personal-data use case separately before enabling it.
+
+### Follow-up: defense deck and mobile header
+
+The requested five-section Spanish presentation is available at `/about`, and the existing `/` navigation links to it as “Sobre RutaSalud.” The production build generated the route; following the navigation link opened it and rendered five sections. At 320, 390, and 1280 px, `/about` had no horizontal overflow; the localStorage privacy risk and shadow clause were present. Screenshot: [320 px defense deck](./week16-about-320.png).
+
+The `/` header was checked after adding its navigation link at 320, 360, and 390 px. The logo and navigation had positive horizontal gaps of 25, 65, and 95 px respectively; there was no horizontal intersection or document overflow. The items share some vertical range but occupy separate horizontal columns. No meaningful accessibility failure was reproduced, so the existing header styling was preserved.
+
+## 9. Required security review
+
+- **Secrets:** A tracked-file scan for common service-role/private-key markers found no matches. `.env.example` is the only tracked environment file and has blank Supabase placeholders; `.gitignore` excludes `.env*` except that example. The provider loader is server-only and reads the Supabase URL and public anon key. No secret values were printed or recorded. This targeted scan is not a guarantee against every possible secret format; do not commit credentials or expose a service-role key.
+- **Personal information and access control:** The comparison keeps non-medical preferences in page state and does not persist them; the public provider endpoint returns provider records only. No patient-data store or personal information was identified. `/pricing` does persist hypothetical assumptions and a user-entered scenario name in browser `localStorage`; its UI explicitly warns against personal, patient, and clinical information, but browser-local storage has no account authentication or user isolation. No personal information was entered during these checks. Do not store it there. If personal information is ever required, first implement purpose-specific consent, appropriate authentication/authorization, least-privilege access, and retention/deletion controls.
+- **Supabase RLS:** The existing provider migration enables RLS and permits public `SELECT` only on the provider table, with column constraints and `data_status` limited to `simulated` or `unverified`. Keep that policy; never place personal or private operational data in the publicly readable table.
+- **Input validation:** Existing comparison preferences pass through `validatePreferences` with bounded numeric values and allow-listed schedule, gender, and specialty values. `npm test` passed all 36 tests in 4 files, including preference validation and comparison-state tests. Preserve validation and user-visible errors; do not treat client-side validation as an authorization control.
+- **Synthetic demonstration data:** The browser comparison loaded four local fictional records and labeled each “Perfil ficticio”; the page-level notice identified the dataset as simulated. Keep these labels clear and do not describe demonstration values as confirmed facts.
+
+This is a repository-scope review, not a penetration test or certification. Record any newly discovered exposure as a finding and address a consequential trust/security failure before commercial work.
+
+## 10. Financial sustainability risks and next decisions
+
+The primary commercial risk is insufficient recurring value for clinics to justify a subscription. The $699 MXN and $1,299 MXN monthly tiers and one-month free trial are proposed hypotheses only; no recurring revenue, trial conversion, clinic retention, or willingness to pay is validated. Existing calculator projections are simulations, not proof of clinic savings or ROI.
+
+After reliability is established, decide what evidence would justify each exact clinic price: the clinic buyer and payer, recurring workflow value, onboarding and support costs, trial length/conversion criteria, retention/churn measure, and a stop/go threshold. Keep patient access free and never rank or verify clinics differently because they pay. Do not add checkout or present forecast revenue as actual.
+
+## 11. Shadow clause
+
+**Financial pressure must never lead RutaSalud to exaggerate verification, favor paying clinics in comparison rankings, compromise patient privacy, or present simulated information as confirmed.**
+
+---
+
 # RutaSalud — Week 14 Pricing Packet
 
 **Objective:** Test proposed clinic subscription economics with a transparent, hypothetical calculator. This packet defines a plan; it does not claim that pricing, savings, or feature value has been validated.

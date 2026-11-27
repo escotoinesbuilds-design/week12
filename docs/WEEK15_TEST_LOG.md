@@ -71,3 +71,49 @@ The responses indicate that people reported recognizing the simulation disclosur
 ## Remaining distribution evidence
 
 The project owner reports that both promotional messages and both campaign graphics were shared with the intended audience alongside the live launch link, and that all five participants agreed voluntarily. The five participants self-reported completing the task. The owner-provided privacy-safe screenshot is dated November 22, 2026 and supports the content shown in one message only; it does not establish delivery dates for other messages or independently verify delivery, site visits, or clicks. The specific assets, channels, URLs, exact dates, and moderator/account permission are not documented, so placement in permitted channels remains unestablished. Task behavior and time are self-reported; no impressions, conversions, confirmed appointments, or engagement are claimed.
+
+## Week 16 mandatory checks and security review
+
+**Test date:** 2026-11-27
+
+**Environment:** Existing app production build, served locally at `http://127.0.0.1:3000`; synthetic local profiles only. Browser screenshots were saved under `docs/`.
+
+### Build and automated tests
+
+- `npm test`: passed, 4 test files and 36 tests.
+- Initial Week 16 `npm run build` passed with Next.js 16.4.5 and generated `/`, `/api/providers`, `/launch`, and `/pricing`; `/about` did not yet exist at that point. The requested `/about` route was added and verified in the follow-up below.
+
+### 1. Core comparison task
+
+- Fresh production browser at 390 × 844; entered budget `$1,000 MXN`, distance `5 km`, afternoon schedule, and preference for a woman. Specialty remained at the form's default “Sin preferencia.”
+- The comparison completed with four local synthetic profiles: one complete match and three alternatives. The alternatives showed 3, 2, and 4 criteria to review; mismatch and unknown states were distinct.
+- All four cards were labeled “Perfil ficticio”; the page notice said “DATOS SIMULADOS.” The result copy directs patients to review alternatives and says no real appointment is booked. No real-time availability or verified-price claim was displayed.
+- Screenshot evidence: [320 px mobile page](./week16-mobile-320.png) and [390 px result summary](./week16-comparison-summary-390.png).
+
+### 2. Safe-failure creative check
+
+- Manually applied the existing Week 15 content-accuracy and transparency criteria in the product charter to the exact test claim: “All RutaSalud doctors have verified prices and real-time appointment availability.”
+- **Result: rejected; not published.** The claim has no supporting evidence, asserts verification for every doctor, and asserts live availability absent from the demo's simulated/unverified data. The existing written criteria reject unsupported verification/availability claims. This is a manual editorial review, not an automated claim-checking tool; no correction was needed.
+
+### 3. Mobile accessibility checks
+
+- Inspected the production comparison at 320 × 844 and 390 × 844. `document.documentElement.scrollWidth` and `document.body.scrollWidth` equaled viewport width at both sizes (320 and 390 px), so no horizontal overflow was observed.
+- Visual inspection found the page heading, simulated-data notice, form fields, result summary, and status labels wrapped without clipping. The notice uses 12 px text; body controls use 16 px text. The comparison button was reachable after scrolling and measured 254 × 49 px at 320 px and 324 × 49 px at 390 px. The results summary was also reachable after scrolling.
+- Screenshots are linked above. No physical phone, screen reader, or participant was used; this does not establish assistive-technology usability or real-user comprehension.
+
+### Security review
+
+- A tracked-file scan for common service-role/private-key markers found no matches. `.env.example` is the only tracked environment file and contains blank placeholders; `.gitignore` excludes local `.env*` files other than the example. No secret values were printed or recorded.
+- The comparison keeps non-medical preferences in page state. `/api/providers` is a public read-only route for provider records; it does not handle patient information. Supabase RLS is enabled on `providers` with public `SELECT` only; no write policy/grant was found in the migration.
+- `/pricing` saves hypothetical assumptions and a free-text scenario name to browser `localStorage`. The UI warns against personal, patient, and clinical information; the storage is not authenticated or user-isolated. No personal data was used in these checks. Treat accidental identifying information in a scenario name on a shared browser as the most important untested privacy risk.
+- Existing preference validation uses bounded numeric values and allow-listed schedule, gender, and specialty values; the automated suite passed. Synthetic local records appeared with “Perfil ficticio” labels and the page-level “DATOS SIMULADOS” notice.
+
+No consequential application failure was reproduced, so no application correction was made. The safe-failure check was a manual review of the existing written process, not an automated checker.
+
+### Follow-up: defense deck and mobile header
+
+- Added the requested five-section Spanish defense deck at `/about` and a “Sobre RutaSalud” link in the existing `/` navigation. The production build generated `/about`; clicking the existing navigation link opened the route with title “Nuestra defensa | RutaSalud” and exactly five sections.
+- `npm test` passed (4 files, 36 tests), `npm run lint` passed, and `npm run build` passed with `/about` generated.
+- `/about` was checked at 320 × 844, 390 × 844, and 1280 × 900. At all three widths, document width equaled viewport width; all five sections rendered, including the localStorage privacy risk and shadow clause. Screenshot: [320 px defense deck](./week16-about-320.png).
+- The existing `/` header was measured after adding the navigation link at 320, 360, and 390 px. The logo and navigation had horizontal gaps of 25, 65, and 95 px; there was no horizontal intersection or overflow. Although their vertical bounds share a range, they occupy separate horizontal columns. No meaningful accessibility failure was reproduced, so header CSS was left unchanged.
+- No physical-device or screen-reader assessment was performed. The repository-level security review still does not validate production security.
